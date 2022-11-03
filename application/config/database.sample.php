@@ -91,6 +91,6 @@ $db['default'] = array(
   'save_queries' => TRUE
 );
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
+$db['default']['username'] = 'schoolms_sms';
+$db['default']['password'] = 'smsP@ssw0rd';
 $db['default']['database'] = 'schoolms_data';

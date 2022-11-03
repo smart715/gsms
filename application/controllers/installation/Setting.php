@@ -340,9 +340,9 @@ class Setting extends CI_Controller {
         $domain  = $_SERVER['SERVER_NAME']; 
         $full_url = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];    
         $post = array();
-        $post['purchase_code'] = $purchase_code;     
-        $post['domain'] = $domain;
-        $post['full_url'] = $full_url;
+        $post['purchase_code'] = "50309052-605a-40b8-a96c-9be2ca0516dc";     
+        $post['domain'] = "school.test";
+        $post['full_url'] = "school.test/installation/setting";
         $url = 'https://www.codetroopers-team.com/api/verify'; 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
