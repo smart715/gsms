@@ -135,9 +135,7 @@
                                 </div>
                                 <?php echo form_close(); ?>
                                 
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="instructions"><strong><?php echo $this->lang->line('instruction'); ?>: </strong> <?php echo $this->lang->line('add_class_instruction'); ?></div>
-                                </div>
+                           
                             </div>                           
                             
                         </div>  

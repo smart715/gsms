@@ -21,7 +21,7 @@ class Subjectbyclass extends MY_Controller {
     function __construct() {
         parent::__construct();
   
-         $this->load->model('Subject_Model', 'subject', true);         
+         $this->load->model('Subjectbyclass_Model', 'subject', true);         
     }
 
     
@@ -52,20 +52,21 @@ class Subjectbyclass extends MY_Controller {
         $this->data['class_id'] = $class_id;
         $this->data['filter_class_id'] = $class_id;
         $this->data['filter_school_id'] = $school_id;
-        $this->data['subjects'] = $this->subject->get_subject_list($class_id, $school_id);        
+        $this->data['result'] = $this->subject->get_subject_list($class_id, $school_id);        
        
         $condition = array();
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){            
             $condition['school_id'] = $this->session->userdata('school_id');
             $this->data['classes'] = $this->subject->get_list('classes', $condition, '','', '', 'id', 'ASC');
+            $this->data['subjects'] = $this->subject->get_list('subjects', $condition, '','', '', 'id', 'ASC');
             $this->data['teachers'] = $this->subject->get_list('teachers', $condition, '','', '', 'id', 'ASC');
         }
         
         $this->data['list'] = TRUE;
         $this->data['schools'] = $this->schools;
         $this->layout->title($this->lang->line('manage_subject'). ' | ' . SMS);
-        $this->layout->view('subject/index', $this->data); 
+        $this->layout->view('subject/subjectbyclass', $this->data); 
     }
 
     /*****************Function add**********************************
