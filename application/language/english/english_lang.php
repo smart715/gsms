@@ -1253,4 +1253,3 @@ $lang['this_student_have_asset_issued'] = "This Student have asset issued";
 $lang['this_student_have_book_issued'] = "This Student have book issued";
 $lang['assignment_detail'] = "Assignment Detail";
 $lang['username_only'] = "Only Alphabets, Numbers Underscore, Uppercase and Lowercase";
-$lang['subdomain'] = "Subdomain";
