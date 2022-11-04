@@ -167,7 +167,7 @@ class Ajax extends My_Controller {
      * ********************************************************** */
       public function get_section_by_class() {
 
-        $school_id = $this->input->post('school_id');
+        $school_id = getSchoolId();
         $class_id = $this->input->post('class_id');
         $section_id = $this->input->post('section_id');
         

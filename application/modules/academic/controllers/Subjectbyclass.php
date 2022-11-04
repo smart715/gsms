@@ -50,18 +50,15 @@ class Subjectbyclass extends MY_Controller {
         
         $this->data['class_id'] = $class_id;
         $this->data['filter_class_id'] = $class_id;
-        $this->data['filter_school_id'] = $school_id;
-        $this->data['result'] = $this->subject->get_subject_list($class_id, $school_id);        
+        $this->data['result'] = $this->subject->get_result_list($class_id, $school_id);        
        
         $condition = array();
-        $condition['status'] = 1;        
-        if($this->session->userdata('role_id') != SUPER_ADMIN){            
-            $condition['school_id'] = $this->session->userdata('school_id');
-            $this->data['classes'] = $this->subject->get_list('classes', $condition, '','', '', 'id', 'ASC');
-            $this->data['subjects'] = $this->subject->get_list('subjects', $condition, '','', '', 'id', 'ASC');
-            $this->data['teachers'] = $this->subject->get_list('teachers', $condition, '','', '', 'id', 'ASC');
-        }
-        
+        $condition['status'] = 1;                
+        $condition['school_id'] = $school_id;
+        $this->data['classes'] = $this->subject->get_list('classes', $condition, '','', '', 'id', 'ASC');
+        $this->data['subjects'] = $this->subject->get_list('subjects', $condition, '','', '', 'id', 'ASC');
+        $this->data['teachers'] = $this->subject->get_list('teachers', $condition, '','', '', 'id', 'ASC');
+    
         $this->data['list'] = TRUE;
         $this->data['schools'] = $this->schools;
         $this->layout->title($this->lang->line('manage_subject'). ' | ' . SMS);

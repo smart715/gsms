@@ -23,7 +23,7 @@
                                     <option value="">--<?php echo $this->lang->line('class'); ?>--</option>
                                     <?php if (isset($classes) && !empty($classes)) { ?>
                                         <?php foreach ($classes as $obj) { ?>
-                                            <option value="<?php echo $obj->id; ?>"><?php echo $obj->name; ?></option>
+                                            <option value="<?php echo $obj->id; ?>" <?php if ($filter_class_id == $obj->id) echo "selected" ?>><?php echo $obj->name; ?></option>
                                         <?php } ?>
                                     <?php } ?>
                                 </select>
@@ -42,9 +42,6 @@
                                     <thead>
                                         <tr>
                                             <th><?php echo $this->lang->line('sl_no'); ?></th>
-                                            <?php if ($this->session->userdata('role_id') == SUPER_ADMIN) { ?>
-                                                <th><?php echo $this->lang->line('school'); ?></th>
-                                            <?php } ?>
                                             <th><?php echo $this->lang->line('class'); ?></th>
                                             <th><?php echo $this->lang->line('section'); ?></th>
                                             <th><?php echo $this->lang->line('subject'); ?></th>
@@ -56,22 +53,8 @@
                                         <?php $count = 1;
                                         if (isset($result) && !empty($result)) { ?>
                                             <?php foreach ($result as $obj) { ?>
-                                                <?php
-                                                if ($this->session->userdata('role_id') == GUARDIAN) {
-                                                    if (!in_array($obj->class_id, $guardian_class_data)) {
-                                                        continue;
-                                                    }
-                                                } elseif ($this->session->userdata('role_id') == STUDENT) {
-                                                    if ($obj->class_id != $this->session->userdata('class_id')) {
-                                                        continue;
-                                                    }
-                                                }
-                                                ?>
                                                 <tr>
                                                     <td><?php echo $count++; ?></td>
-                                                    <?php if ($this->session->userdata('role_id') == SUPER_ADMIN) { ?>
-                                                        <td><?php echo $obj->school_name; ?></td>
-                                                    <?php } ?>
                                                     <td><?php echo $obj->class_name; ?></td>
                                                     <td><?php echo $obj->section_name; ?></td>
                                                     <td><?php echo $obj->subject_name; ?></td>
@@ -91,9 +74,6 @@
                                             <td><?php echo $count++; ?>
                                             </td>
                                             <td>
-                                                <?php $this->load->view('layout/school_list_form'); ?>
-                                            </td>
-                                            <td>
 
                                                 <select class="form-control" name="class_id" id="add_class_id" required="required">
                                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
@@ -104,11 +84,9 @@
 
                                             </td>
                                             <td>
-                                                <select class="form-control" name="subject_id" id="subject_id" required="required">
+
+                                                <select class="form-control single-select" name="section_id" id="section_id">
                                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                    <?php foreach ($subjects as $obj) { ?>
-                                                        <option value="<?php echo $obj->id; ?>"><?php echo $obj->name; ?></option>
-                                                    <?php } ?>
                                                 </select>
 
                                             </td>
@@ -193,43 +171,33 @@
         <?php } ?>
     });
 
-    $('.fn_school_id').on('change', function() {
+    <?php if (isset($class_id) && isset($section_id)) { ?>
+        get_section_by_class('<?php echo $class_id; ?>', '<?php echo $section_id; ?>');
+    <?php } ?>
 
-        var school_id = $(this).val();
-        var class_id = '';
-        var teacher_id = '';
+    function get_section_by_class(class_id, section_id) {
 
-        <?php if (isset($subject) && !empty($subject)) { ?>
-            class_id = '<?php echo $subject->class_id; ?>';
-            teacher_id = '<?php echo $subject->teacher_id; ?>';
-        <?php } ?>
-
-        if (!school_id) {
-            toastr.error('<?php echo $this->lang->line("select_school"); ?>');
-            return false;
-        }
 
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('ajax/get_class_by_school'); ?>",
+            url: "<?php echo site_url('ajax/get_section_by_class'); ?>",
             data: {
-                school_id: school_id,
-                class_id: class_id
+                class_id: class_id,
+                section_id: section_id
             },
             async: false,
             success: function(response) {
                 if (response) {
-                    if (edit) {
-                        $('#edit_class_id').html(response);
-                    } else {
-                        $('#add_class_id').html(response);
-                    }
-
-                    get_teacher_by_school(school_id, teacher_id);
+                    $('.section_div').show();
+                    $('#section_id').html(response);
+                } else {
+                    $('.section_div').hide();
+                    get_student_by_class(school_id, class_id, '');
                 }
             }
         });
-    });
+    }
+
 
 
     function get_teacher_by_school(school_id, teacher_id) {
@@ -274,30 +242,6 @@
         });
     });
 
-
-
-    <?php if (isset($filter_class_id)) { ?>
-        get_class_by_school('<?php echo $filter_school_id; ?>', '<?php echo $filter_class_id; ?>');
-    <?php } ?>
-
-    function get_class_by_school(school_id, class_id) {
-
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo site_url('ajax/get_class_by_school'); ?>",
-            data: {
-                school_id: school_id,
-                class_id: class_id
-            },
-            async: false,
-            success: function(response) {
-                if (response) {
-                    $('#filter_class_id').html(response);
-                }
-            }
-        });
-    }
 
     function get_subject_by_class(url) {
 

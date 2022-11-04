@@ -9,7 +9,7 @@ class Subjectbyclass_Model extends MY_Model {
         parent::__construct();
     }
     
-     public function get_subject_list($class_id = null , $school_id = null){
+     public function get_result_list($class_id = null , $school_id = null){
        
         if(!$class_id){
            $class_id = $this->session->userdata('class_id');
@@ -29,11 +29,7 @@ class Subjectbyclass_Model extends MY_Model {
         if($class_id > 0){
             $this->db->where('A.class_id', $class_id);
         }
-        
-        if($this->session->userdata('role_id') != SUPER_ADMIN){
-            $this->db->where('A.school_id', $this->session->userdata('school_id'));
-        }
-        if($school_id && $this->session->userdata('role_id') == SUPER_ADMIN){
+        if($school_id){
             $this->db->where('A.school_id', $school_id); 
         }        
         $this->db->where('SC.status', 1);
