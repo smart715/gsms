@@ -48,4 +48,11 @@ class School_Model extends MY_Model {
         $this->db->where('school_name', $school_name);
         return $this->db->get('schools')->num_rows();            
     }
+    function duplicate_domain_check($subdomain, $id = null){  
+        if($id){
+            $this->db->where_not_in('id', $id);
+        }      
+        $this->db->where('subdomain', $subdomain);
+        return $this->db->get('schools')->num_rows();            
+    }
 }

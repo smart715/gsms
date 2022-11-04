@@ -12,7 +12,7 @@
                 <tbody>
                    <tr>
                         <th><?php echo $this->lang->line('school_url'); ?></th>
-                        <td colspan="3"><a target="_blank" href="<?php echo site_url($school->school_url); ?>"><?php echo site_url($school->school_url); ?></a></td> 
+                        <td colspan="3"><a target="_blank" href="https://<?php echo school_domain($school->subdomain); ?>"><?php echo school_domain($school->subdomain); ?></a></td> 
                     </tr>
                     <tr>
                         <th><?php echo $this->lang->line('plan_name'); ?></th>

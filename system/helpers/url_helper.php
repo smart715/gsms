@@ -49,6 +49,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
+if ( ! function_exists('school_domain'))
+{
+	/**
+	 * Site URL
+	 *
+	 * Create a local URL based on your basepath. Segments can be passed via the
+	 * first parameter either as a string or an array.
+	 *
+	 * @param	string	$uri
+	 * @param	string	$protocol
+	 * @return	string
+	 */
+	function school_domain($subdomain = '', $protocol = NULL)
+	{
+		$CI =& get_instance();
+		$domain = $CI->config->item('domain');
+		if($subdomain != '') $domain = $subdomain .'.'. $domain;
+		return $domain;
+	}
+}
+// ------------------------------------------------------------------------
+
 if ( ! function_exists('site_url'))
 {
 	/**

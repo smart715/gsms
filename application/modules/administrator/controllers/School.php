@@ -69,11 +69,28 @@ class School extends MY_Controller {
             if ($this->form_validation->run() === TRUE) {
                 $data = $this->_get_posted_school_data();
 
+                $subdomain = $data["subdomain"];
+                $maindomain = $this->config->item('domain');
+                $cpanel_user = $this->config->item('cpanel_user');
+                $cpanel_pass = $this->config->item('cpanel_pass');
+                $this->create_subdomain($subdomain, $cpanel_user, $cpanel_pass, $maindomain);
+
                 $insert_id = $this->school->insert('schools', $data);
                 if ($insert_id) {
                     
-                    create_log('Has been created a school : '.$data['school_name']);  
-                    
+                    $newUser['school_id'] = $insert_id;   
+                    $newUser['role_id'] = '2';   
+                    $newUser['username'] = $this->input->post('email');           
+                    $newUser['password'] = md5($this->input->post('password'));
+                    $newUser['status'] = '1';   
+                    $newUser['created_at'] = date('Y-m-d H:i:s');
+                    $newUser['created_by'] = logged_in_user_id();     
+                    $newUser['modified_by'] = logged_in_user_id();   
+                    $this->school->insert('users', $newUser);        
+
+
+                    create_log('Has been created a school : ' . $data['school_name']);
+
                     success($this->lang->line('insert_success'));
                     redirect('administrator/school/index');
                 } else {
@@ -109,6 +126,18 @@ class School extends MY_Controller {
             $this->_prepare_school_validation();
             if ($this->form_validation->run() === TRUE) {
                 $data = $this->_get_posted_school_data();
+
+                $school = $this->school->get_single('schools', array('id' => $this->input->post('id')));           
+                $subdomain =  $data['subdomain'];    
+                $old_subdomain = $school->subdomain; 
+                if($old_subdomain != $subdomain){                    
+                    $maindomain = $this->config->item('domain');
+                    $cpanel_user = $this->config->item('cpanel_user');
+                    $cpanel_pass = $this->config->item('cpanel_pass');
+                    $this->delete_subdomain($old_subdomain, $cpanel_user, $cpanel_pass, $maindomain);
+                    $this->create_subdomain($subdomain, $cpanel_user, $cpanel_pass, $maindomain);
+                }
+
                 $updated = $this->school->update('schools', $data, array('id' => $this->input->post('id')));
 
                 if ($updated) {
@@ -172,10 +201,10 @@ class School extends MY_Controller {
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
       
         $this->form_validation->set_rules('school_name', $this->lang->line('school_name'), 'trim|required|callback_school_name');
-        $this->form_validation->set_rules('school_url', $this->lang->line('school_url'), 'trim|required');
+	    $this->form_validation->set_rules('subdomain', $this->lang->line('subdomain'), 'trim|required|callback_subdomain');
         $this->form_validation->set_rules('address', $this->lang->line('address'), 'trim|required');
         $this->form_validation->set_rules('phone', $this->lang->line('phone'), 'trim|required|min_length[6]|max_length[20]');
-        $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|required|valid_email');
+        $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|required|callback_email');
         $this->form_validation->set_rules('currency', $this->lang->line('currency'), 'trim');
         $this->form_validation->set_rules('currency_symbol', $this->lang->line('currency_symbol'), 'trim|required');
         $this->form_validation->set_rules('language', $this->lang->line('language'), 'trim|required');
@@ -216,7 +245,60 @@ class School extends MY_Controller {
         }
     }
     
-    
+    /*****************Function subdomain**********************************
+     * @type            : Function
+     * @function name   : subdomain
+     * @description     : Unique check for "academic subdomain" data/value
+     *
+     * @param           : null
+     * @return          : boolean true/false
+     * ********************************************************** */
+    public function subdomain()
+    {
+        if ($this->input->post('id') == '') {
+            $school = $this->school->duplicate_domain_check($this->input->post('subdomain'));
+            if ($school) {
+                $this->form_validation->set_message('subdomain', $this->lang->line('already_exist'));
+                return false;
+            } else {
+                return true;
+            }
+        } else if ($this->input->post('id') != '') {
+            $school = $this->school->duplicate_domain_check($this->input->post('subdomain'), $this->input->post('id'));
+            if ($school) {
+                $this->form_validation->set_message('subdomain', $this->lang->line('already_exist'));
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+    /*****************Function email**********************************
+     * @type            : Function
+     * @function name   : email
+     * @description     : Unique check for "academic email" data/value
+     *
+     * @param           : null
+     * @return          : boolean true/false
+     * ********************************************************** */
+    public function email()
+    {
+        if ($this->input->post('id') == '') {
+            $user = $this->school->get_single('users', array('username' => $this->input->post('email')));
+            if ($user) {
+                $this->form_validation->set_message('email', $this->lang->line('already_exist'));
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
+                
     /*****************Function logo**********************************
     * @type            : Function
     * @function name   : logo
@@ -288,9 +370,9 @@ class School extends MY_Controller {
 
         $items = array();
         
-        $items[] = 'school_url';
         $items[] = 'school_code';
         $items[] = 'school_name';
+        $items[] = 'subdomain';
         $items[] = 'address';
         $items[] = 'phone';
         $items[] = 'email';
@@ -534,6 +616,72 @@ class School extends MY_Controller {
             error($this->lang->line('delete_failed'));
         }
         redirect('administrator/school/index');
+    }
+    public function create_subdomain($subDomain, $cPanelUser, $cPanelPass, $rootDomain)
+    {
+        return;
+        if(!isset($subDomain) || $subDomain == "") return;
+        //Generate URL for access the subdomain creation in cPanel through PHP
+        $buildRequest = "/frontend/paper_lantern/subdomain/doadddomain.html?domain=" . $subDomain . "&rootdomain=" . $rootDomain . "&dir=school";
+
+        //Open the socket
+        $openSocket = fsockopen("localhost", 2082);
+        if (!$openSocket) {
+            return "Socket error";
+            exit();
+        }
+        //Login Details
+        $authString = $cPanelUser . ":" . $cPanelPass;
+        $authPass = base64_encode($authString);
+        //Request to Server using GET method
+        $buildHeaders = "GET " . $buildRequest . "\r\n";
+        //HTTP
+        $buildHeaders .= "HTTP/1.0\r\n";
+        //Define Host
+        $buildHeaders .= "Host:localhost\r\n";
+        //Request Authorization
+        $buildHeaders .= "Authorization: Basic " . $authPass . "\r\n";
+        $buildHeaders .= "\r\n";
+        //fputs
+        fputs($openSocket, $buildHeaders);
+        while (!feof($openSocket)) {
+            fgets($openSocket, 128);
+        }
+        fclose($openSocket);
+
+        //Return the New SUbdomain with full URL
+        $newDomain = "http://" . $subDomain . "." . $rootDomain . "/";
+
+        //return with Message
+        //return "Created subdomain $newDomain";
+
+    }
+
+    public function delete_subdomain($subDomain, $cPanelUser, $cPanelPass, $rootDomain)
+    {        
+        return;
+        if(!isset($subDomain) || $subDomain == "") return;
+        $buildRequest = "/frontend/x3/subdomain/dodeldomain.html?domain=" . $subDomain . "_" . $rootDomain;
+
+        $openSocket = fsockopen('localhost', 2082);
+        if (!$openSocket) {
+            return "Socket error";
+            exit();
+        }
+
+        $authString = $cPanelUser . ":" . $cPanelPass;
+        $authPass = base64_encode($authString);
+        $buildHeaders = "GET " . $buildRequest . "\r\n";
+        $buildHeaders .= "HTTP/1.0\r\n";
+        $buildHeaders .= "Host:localhost\r\n";
+        $buildHeaders .= "Authorization: Basic " . $authPass . "\r\n";
+        $buildHeaders .= "\r\n";
+
+        fputs($openSocket, $buildHeaders);
+        while (!feof($openSocket)) {
+            fgets($openSocket, 128);
+        }
+        fclose($openSocket);
     }
 
 }
