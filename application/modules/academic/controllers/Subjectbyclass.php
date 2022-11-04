@@ -38,7 +38,7 @@ class Subjectbyclass extends MY_Controller {
         check_permission(VIEW);
          if(isset($class_id) && !is_numeric($class_id)){
             error($this->lang->line('unexpected_error'));
-            redirect('academic/subject/index');    
+            redirect('academic/subjectbyclass/index');    
         }
         
         $school_id = getSchoolId();
@@ -77,51 +77,51 @@ class Subjectbyclass extends MY_Controller {
 
         check_permission(ADD);
         
+        $school_id = getSchoolId();
         if ($_POST) {
             $this->_prepare_subject_validation();
             if ($this->form_validation->run() === TRUE) {
                 $data = $this->_get_posted_subject_data();
+                $data['school_id'] = $school_id;
 
-                $insert_id = $this->subject->insert('subjects', $data);
+                $insert_id = $this->subject->insert('subjectbyclass', $data);
                 if ($insert_id) {
                     
-                    $class = $this->subject->get_single('classes', array('id' => $data['class_id'], 'school_id'=>$data['school_id']));
+                    $class = $this->subject->get_single('classes', array('id' => $data['class_id'], 'school_id'=>$school_id));
                     create_log('Has been added a sucject : '. $data['name'].' for class : '. $class->name);
                     
                     success($this->lang->line('insert_success'));
-                    redirect('academic/subject/index/'.$data['class_id']);
+                    redirect('academic/subjectbyclass/index/'.$data['class_id']);
                 } else {
                     error($this->lang->line('insert_failed'));
-                    redirect('academic/subject/add/'.$data['class_id']);
+                    redirect('academic/subjectbyclass/index/'.$data['class_id']);
                 }
             } else {
                 error($this->lang->line('insert_failed'));
                 $this->data['post'] = $_POST;
             }
         }
-
-        $class_id = $this->uri->segment(4);
-        if(!$class_id){
-          $class_id = $this->input->post('class_id');
-        }
         
+        // for super admin 
+        if($_POST){
+            $class_id  = $this->input->post('class_id');
+        }
         $this->data['class_id'] = $class_id;
-        $this->data['subjects'] = $this->subject->get_subject_list($class_id);        
-        
+        $this->data['filter_class_id'] = $class_id;
+        $this->data['result'] = $this->subject->get_result_list($class_id, $school_id);        
+       
         $condition = array();
-        $condition['status'] = 1;        
-        if($this->session->userdata('role_id') != SUPER_ADMIN){            
-            $condition['school_id'] = $this->session->userdata('school_id');
-            $this->data['classes'] = $this->subject->get_list('classes', $condition, '','', '', 'id', 'ASC');
-            $this->data['teachers'] = $this->subject->get_list('teachers', $condition, '','', '', 'id', 'ASC');
-        }
-        
+        $condition['status'] = 1;                
+        $condition['school_id'] = $school_id;
+        $this->data['classes'] = $this->subject->get_list('classes', $condition, '','', '', 'id', 'ASC');
+        $this->data['subjects'] = $this->subject->get_list('subjects', $condition, '','', '', 'id', 'ASC');
+        $this->data['teachers'] = $this->subject->get_list('teachers', $condition, '','', '', 'id', 'ASC');
+    
+        $this->data['list'] = TRUE;
         $this->data['schools'] = $this->schools;
-        $this->data['add'] = TRUE;
-        $this->layout->title($this->lang->line('add'). ' | ' . SMS);
-        $this->layout->view('subject/index', $this->data);
+        $this->layout->title($this->lang->line('manage_subject'). ' | ' . SMS);
+        $this->layout->view('subject/subjectbyclass', $this->data); 
     }
-
     
     /*****************Function edit**********************************
     * @type            : Function
@@ -137,7 +137,7 @@ class Subjectbyclass extends MY_Controller {
         check_permission(EDIT);
         if(!is_numeric($id)){
              error($this->lang->line('unexpected_error'));
-             redirect('academic/subject/index');     
+             redirect('academic/subjectbyclass/index');     
         }
         
         if ($_POST) {
@@ -152,10 +152,10 @@ class Subjectbyclass extends MY_Controller {
                     create_log('Has been updated a sucject : '. $data['name'].' for class : '. $class->name);
                     
                     success($this->lang->line('update_success'));
-                    redirect('academic/subject/index/'.$data['class_id']);                   
+                    redirect('academic/subjectbyclass/index/'.$data['class_id']);                   
                 } else {
                     error($this->lang->line('updtae_failed'));
-                    redirect('academic/subject/edit/' . $this->input->post('id'));
+                    redirect('academic/subjectbyclass/edit/' . $this->input->post('id'));
                 }
             } else {
                 error($this->lang->line('updtae_failed'));
@@ -167,7 +167,7 @@ class Subjectbyclass extends MY_Controller {
             $this->data['subject'] = $this->subject->get_single('subjects', array('id' => $id));
 
             if (!$this->data['subject']) {
-                 redirect('academic/subject/index');      
+                 redirect('academic/subjectbyclass/index');      
             }
         }
         
@@ -214,7 +214,7 @@ class Subjectbyclass extends MY_Controller {
         
         if(!is_numeric($subject_id)){
              error($this->lang->line('unexpected_error'));
-             redirect('academic/subject/index');    
+             redirect('academic/subjectbyclass/index');    
         }
         
         $this->data['subject'] = $this->subject->get_single_subject($subject_id);
@@ -268,51 +268,13 @@ class Subjectbyclass extends MY_Controller {
     private function _prepare_subject_validation() {
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
-        
-        $this->form_validation->set_rules('school_id', $this->lang->line('school_name'), 'trim|required');   
-        $this->form_validation->set_rules('teacher_id', $this->lang->line('teacher'), 'trim|required');   
+          
         $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required');   
-        $this->form_validation->set_rules('type', $this->lang->line('type'), 'trim');   
-        $this->form_validation->set_rules('code', $this->lang->line('subject_code'), 'trim');   
-        $this->form_validation->set_rules('author', $this->lang->line('author'), 'trim');   
-        $this->form_validation->set_rules('note', $this->lang->line('note'), 'trim');   
-        $this->form_validation->set_rules('name', $this->lang->line('name'), 'required|trim|callback_name');
+        $this->form_validation->set_rules('subject_id', $this->lang->line('subject'), 'trim|required');  
+        $this->form_validation->set_rules('teacher_id', $this->lang->line('teacher'), 'trim|required');  
     }
     
     
-    /*****************Function name**********************************
-    * @type            : Function
-    * @function name   : name
-    * @description     : Unique check for "subject name" data/value                  
-    *                       
-    * @param           : null
-    * @return          : boolean true/false 
-    * ********************************************************** */  
-   public function name()
-   {             
-      if($this->input->post('id') == '')
-      {   
-          $subject = $this->subject->duplicate_check($this->input->post('school_id'), $this->input->post('class_id'),$this->input->post('name')); 
-          if($subject){
-                $this->form_validation->set_message('name', $this->lang->line('already_exist'));         
-                return FALSE;
-          } else {
-              return TRUE;
-          }          
-      }else if($this->input->post('id') != ''){   
-         $subject = $this->subject->duplicate_check($this->input->post('school_id'), $this->input->post('class_id'),$this->input->post('name'), $this->input->post('id')); 
-          if($subject){
-                $this->form_validation->set_message('name', $this->lang->line('already_exist'));         
-                return FALSE;
-          } else {
-              return TRUE;
-          }
-      }else{
-          return TRUE;
-      }      
-   }
-   
-   
     /*****************Function _get_posted_subject_data**********************************
     * @type            : Function
     * @function name   : _get_posted_subject_data
@@ -324,21 +286,15 @@ class Subjectbyclass extends MY_Controller {
     private function _get_posted_subject_data() {
 
         $items = array();
-        $items[] = 'school_id';
         $items[] = 'class_id';
+        $items[] = 'subject_id';
         $items[] = 'teacher_id';
-        $items[] = 'type';
-        $items[] = 'code';
-        $items[] = 'author';
-        $items[] = 'name';
-        $items[] = 'note';
         $data = elements($items, $_POST);        
         
         if ($this->input->post('id')) {
             $data['modified_at'] = date('Y-m-d H:i:s');
             $data['modified_by'] = logged_in_user_id();
         } else {
-            $data['status'] = 1;
             $data['created_at'] = date('Y-m-d H:i:s');
             $data['created_by'] = logged_in_user_id();                       
         }
@@ -362,7 +318,7 @@ class Subjectbyclass extends MY_Controller {
         
         if(!is_numeric($id)){
              error($this->lang->line('unexpected_error'));
-             redirect('academic/subject/index');    
+             redirect('academic/subjectbyclass/index');    
         }
         
         $subject = $this->subject->get_single('subjects', array('id' => $id));
@@ -376,7 +332,7 @@ class Subjectbyclass extends MY_Controller {
         } else {
             error($this->lang->line('delete_failed'));
         }
-        redirect('academic/subject/index/'.$subject->class_id);
+        redirect('academic/subjectbyclass/index/'.$subject->class_id);
         
     }
 }

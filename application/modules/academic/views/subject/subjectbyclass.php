@@ -59,7 +59,7 @@
                                                     <td><?php echo $obj->teacher; ?></td>
                                                     <td>
                                                         <?php if (has_permission(EDIT, 'academic', 'subject')) { ?>
-                                                            <a href="<?php echo site_url('academic/subjectbyclass/edit/' . $obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
+                                                            <a href="get_subject_modal(<?php echo $obj->id; ?>);" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
                                                         <?php } ?>
                                                         <?php if (has_permission(DELETE, 'academic', 'subject')) { ?>
                                                             <a href="<?php echo site_url('academic/subjectbyclass/delete/' . $obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
@@ -69,6 +69,7 @@
                                             <?php } ?>
                                         <?php } ?>
                                         <tr>
+                                            <?php echo form_open(site_url('academic/subjectbyclass/add'), array('name' => 'filter', 'id' => 'filter', 'class' => 'form-horizontal form-label-left'), ''); ?>
                                             <td><?php echo $count++; ?>
                                             </td>
                                             <td>
@@ -101,9 +102,10 @@
                                             </td>
                                             <td>
                                                 <?php if (has_permission(EDIT, 'academic', 'subject')) { ?>
-                                                    <a onclick="get_subject_modal(<?php echo $obj->id; ?>);" data-toggle="modal" data-target=".bs-subject-modal-lg" class="btn btn-success btn-xs"><i class="fa fa-save"></i> Save </a>
+                                                    <button class="btn btn-success btn-xs" type="submit"><i class="fa fa-save"></i> Save </button>
                                                 <?php } ?>
                                             </td>
+                                            <?php echo form_close(); ?>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -161,5 +163,4 @@
             responsive: true
         });
     });
-
 </script>
