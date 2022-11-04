@@ -188,6 +188,20 @@ class School extends MY_Controller {
     }
 
     
+     /*****************Function check_subdomain**********************************
+      * @type            : Function
+      * @function name   : check_subdomain
+      * @description     : "Load single school information" from database                  
+      *                    to the user interface   
+      * @param           : null
+      * @return          : null 
+      * ********************************************************** */
+      public function check_subdomain(){
+        $subdomain = $this->input->post('subdomain'); 
+        $num = $this->school->duplicate_domain_check($subdomain);  
+        if($num==0) echo 1;
+        else echo 0;
+    }
     /*****************Function _prepare_school_validation**********************************
     * @type            : Function
     * @function name   : _prepare_school_validation

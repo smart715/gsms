@@ -27,6 +27,26 @@ if (!function_exists('logged_in_user_id')) {
 
 }
 
+if (!function_exists('getSchoolId')) {
+
+    function getSchoolId() {
+        $school_id = 0;
+        $subdomain_arr = explode('.', $_SERVER['HTTP_HOST'], 3);
+        $subdomain_name = $subdomain_arr[0];
+        if($subdomain_name=='www') $subdomain_name = $subdomain_arr[1];
+        
+        $ci = & get_instance();
+        $sql = "SELECT * FROM schools WHERE status = 1 AND subdomain = '$subdomain_name'";
+        $result = $ci->db->query($sql)->row();
+        if($result){
+            $school_id = $result->id;
+        }
+        return $school_id;
+    }
+
+}
+
+
 if (!function_exists('logged_in_role_id')) {
 
     function logged_in_role_id() {

@@ -16,57 +16,18 @@
                     <ul class="nav nav-tabs bordered">
 
                         <li class="li-class-list">
-                            <?php if ($this->session->userdata('role_id') == SUPER_ADMIN) {  ?>
+                            <?php if ($this->session->userdata('role_id') == SUPER_ADMIN || $this->session->userdata('role_id') == ADMIN) {  ?>
 
                                 <?php echo form_open(site_url('academic/subjectbyclass/index'), array('name' => 'filter', 'id' => 'filter', 'class' => 'form-horizontal form-label-left'), ''); ?>
-                                <select class="form-control col-md-7 col-xs-12" style="width:auto;" name="school_id" onchange="get_class_by_school(this.value, '');">
-                                    <option value="">--<?php echo $this->lang->line('select_school'); ?>--</option>
-                                    <?php foreach ($schools as $obj) { ?>
-                                        <option value="<?php echo $obj->id; ?>" <?php if (isset($filter_school_id) && $filter_school_id == $obj->id) {
-                                                                                    echo 'selected="selected"';
-                                                                                } ?>> <?php echo $obj->school_name; ?></option>
-                                    <?php } ?>
-                                </select>
                                 <select class="form-control col-md-7 col-xs-12" id="filter_class_id" name="class_id" style="width:auto;" onchange="this.form.submit();">
                                     <option value="">--<?php echo $this->lang->line('class'); ?>--</option>
-                                    <?php if (isset($class_list) && !empty($class_list)) { ?>
-                                        <?php foreach ($class_list as $obj) { ?>
+                                    <?php if (isset($classes) && !empty($classes)) { ?>
+                                        <?php foreach ($classes as $obj) { ?>
                                             <option value="<?php echo $obj->id; ?>"><?php echo $obj->name; ?></option>
                                         <?php } ?>
                                     <?php } ?>
                                 </select>
                                 <?php echo form_close(); ?>
-
-                            <?php } elseif ($this->session->userdata('role_id') == TEACHER) {  ?>
-                            <?php } else {  ?>
-                                <select class="form-control col-md-7 col-xs-12" onchange="get_subject_by_class(this.value);">
-                                    <?php if ($this->session->userdata('role_id') != STUDENT) { ?>
-                                        <option value="<?php echo site_url('academic/subjectbyclass/index'); ?>">--<?php echo $this->lang->line('select'); ?>--</option>
-                                    <?php } ?>
-
-                                    <?php $guardian_class_data = get_guardian_access_data('class'); ?>
-                                    <?php foreach ($classes as $obj) { ?>
-                                        <?php if ($this->session->userdata('role_id') == STUDENT) { ?>
-                                            <?php if ($obj->id != $this->session->userdata('class_id')) {
-                                                continue;
-                                            } ?>
-                                            <option value="<?php echo site_url('academic/subjectbyclass/index/' . $obj->id); ?>" <?php if (isset($class_id) && $class_id == $obj->id) {
-                                                                                                                                        echo 'selected="selected"';
-                                                                                                                                    } ?>><?php echo $obj->name; ?></option>
-                                        <?php } elseif ($this->session->userdata('role_id') == GUARDIAN) { ?>
-                                            <?php if (!in_array($obj->id, $guardian_class_data)) {
-                                                continue;
-                                            } ?>
-                                            <option value="<?php echo site_url('academic/subjectbyclass/index/' . $obj->id); ?>" <?php if (isset($class_id) && $class_id == $obj->id) {
-                                                                                                                                        echo 'selected="selected"';
-                                                                                                                                    } ?>><?php echo $obj->name; ?></option>
-                                        <?php } else { ?>
-                                            <option value="<?php echo site_url('academic/subjectbyclass/index/' . $obj->id); ?>" <?php if (isset($class_id) && $class_id == $obj->id) {
-                                                                                                                                        echo 'selected="selected"';
-                                                                                                                                    } ?>><?php echo $obj->name; ?></option>
-                                        <?php } ?>
-                                    <?php } ?>
-                                </select>
                             <?php } ?>
                         </li>
                     </ul>

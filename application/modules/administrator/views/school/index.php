@@ -142,7 +142,7 @@
                                             <input class="form-control col-md-3 col-xs-6" value="<?php echo "." . $this->config->item('domain'); ?>" type="text" readonly style="width: 50%;">
                                         </div>
                                         <div class="text-info"><?php echo $this->lang->line('school_url_format'); ?></div>
-                                        <div class="help-block"><?php echo form_error('subdomain'); ?></div>
+                                        <div class="help-block" id="subdomain_helper"><?php echo form_error('subdomain'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -480,7 +480,7 @@
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="item form-group">
                                             <label for="subdomain">Subdomain <span class="required">*</span></label>
-                                            <input class="form-control col-md-7 col-xs-12" name="subdomain" id="subdomain" value="<?php echo isset($school) ? $school->subdomain : ''; ?>" placeholder="Subdomain" required="required" type="text" autocomplete="off" style="width: 50%;">
+                                            <input class="form-control col-md-7 col-xs-12" name="subdomain" id="edit_subdomain" value="<?php echo isset($school) ? $school->subdomain : ''; ?>" placeholder="Subdomain" required="required" type="text" autocomplete="off" style="width: 50%;">
                                             <input class="form-control col-md-3 col-xs-6" value="<?php echo "." . $this->config->item('domain'); ?>" type="text" readonly style="width: 50%;">
                                             <div class="text-info"><?php echo $this->lang->line('school_url_format'); ?></div>
                                             <div class="help-block"><?php echo form_error('subdomain'); ?></div>
@@ -816,7 +816,7 @@
                                     <div class="col-md-6 col-md-offset-3">
                                         <input type="hidden" value="<?php echo isset($school) ? $school->id : '' ?>" name="id" />
                                         <a href="<?php echo site_url('administrator/school/index'); ?>" class="btn btn-primary"><?php echo $this->lang->line('cancel'); ?></a>
-                                        <button id="send" type="submit" class="btn btn-success"><?php echo $this->lang->line('update'); ?></button>
+                                        <button id="update-send" type="submit" class="btn btn-success"><?php echo $this->lang->line('update'); ?></button>
                                     </div>
                                 </div>
                                 <?php echo form_close(); ?>
@@ -861,6 +861,28 @@
             }
         });
     }
+    $('#send').css('disabled', true);
+    $('#subdomain').change(function() {
+        $.ajax({
+            type: "POST",
+            url: "<?php echo site_url('administrator/school/check_subdomain'); ?>",
+            data: {
+                subdomain: $('#subdomain').val()
+            },
+            success: function(response) {
+                console.log(response);
+                if (response == 1) {
+                    $('#subdomain_helper').html("Enable Domain");
+                    $('#subdomain_helper').css("color", "green");
+                    $('#send').prop('disabled', false);
+                } else {
+                    $('#subdomain_helper').html("Exists Domain");
+                    $('#subdomain_helper').css("color", "red");
+                    $('#send').prop('disabled', true);
+                }
+            }
+        });
+    })
 </script>
 
 

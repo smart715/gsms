@@ -36,16 +36,15 @@ class Subjectbyclass extends MY_Controller {
     public function index($class_id = null) {
         
         check_permission(VIEW);
-        
          if(isset($class_id) && !is_numeric($class_id)){
             error($this->lang->line('unexpected_error'));
             redirect('academic/subject/index');    
         }
         
+        $school_id = getSchoolId();
+        
         // for super admin 
-        $school_id = '';
         if($_POST){
-            $school_id = $this->input->post('school_id');
             $class_id  = $this->input->post('class_id');
         }
         
