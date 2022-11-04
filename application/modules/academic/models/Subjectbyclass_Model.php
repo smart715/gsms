@@ -15,10 +15,9 @@ class Subjectbyclass_Model extends MY_Model {
            $class_id = $this->session->userdata('class_id');
         }
         
-        $this->db->select('A.*, S.name AS subject_name, SC.school_name, "" AS section_name, CONCAT(C.name," ",C.numeric_name) AS class_name, T.name AS teacher');
+        $this->db->select('A.*, S.name AS subject_name, SC.school_name, CONCAT(C.name," ",C.numeric_name) AS class_name, T.name AS teacher');
         $this->db->from('subjectbyclass AS A');
         $this->db->join('subjects AS S', 'S.id = A.subject_id AND S.school_id = A.school_id', 'left');
-        $this->db->join('sections AS SE', 'SE.id = A.section_id AND SE.class_id = A.class_id', 'left');
         $this->db->join('teachers AS T', 'T.id = A.teacher_id', 'left');
         $this->db->join('classes AS C', 'C.id = A.class_id', 'left');
         $this->db->join('schools AS SC', 'SC.id = A.school_id', 'left');
