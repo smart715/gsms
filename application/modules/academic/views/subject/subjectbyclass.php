@@ -14,28 +14,11 @@
             <div class="x_content">
                 <div class="" data-example-id="togglable-tabs">
                     <ul class="nav nav-tabs bordered">
-                        <li class="<?php if (isset($list)) {
-                                        echo 'active';
-                                    } ?>"><a href="#tab_subject_list" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-list-ol"></i> <?php echo $this->lang->line('list'); ?></a> </li>
-                        <?php if (has_permission(ADD, 'academic', 'subject')) { ?>
-                            <?php if (isset($edit)) { ?>
-                                <li class="<?php if (isset($add)) {
-                                                echo 'active';
-                                            } ?>"><a href="<?php echo site_url('academic/subject/add'); ?>" aria-expanded="false"><i class="fa fa-plus-square-o"></i> <?php echo $this->lang->line('add'); ?></a> </li>
-                            <?php } else { ?>
-                                <li class="<?php if (isset($add)) {
-                                                echo 'active';
-                                            } ?>"><a href="#tab_add_subject" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-plus-square-o"></i> <?php echo $this->lang->line('add'); ?></a> </li>
-                            <?php } ?>
-                        <?php } ?>
-                        <?php if (isset($edit)) { ?>
-                            <li class="active"><a href="#tab_edit_subject" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?></a> </li>
-                        <?php } ?>
 
                         <li class="li-class-list">
                             <?php if ($this->session->userdata('role_id') == SUPER_ADMIN) {  ?>
 
-                                <?php echo form_open(site_url('academic/subject/index'), array('name' => 'filter', 'id' => 'filter', 'class' => 'form-horizontal form-label-left'), ''); ?>
+                                <?php echo form_open(site_url('academic/subjectbyclass/index'), array('name' => 'filter', 'id' => 'filter', 'class' => 'form-horizontal form-label-left'), ''); ?>
                                 <select class="form-control col-md-7 col-xs-12" style="width:auto;" name="school_id" onchange="get_class_by_school(this.value, '');">
                                     <option value="">--<?php echo $this->lang->line('select_school'); ?>--</option>
                                     <?php foreach ($schools as $obj) { ?>
@@ -58,7 +41,7 @@
                             <?php } else {  ?>
                                 <select class="form-control col-md-7 col-xs-12" onchange="get_subject_by_class(this.value);">
                                     <?php if ($this->session->userdata('role_id') != STUDENT) { ?>
-                                        <option value="<?php echo site_url('academic/subject/index'); ?>">--<?php echo $this->lang->line('select'); ?>--</option>
+                                        <option value="<?php echo site_url('academic/subjectbyclass/index'); ?>">--<?php echo $this->lang->line('select'); ?>--</option>
                                     <?php } ?>
 
                                     <?php $guardian_class_data = get_guardian_access_data('class'); ?>
@@ -67,20 +50,20 @@
                                             <?php if ($obj->id != $this->session->userdata('class_id')) {
                                                 continue;
                                             } ?>
-                                            <option value="<?php echo site_url('academic/subject/index/' . $obj->id); ?>" <?php if (isset($class_id) && $class_id == $obj->id) {
-                                                                                                                                echo 'selected="selected"';
-                                                                                                                            } ?>><?php echo $obj->name; ?></option>
+                                            <option value="<?php echo site_url('academic/subjectbyclass/index/' . $obj->id); ?>" <?php if (isset($class_id) && $class_id == $obj->id) {
+                                                                                                                                        echo 'selected="selected"';
+                                                                                                                                    } ?>><?php echo $obj->name; ?></option>
                                         <?php } elseif ($this->session->userdata('role_id') == GUARDIAN) { ?>
                                             <?php if (!in_array($obj->id, $guardian_class_data)) {
                                                 continue;
                                             } ?>
-                                            <option value="<?php echo site_url('academic/subject/index/' . $obj->id); ?>" <?php if (isset($class_id) && $class_id == $obj->id) {
-                                                                                                                                echo 'selected="selected"';
-                                                                                                                            } ?>><?php echo $obj->name; ?></option>
+                                            <option value="<?php echo site_url('academic/subjectbyclass/index/' . $obj->id); ?>" <?php if (isset($class_id) && $class_id == $obj->id) {
+                                                                                                                                        echo 'selected="selected"';
+                                                                                                                                    } ?>><?php echo $obj->name; ?></option>
                                         <?php } else { ?>
-                                            <option value="<?php echo site_url('academic/subject/index/' . $obj->id); ?>" <?php if (isset($class_id) && $class_id == $obj->id) {
-                                                                                                                                echo 'selected="selected"';
-                                                                                                                            } ?>><?php echo $obj->name; ?></option>
+                                            <option value="<?php echo site_url('academic/subjectbyclass/index/' . $obj->id); ?>" <?php if (isset($class_id) && $class_id == $obj->id) {
+                                                                                                                                        echo 'selected="selected"';
+                                                                                                                                    } ?>><?php echo $obj->name; ?></option>
                                         <?php } ?>
                                     <?php } ?>
                                 </select>
@@ -134,13 +117,10 @@
                                                     <td><?php echo $obj->teacher; ?></td>
                                                     <td>
                                                         <?php if (has_permission(EDIT, 'academic', 'subject')) { ?>
-                                                            <a href="<?php echo site_url('academic/subject/edit/' . $obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
-                                                        <?php } ?>
-                                                        <?php if (has_permission(VIEW, 'academic', 'subject')) { ?>
-                                                            <a onclick="get_subject_modal(<?php echo $obj->id; ?>);" data-toggle="modal" data-target=".bs-subject-modal-lg" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
+                                                            <a href="<?php echo site_url('academic/subjectbyclass/edit/' . $obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
                                                         <?php } ?>
                                                         <?php if (has_permission(DELETE, 'academic', 'subject')) { ?>
-                                                            <a href="<?php echo site_url('academic/subject/delete/' . $obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
+                                                            <a href="<?php echo site_url('academic/subjectbyclass/delete/' . $obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
                                                         <?php } ?>
                                                     </td>
                                                 </tr>
@@ -163,11 +143,22 @@
 
                                             </td>
                                             <td>
-
+                                                <select class="form-control" name="subject_id" id="subject_id" required="required">
+                                                    <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                    <?php foreach ($subjects as $obj) { ?>
+                                                        <option value="<?php echo $obj->id; ?>"><?php echo $obj->name; ?></option>
+                                                    <?php } ?>
+                                                </select>
 
                                             </td>
                                             <td>
 
+                                                <select class="form-control" name="subject_id" id="subject_id" required="required">
+                                                    <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                    <?php foreach ($subjects as $obj) { ?>
+                                                        <option value="<?php echo $obj->id; ?>"><?php echo $obj->name; ?></option>
+                                                    <?php } ?>
+                                                </select>
 
                                             </td>
                                             <td>
@@ -179,7 +170,9 @@
                                                 </select>
                                             </td>
                                             <td>
-                                                <a href="<?php echo site_url('academic/subject/edit/' . $obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> Save </a>
+                                                <?php if (has_permission(EDIT, 'academic', 'subject')) { ?>
+                                                    <a onclick="get_subject_modal(<?php echo $obj->id; ?>);" data-toggle="modal" data-target=".bs-subject-modal-lg" class="btn btn-success btn-xs"><i class="fa fa-save"></i> Save </a>
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -212,7 +205,7 @@
         $('.fn_subject_data').html('<p style="padding: 20px;"><p style="padding: 20px;text-align:center;"><img src="<?php echo IMG_URL; ?>loading.gif" /></p>');
         $.ajax({
             type: "POST",
-            url: "<?php echo site_url('academic/subject/get_single_subject'); ?>",
+            url: "<?php echo site_url('academic/subjectbyclass/get_single_subject'); ?>",
             data: {
                 subject_id: subject_id
             },
