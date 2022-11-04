@@ -188,14 +188,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 col-sm-3 col-xs-12">
-                                    <div class="item form-group">
-                                        <label for="email"><?php echo $this->lang->line('email'); ?> <span class="required">*</span></label>
-                                        <input class="form-control col-md-7 col-xs-12" name="email" id="email" value="<?php echo isset($post['email']) ?  $post['email'] : ''; ?>" placeholder="<?php echo $this->lang->line('email'); ?> " required="required" type="email" autocomplete="off">
-                                        <div class="help-block"><?php echo form_error('email'); ?></div>
-                                    </div>
-                                </div>
-
 
                                 <div class="col-md-3 col-sm-3 col-xs-12">
                                     <div class="item form-group">
@@ -215,7 +207,28 @@
 
 
                             </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <h5 class="column-title"><strong>Admin Information:</strong></h5>
+                                </div>
+                            </div>
 
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <div class="item form-group">
+                                        <label for="email"><?php echo $this->lang->line('email'); ?> <span class="required">*</span></label>
+                                        <input class="form-control col-md-7 col-xs-12" name="email" id="email" value="<?php echo isset($post['email']) ?  $post['email'] : ''; ?>" placeholder="<?php echo $this->lang->line('email'); ?> " required="required" type="email" autocomplete="off">
+                                        <div class="help-block"><?php echo form_error('email'); ?></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <div class="item form-group">
+                                        <label for="password"><?php echo $this->lang->line('password'); ?> <span class="required">*</span></label>
+                                        <input class="form-control col-md-7 col-xs-12" name="password" id="password" value="<?php echo isset($post['password']) ?  $post['password'] : ''; ?>" placeholder="<?php echo $this->lang->line('password'); ?> " required="required" type="password" autocomplete="off">
+                                        <div class="help-block"><?php echo form_error('password'); ?></div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -523,7 +536,7 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="email"><?php echo $this->lang->line('email'); ?> <span class="required">*</span></label>
-                                            <input class="form-control col-md-7 col-xs-12" name="email" id="email" value="<?php echo isset($school) ? $school->email : ''; ?>" placeholder="<?php echo $this->lang->line('email'); ?> " required="required" type="email" autocomplete="off">
+                                            <input class="form-control col-md-7 col-xs-12" name="email" id="email" value="<?php echo isset($school) ? $school->email : ''; ?>" placeholder="<?php echo $this->lang->line('email'); ?> " required="required" type="email" autocomplete="off" readonly>
                                             <div class="help-block"><?php echo form_error('email'); ?></div>
                                         </div>
                                     </div>
