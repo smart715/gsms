@@ -42,7 +42,6 @@ class Classes extends MY_Controller {
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){            
             $condition['school_id'] = $this->session->userdata('school_id');        
-            $this->data['teachers'] = $this->classes->get_list('teachers', $condition, '','', '', 'id', 'ASC');
         }   
         
         $this->data['filter_school_id'] = $school_id;
@@ -78,7 +77,6 @@ class Classes extends MY_Controller {
                     create_log('Has been created a class :'.$data['name']);
                     
                     success($this->lang->line('insert_success'));
-                    $this->__create_default_section($insert_id);
                     redirect('academic/classes/index/'.$data['school_id']);
                 } else {
                     error($this->lang->line('insert_failed'));
@@ -96,7 +94,6 @@ class Classes extends MY_Controller {
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){            
             $condition['school_id'] = $this->session->userdata('school_id');        
-            $this->data['teachers'] = $this->classes->get_list('teachers', $condition, '','', '', 'id', 'ASC');
         }        
         $this->data['schools'] = $this->schools;
         
@@ -159,7 +156,6 @@ class Classes extends MY_Controller {
         $condition['status'] = 1;        
         if($this->session->userdata('role_id') != SUPER_ADMIN){            
             $condition['school_id'] = $this->session->userdata('school_id');        
-            $this->data['teachers'] = $this->classes->get_list('teachers', $condition, '','', '', 'id', 'ASC');
         } 
         
         $this->data['school_id'] = $this->data['class']->school_id;
@@ -184,7 +180,6 @@ class Classes extends MY_Controller {
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
         
         $this->form_validation->set_rules('school_id', $this->lang->line('school_name'), 'trim|required');   
-        $this->form_validation->set_rules('teacher_id', $this->lang->line('class_teacher'), 'trim|required');   
         $this->form_validation->set_rules('numeric_name', $this->lang->line('numeric_name'), 'trim|required');     
         $this->form_validation->set_rules('name', $this->lang->line('name'), 'trim|required|callback_name');
     }
@@ -232,7 +227,6 @@ class Classes extends MY_Controller {
 
         $items = array();
         $items[] = 'school_id';
-        $items[] = 'teacher_id';
         $items[] = 'name';
         $items[] = 'numeric_name';        
         $items[] = 'note';
@@ -282,27 +276,5 @@ class Classes extends MY_Controller {
         redirect('academic/classes/index/'.$class->school_id);
     }
     
-    /*****************Function __create_default_section**********************************
-     * @type            : Function
-     * @function name   : __create_default_section
-     * @description     : create default section while create a new class
-     *                       
-     * @param           : $insert_id integer value
-     * @return          : null 
-     * ********************************************************** */
-    private function __create_default_section($insert_id){
-        
-       
-        $data = array();
-        $data['school_id']  = $this->input->post('school_id');
-        $data['class_id']    = $insert_id;
-        $data['teacher_id']  = $this->input->post('teacher_id');
-        $data['name']       = 'A';
-        $data['note']       = 'Default Section';
-        $data['created_at'] = date('Y-m-d H:i:s');
-        $data['created_by'] = logged_in_user_id();
-        $data['status']     = 1; 
-        $this->classes->insert('sections', $data);
-    }
 
 }

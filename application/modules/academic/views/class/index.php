@@ -53,8 +53,7 @@
                                             <th><?php echo $this->lang->line('school'); ?></th>
                                         <?php } ?>
                                         <th><?php echo $this->lang->line('class'); ?></th>
-                                        <th><?php echo $this->lang->line('numeric_name'); ?></th>
-                                        <th><?php echo $this->lang->line('class_teacher'); ?></th>                                  
+                                        <th><?php echo $this->lang->line('numeric_name'); ?></th>                                
                                         <th><?php echo $this->lang->line('action'); ?></th>  
                                     </tr>
                                 </thead>
@@ -78,8 +77,7 @@
                                                 <td><?php echo $obj->school_name; ?></td>
                                             <?php } ?>
                                             <td><?php echo $obj->name; ?></td>
-                                            <td><?php echo $obj->numeric_name; ?></td>
-                                            <td><?php echo $obj->teacher; ?></td>                                           
+                                            <td><?php echo $obj->numeric_name; ?></td>                                    
                                             <td>
                                                 <?php if(has_permission(EDIT, 'academic', 'classes')){ ?>
                                                     <a href="<?php echo site_url('academic/classes/edit/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
@@ -119,19 +117,6 @@
                                     </div>
                                 </div>
                                 
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher_id"><?php echo $this->lang->line('class_teacher'); ?> <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12"  name="teacher_id"  id="add_teacher_id" required="required" >
-                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
-                                            <?php foreach($teachers as $obj ){ ?>
-                                            <option value="<?php echo $obj->id; ?>" <?php echo isset($post['teacher_id']) && $post['teacher_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
-                                            <?php } ?>                                            
-                                        </select>
-                                        <div class="help-block"><?php echo form_error('teacher_id'); ?></div>
-                                    </div>
-                                </div>
                                 
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="note"><?php echo $this->lang->line('note'); ?></label>
@@ -181,19 +166,6 @@
                                     </div>
                                 </div>
                                 
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher_id"><?php echo $this->lang->line('class_teacher'); ?> <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select  class="form-control col-md-7 col-xs-12"  name="teacher_id"  id="edit_teacher_id" required="required" >
-                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
-                                            <?php foreach($teachers as $obj ){ ?>
-                                            <option value="<?php echo $obj->id; ?>" <?php if($class->teacher_id == $obj->id){ echo 'selected="selected"';} ?> ><?php echo $obj->name; ?></option>
-                                            <?php } ?>                                            
-                                        </select>
-                                        <div class="help-block"><?php echo form_error('teacher_id'); ?></div>
-                                    </div>
-                                </div>
                                 
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="note"><?php echo $this->lang->line('note'); ?></label>
@@ -238,32 +210,12 @@
     $('.fn_school_id').on('change', function(){
       
         var school_id = $(this).val();       
-        var teacher_id = '';
-        <?php if(isset($class) && !empty($class)){ ?>         
-            teacher_id =  '<?php echo $class->teacher_id; ?>';
-         <?php } ?> 
         
         if(!school_id){
            toastr.error('<?php echo $this->lang->line("select_school"); ?>');
            return false;
         }
         
-         $.ajax({       
-            type   : "POST",
-            url    : "<?php echo site_url('ajax/get_teacher_by_school'); ?>",
-            data   : { school_id:school_id, teacher_id : teacher_id},               
-            async  : false,
-            success: function(response){                                                   
-               if(response)
-               {    
-                   if(teacher_id){
-                       $('#edit_teacher_id').html(response);
-                   }else{
-                       $('#add_teacher_id').html(response); 
-                   }
-               }
-            }
-        });       
      
     }); 
 

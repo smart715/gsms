@@ -36,8 +36,36 @@
                                             <option value="<?php echo $obj->id; ?>" <?php if(isset($filter_school_id) && $filter_school_id == $obj->id){ echo 'selected="selected"';} ?> > <?php echo $obj->school_name; ?></option>
                                         <?php } ?>   
                                     </select>
+                                    <select  class="form-control col-md-7 col-xs-12" id="filter_class_id" name="class_id"  style="width:auto;" onchange="this.form.submit();">
+                                         <option value="">--<?php echo $this->lang->line('class'); ?>--</option> 
+                                        <?php if(isset($class_list) && !empty($class_list)){ ?>
+                                            <?php foreach($class_list as $obj ){ ?>
+                                                <option value="<?php echo $obj->id; ?>"><?php echo $obj->name; ?></option> 
+                                            <?php } ?>
+                                        <?php } ?>
+                                    </select>
                                 <?php echo form_close(); ?>
-                                                                    
+                                
+                                <?php }elseif($this->session->userdata('role_id') == TEACHER){  ?> 
+                                <?php }else{  ?> 
+                                    <select  class="form-control col-md-7 col-xs-12" onchange="get_subject_by_class(this.value);">
+                                        <?php if($this->session->userdata('role_id') != STUDENT){ ?>
+                                            <option value="<?php echo site_url('academic/subject/index'); ?>">--<?php echo $this->lang->line('select'); ?>--</option> 
+                                        <?php } ?> 
+                                            
+                                        <?php $guardian_class_data = get_guardian_access_data('class'); ?>    
+                                        <?php foreach($classes as $obj ){ ?>
+                                            <?php if($this->session->userdata('role_id') == STUDENT){ ?>
+                                                <?php if ($obj->id != $this->session->userdata('class_id')){ continue; } ?>
+                                                <option value="<?php echo site_url('academic/subject/index/'.$obj->id); ?>" <?php if(isset($class_id) && $class_id == $obj->id){ echo 'selected="selected"';} ?> ><?php echo $obj->name; ?></option>
+                                            <?php }elseif($this->session->userdata('role_id') == GUARDIAN){ ?>
+                                                 <?php if (!in_array($obj->id, $guardian_class_data)) { continue; } ?>
+                                                 <option value="<?php echo site_url('academic/subject/index/'.$obj->id); ?>" <?php if(isset($class_id) && $class_id == $obj->id){ echo 'selected="selected"';} ?> ><?php echo $obj->name; ?></option>
+                                            <?php }else{ ?>
+                                                 <option value="<?php echo site_url('academic/subject/index/'.$obj->id); ?>" <?php if(isset($class_id) && $class_id == $obj->id){ echo 'selected="selected"';} ?> ><?php echo $obj->name; ?></option>
+                                            <?php } ?>                                            
+                                        <?php } ?>                                            
+                                    </select>                                    
                                 <?php } ?> 
                             </li>       
                     </ul>
@@ -55,13 +83,21 @@
                                         <?php } ?>
                                         <th><?php echo $this->lang->line('name'); ?></th>
                                         <th><?php echo $this->lang->line('subject_code'); ?></th>
+                                        <th><?php echo $this->lang->line('class'); ?></th>
+                                        <th><?php echo $this->lang->line('teacher'); ?></th>
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
                                     </tr>
                                 </thead>
                                 <tbody>   
                                     <?php $count = 1; if(isset($subjects) && !empty($subjects)){ ?>
                                         <?php foreach($subjects as $obj){ ?>
-                                       
+                                        <?php 
+                                            if($this->session->userdata('role_id') == GUARDIAN){
+                                                if (!in_array($obj->class_id, $guardian_class_data)) {continue; }
+                                            }elseif($this->session->userdata('role_id') == STUDENT){
+                                                if ($obj->class_id != $this->session->userdata('class_id')){ continue; }
+                                            }
+                                        ?>
                                         <tr>
                                             <td><?php echo $count++; ?></td>
                                             <?php if($this->session->userdata('role_id') == SUPER_ADMIN){ ?>
@@ -69,6 +105,8 @@
                                             <?php } ?>
                                             <td><?php echo $obj->name; ?></td>
                                             <td><?php echo $obj->code; ?></td>
+                                            <td><?php echo $obj->class_name; ?></td>
+                                            <td><?php echo $obj->teacher; ?></td>
                                             <td>
                                                 <?php if(has_permission(EDIT, 'academic', 'subject')){ ?>
                                                     <a href="<?php echo site_url('academic/subject/edit/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
@@ -129,7 +167,32 @@
                                         <div class="help-block"><?php echo form_error('type'); ?></div>
                                     </div>
                                 </div>
-                                                                      
+                                                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span> </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="class_id"  id="add_class_id" required="required" >
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
+                                            <?php foreach($classes as $obj ){ ?>
+                                            <option value="<?php echo $obj->id; ?>" <?php echo (isset($post['class_id']) && $post['class_id'] == $obj->id) || isset($class_id) && $class_id == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                            <?php } ?>                                            
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('class_id'); ?></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher_id"><?php echo $this->lang->line('teacher'); ?> <span class="required">*</span> </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="teacher_id"  id="add_teacher_id" required="required" >
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
+                                            <?php foreach($teachers as $obj ){ ?>
+                                            <option value="<?php echo $obj->id; ?>" <?php echo isset($post['teacher_id']) && $post['teacher_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                            <?php } ?>                                            
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('teacher_id'); ?></div>
+                                    </div>
+                                </div>                                
                                
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="note"><?php echo $this->lang->line('note'); ?></label>
@@ -191,6 +254,34 @@
                                             <?php } ?>
                                         </select>
                                         <div class="help-block"><?php echo form_error('type'); ?></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="class_id"><?php echo $this->lang->line('class'); ?> <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="class_id"  id="edit_class_id" required="required" >
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
+                                            <?php foreach($classes as $obj ){ ?>
+                                            <option value="<?php echo $obj->id; ?>" <?php if($subject->class_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $obj->name; ?></option>
+                                            <?php } ?>                                            
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('class_id'); ?></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="item form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="teacher_id"><?php echo $this->lang->line('teacher'); ?> <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select  class="form-control col-md-7 col-xs-12"  name="teacher_id"  id="edit_teacher_id" required="required" >
+                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option> 
+                                            <?php foreach($teachers as $obj ){ ?>
+                                            <option value="<?php echo $obj->id; ?>" <?php if($subject->teacher_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $obj->name; ?></option>
+                                            <?php } ?>                                            
+                                        </select>
+                                        <div class="help-block"><?php echo form_error('teacher_id'); ?></div>
                                     </div>
                                 </div>
                                 
@@ -274,12 +365,34 @@
         var class_id = '';
         var teacher_id = '';
         
+        <?php if(isset($subject) && !empty($subject)){ ?>
+            class_id =  '<?php echo $subject->class_id; ?>';
+            teacher_id =  '<?php echo $subject->teacher_id; ?>';
+         <?php } ?> 
         
         if(!school_id){
            toastr.error('<?php echo $this->lang->line("select_school"); ?>');
            return false;
         }
        
+       $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_class_by_school'); ?>",
+            data   : { school_id:school_id, class_id:class_id},               
+            async  : false,
+            success: function(response){                                                   
+               if(response)
+               {  
+                   if(edit){
+                       $('#edit_class_id').html(response);   
+                   }else{
+                       $('#add_class_id').html(response);   
+                   }
+                                    
+                   get_teacher_by_school(school_id, teacher_id);
+               }
+            }
+        });
     }); 
     
     
@@ -324,12 +437,34 @@
           });          
         });
         
-    // function get_subject_by_class(url){ 
+        
+        
+    <?php if(isset($filter_class_id)){ ?>
+            get_class_by_school('<?php echo $filter_school_id; ?>', '<?php echo $filter_class_id; ?>');
+     <?php } ?>
     
-    //     if(url){
-    //         window.location.href = url; 
-    //     }
-    // }
+    function get_class_by_school(school_id, class_id){
+        
+        
+        $.ajax({       
+            type   : "POST",
+            url    : "<?php echo site_url('ajax/get_class_by_school'); ?>",
+            data   : { school_id : school_id, class_id : class_id},               
+            async  : false,
+            success: function(response){                                                   
+               if(response)
+               { 
+                    $('#filter_class_id').html(response);                     
+               }
+            }
+        });
+    }
+    function get_subject_by_class(url){ 
+    
+        if(url){
+            window.location.href = url; 
+        }
+    }
        
     $("#add").validate();     
     $("#edit").validate();     
