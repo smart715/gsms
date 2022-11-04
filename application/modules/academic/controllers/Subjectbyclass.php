@@ -199,64 +199,6 @@ class Subjectbyclass extends MY_Controller {
     }
     
     
-    
-    /*****************Function view**********************************
-    * @type            : Function
-    * @function name   : view
-    * @description     : Load user interface with specific subject data                 
-    *                       
-    * @param           : $subject_id integer value
-    * @return          : null 
-    * ********************************************************** */
-    public function view($subject_id = null){
-        
-        check_permission(VIEW);
-        
-        if(!is_numeric($subject_id)){
-             error($this->lang->line('unexpected_error'));
-             redirect('academic/subjectbyclass/index');    
-        }
-        
-        $this->data['subject'] = $this->subject->get_single_subject($subject_id);
-        $class_id = $this->data['subject']->class_id;
-        
-        $this->data['subjects'] = $this->subject->get_subject_list($class_id);        
-        
-        $condition = array();
-        $condition['status'] = 1;        
-        if($this->session->userdata('role_id') != SUPER_ADMIN){            
-            $condition['school_id'] = $this->session->userdata('school_id');
-        }
-        $this->data['classes'] = $this->subject->get_list('classes', $condition, '','', '', 'id', 'ASC');
-        $this->data['teachers'] = $this->subject->get_list('teachers', $condition, '','', '', 'id', 'ASC');
-        
-        $this->data['class_id'] = $class_id;
-        $this->data['schools'] = $this->schools; 
-        $this->data['detail'] = TRUE;       
-        $this->layout->title($this->lang->line('view'). ' | ' . SMS);
-        $this->layout->view('subject/index', $this->data);
-    }
-
-    
-    
-    
-     /*****************Function get_single_subject**********************************
-     * @type            : Function
-     * @function name   : get_single_subject
-     * @description     : "Load single subject information" from database                  
-     *                    to the user interface   
-     * @param           : null
-     * @return          : null 
-     * ********************************************************** */
-    public function get_single_subject(){
-        
-       $subject_id = $this->input->post('subject_id');
-       
-       $this->data['subject'] = $this->subject->get_single_subject($subject_id);
-       echo $this->load->view('subject/get-single-subject', $this->data);
-    }
-    
-    
     /*****************Function _prepare_subject_validation**********************************
     * @type            : Function
     * @function name   : _prepare_subject_validation
@@ -314,25 +256,25 @@ class Subjectbyclass extends MY_Controller {
     * ********************************************************** */
     public function delete($id = null) {
         
-        check_permission(DELETE);
+        // check_permission(DELETE);
         
         if(!is_numeric($id)){
              error($this->lang->line('unexpected_error'));
              redirect('academic/subjectbyclass/index');    
         }
+        $subjectbyclass = $this->subject->get_single('subjectbyclass', array('id' => $id));
         
-        $subject = $this->subject->get_single('subjects', array('id' => $id));
-        
-        if ($this->subject->delete('subjects', array('id' => $id))) { 
+        if ($this->subject->delete('subjectbyclass', array('id' => $id))) { 
             
-            $class = $this->subject->get_single('classes', array('id' => $subject->class_id, 'school_id'=>$subject->school_id));
+            $class = $this->subject->get_single('classes', array('id' => $subjectbyclass->class_id, 'school_id'=>$subjectbyclass->school_id));
+            $subject = $this->subject->get_single('classes', array('id' => $subjectbyclass->subject_id));
             create_log('Has been deleted a sucject : '. $subject->name.' for class : '. $class->name);
             
             success($this->lang->line('delete_success'));
         } else {
             error($this->lang->line('delete_failed'));
         }
-        redirect('academic/subjectbyclass/index/'.$subject->class_id);
+        redirect('academic/subjectbyclass/index/'.$subjectbyclass->class_id);
         
     }
 }
