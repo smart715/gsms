@@ -1243,3 +1243,4 @@ $lang['subscription_successful'] = "Subscriptione petentibus feliciter mittere";
 $lang['subscription_failed'] = "Subscriptione petitionem mittere defecit";
 $lang['upgrade_your_plan'] = "Quaeso upgrade consilium";
 $lang['manage_subscription'] = "Curo Subscription";
+$lang['subdomain'] = "Subdomain";
