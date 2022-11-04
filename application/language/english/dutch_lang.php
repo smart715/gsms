@@ -1253,4 +1253,3 @@ $lang['this_student_have_asset_issued'] = "";
 $lang['this_student_have_book_issued'] = "";
 $lang['assignment_detail'] = "";
 $lang['username_only'] = "";
-$lang['subdomain'] = "Subdomain";

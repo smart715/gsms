@@ -137,8 +137,8 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="subdomain"><?php echo $this->lang->line('subdomain'); ?> <span class="required">*</span></label>
-                                            <input class="form-control col-md-4 col-xs-6" name="subdomain" id="subdomain" value="<?php echo isset($post['subdomain']) ?  $post['subdomain'] : ''; ?>" placeholder="<?php echo $this->lang->line('subdomain'); ?>" required="required" type="text" autocomplete="off" style="width: 50%;">
+                                            <label for="subdomain">Subdomain<span class="required">*</span></label>
+                                            <input class="form-control col-md-4 col-xs-6" name="subdomain" id="subdomain" value="<?php echo isset($post['subdomain']) ?  $post['subdomain'] : ''; ?>" placeholder="Subdomain" required="required" type="text" autocomplete="off" style="width: 50%;">
                                             <input class="form-control col-md-3 col-xs-6" value="<?php echo "." . $this->config->item('domain'); ?>" type="text" readonly style="width: 50%;">
                                         </div>
                                         <div class="text-info"><?php echo $this->lang->line('school_url_format'); ?></div>
@@ -466,8 +466,8 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="subdomain"><?php echo $this->lang->line('subdomain'); ?> <span class="required">*</span></label>
-                                            <input class="form-control col-md-7 col-xs-12" name="subdomain" id="subdomain" value="<?php echo isset($school) ? $school->subdomain : ''; ?>" placeholder="<?php echo $this->lang->line('subdomain'); ?>" required="required" type="text" autocomplete="off" style="width: 50%;">
+                                            <label for="subdomain">Subdomain <span class="required">*</span></label>
+                                            <input class="form-control col-md-7 col-xs-12" name="subdomain" id="subdomain" value="<?php echo isset($school) ? $school->subdomain : ''; ?>" placeholder="Subdomain" required="required" type="text" autocomplete="off" style="width: 50%;">
                                             <input class="form-control col-md-3 col-xs-6" value="<?php echo "." . $this->config->item('domain'); ?>" type="text" readonly style="width: 50%;">
                                             <div class="text-info"><?php echo $this->lang->line('school_url_format'); ?></div>
                                             <div class="help-block"><?php echo form_error('subdomain'); ?></div>
