@@ -102,25 +102,7 @@ class Subjectbyclass extends MY_Controller {
             }
         }
         
-        // for super admin 
-        if($_POST){
-            $class_id  = $this->input->post('class_id');
-        }
-        $this->data['class_id'] = $class_id;
-        $this->data['filter_class_id'] = $class_id;
-        $this->data['result'] = $this->subject->get_result_list($class_id, $school_id);        
-       
-        $condition = array();
-        $condition['status'] = 1;                
-        $condition['school_id'] = $school_id;
-        $this->data['classes'] = $this->subject->get_list('classes', $condition, '','', '', 'id', 'ASC');
-        $this->data['subjects'] = $this->subject->get_list('subjects', $condition, '','', '', 'id', 'ASC');
-        $this->data['teachers'] = $this->subject->get_list('teachers', $condition, '','', '', 'id', 'ASC');
-    
-        $this->data['list'] = TRUE;
-        $this->data['schools'] = $this->schools;
-        $this->layout->title($this->lang->line('manage_subject'). ' | ' . SMS);
-        $this->layout->view('subject/subjectbyclass', $this->data); 
+        redirect('academic/subjectbyclass/index/');   
     }
     
     /*****************Function edit**********************************
@@ -132,70 +114,31 @@ class Subjectbyclass extends MY_Controller {
     * @param           : $id integer value
     * @return          : null 
     * ********************************************************** */
-    public function edit($id = null) {       
+    public function edit() {       
+        $school_id = getSchoolId();
        
-        check_permission(EDIT);
-        if(!is_numeric($id)){
-             error($this->lang->line('unexpected_error'));
-             redirect('academic/subjectbyclass/index');     
-        }
-        
         if ($_POST) {
             $this->_prepare_subject_validation();
             if ($this->form_validation->run() === TRUE) {
+                $id = $_POST['id'];
                 $data = $this->_get_posted_subject_data();
-                $updated = $this->subject->update('subjects', $data, array('id' => $this->input->post('id')));
-
-                if ($updated) {
-                    
-                    $class = $this->subject->get_single('classes', array('id' => $data['class_id'], 'school_id'=>$data['school_id']));
-                    create_log('Has been updated a sucject : '. $data['name'].' for class : '. $class->name);
+                $updated = $this->subject->update('subjectbyclass', $data, array('id' => $id));
+                if ($updated) {                    
+                    $class = $this->subject->get_single('classes', array('id' => $data['class_id'], 'school_id'=>$school_id));
+                    create_log('Has been updated a sucject :  for class : '. $class->name);
                     
                     success($this->lang->line('update_success'));
                     redirect('academic/subjectbyclass/index/'.$data['class_id']);                   
                 } else {
                     error($this->lang->line('updtae_failed'));
-                    redirect('academic/subjectbyclass/edit/' . $this->input->post('id'));
+                    redirect('academic/subjectbyclass/index/'.$data['class_id']);   
                 }
             } else {
                 error($this->lang->line('updtae_failed'));
                 $this->data['subject'] = $this->subject->get_single('subjects', array('id' =>  $this->input->post('id')));
             }
         }
-        
-        if ($id) {
-            $this->data['subject'] = $this->subject->get_single('subjects', array('id' => $id));
-
-            if (!$this->data['subject']) {
-                 redirect('academic/subjectbyclass/index');      
-            }
-        }
-        
-        
-        $class_id = $this->data['subject']->class_id;
-        if(!$class_id){
-          $class_id = $this->input->post('class_id');
-        } 
-        
-        $this->data['class_id'] = $class_id;
-        $this->data['filter_class_id'] = $class_id;
-        $this->data['subjects'] = $this->subject->get_subject_list($class_id, $this->data['subject']->school_id);        
-        
-        $condition = array();
-        $condition['status'] = 1;        
-        if($this->session->userdata('role_id') != SUPER_ADMIN){            
-            $condition['school_id'] = $this->session->userdata('school_id');
-            $this->data['classes'] = $this->subject->get_list('classes', $condition, '','', '', 'id', 'ASC');
-            $this->data['teachers'] = $this->subject->get_list('teachers', $condition, '','', '', 'id', 'ASC');
-        }
-        
-        $this->data['schools'] = $this->schools;
-        $this->data['edit'] = TRUE; 
-        $this->data['school_id'] = $this->data['subject']->school_id;
-        $this->data['filter_school_id'] = $this->data['subject']->school_id;
-        
-        $this->layout->title($this->lang->line('edit'). ' | ' . SMS);
-        $this->layout->view('subject/index', $this->data);
+        redirect('academic/subjectbyclass/index/');   
     }
     
     
@@ -234,7 +177,7 @@ class Subjectbyclass extends MY_Controller {
         $data = elements($items, $_POST);        
         
         if ($this->input->post('id')) {
-            $data['modified_at'] = date('Y-m-d H:i:s');
+            $data['updated_at'] = date('Y-m-d H:i:s');
             $data['modified_by'] = logged_in_user_id();
         } else {
             $data['created_at'] = date('Y-m-d H:i:s');

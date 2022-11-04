@@ -51,24 +51,64 @@
                                     <tbody>
                                         <?php $count = 1;
                                         if (isset($result) && !empty($result)) { ?>
-                                            <?php foreach ($result as $obj) { ?>
-                                                <tr>
-                                                    <td><?php echo $count++; ?></td>
-                                                    <td><?php echo $obj->class_name; ?></td>
-                                                    <td><?php echo $obj->subject_name; ?></td>
-                                                    <td><?php echo $obj->teacher; ?></td>
+                                            <?php foreach ($result as $row) { ?>
+                                                <tr style="text-align: center;">
+                                                    <?php echo form_open(site_url('academic/subjectbyclass/edit'), array('name' => 'filter', 'id' => 'filter', 'class' => 'form-horizontal form-label-left'), ''); ?>
+
+                                                    <td><?php echo $count++; ?>
+                                                        <input name="id" value="<?php echo $row->id; ?>" type="hidden">
+                                                    </td>
+                                                    <td>
+                                                        <div class="item-show-<?php echo $row->id; ?>">
+                                                            <?php echo $row->class_name; ?>
+                                                        </div>
+                                                        <select class="form-control item-edit-<?php echo $row->id; ?>" name="class_id" id="add_class_id" required="required" style="display:none;width: 100%;">
+                                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                            <?php foreach ($classes as $obj) { ?>
+                                                                <option value="<?php echo $obj->id; ?>" <?php echo $row->class_id == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+
+                                                    </td>
+                                                    <td>
+                                                        <div class="item-show-<?php echo $row->id; ?>">
+                                                            <?php echo $row->subject_name; ?>
+                                                        </div>
+                                                        <select class="form-control item-edit-<?php echo $row->id; ?>" name="subject_id" id="subject_id" required="required" style="display:none; width: 100%;">
+                                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                            <?php foreach ($subjects as $obj) { ?>
+                                                                <option value="<?php echo $obj->id; ?>" <?php echo $row->subject_id == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="item-show-<?php echo $row->id; ?>">
+                                                            <?php echo $row->teacher; ?>
+                                                        </div>
+                                                        <select class="form-control item-edit-<?php echo $row->id; ?>" name="teacher_id" id="add_teacher_id" required="required" style="display:none; width: 100%;">
+                                                            <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
+                                                            <?php foreach ($teachers as $obj) { ?>
+                                                                <option value="<?php echo $obj->id; ?>" <?php echo $row->teacher_id == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+
+                                                    </td>
                                                     <td>
                                                         <?php if (has_permission(EDIT, 'academic', 'subject')) { ?>
-                                                            <a href="get_subject_modal(<?php echo $obj->id; ?>);" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
-                                                        <?php } ?>
-                                                        <?php if (has_permission(DELETE, 'academic', 'subject')) { ?>
-                                                            <a href="<?php echo site_url('academic/subjectbyclass/delete/' . $obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
+                                                            <a class="btn btn-info btn-xs item-edit-btn item-show-<?php echo $row->id; ?>" data-id="<?php echo $row->id; ?>"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
+
+                                                            <button class="btn btn-success btn-xs item-edit-<?php echo $row->id; ?>" type="submit" style="display: none;"><i class="fa fa-save"></i> Save </button>
+
+                                                            <a class="btn btn-danger btn-xs item-show-<?php echo $row->id; ?>" href="<?php echo site_url('academic/subjectbyclass/delete/' . $row->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
                                                         <?php } ?>
                                                     </td>
+                                                    <?php echo form_close(); ?>
                                                 </tr>
                                             <?php } ?>
                                         <?php } ?>
-                                        <tr>
+                                        <tr style="text-align: center;">
                                             <?php echo form_open(site_url('academic/subjectbyclass/add'), array('name' => 'filter', 'id' => 'filter', 'class' => 'form-horizontal form-label-left'), ''); ?>
                                             <td><?php echo $count++; ?>
                                             </td>
@@ -148,6 +188,13 @@
             }
         });
     }
+    $('.item-edit-btn').click(function() {
+        let id = $(this).data('id');
+        console.log(id);
+        $('.item-show-' + id).hide();
+        $('.item-edit-' + id).show();
+
+    })
     $(document).ready(function() {
         $('#datatable-responsive').DataTable({
             dom: 'Bfrtip',
