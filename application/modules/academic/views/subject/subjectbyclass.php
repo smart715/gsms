@@ -43,7 +43,6 @@
                                         <tr>
                                             <th><?php echo $this->lang->line('sl_no'); ?></th>
                                             <th><?php echo $this->lang->line('class'); ?></th>
-                                            <th><?php echo $this->lang->line('section'); ?></th>
                                             <th><?php echo $this->lang->line('subject'); ?></th>
                                             <th><?php echo $this->lang->line('teacher'); ?></th>
                                             <th><?php echo $this->lang->line('action'); ?></th>
@@ -56,7 +55,6 @@
                                                 <tr>
                                                     <td><?php echo $count++; ?></td>
                                                     <td><?php echo $obj->class_name; ?></td>
-                                                    <td><?php echo $obj->section_name; ?></td>
                                                     <td><?php echo $obj->subject_name; ?></td>
                                                     <td><?php echo $obj->teacher; ?></td>
                                                     <td>
@@ -75,7 +73,7 @@
                                             </td>
                                             <td>
 
-                                                <select class="form-control" name="class_id" id="add_class_id" required="required">
+                                                <select class="form-control" name="class_id" id="add_class_id" required="required" style="width: 100%;">
                                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                     <?php foreach ($classes as $obj) { ?>
                                                         <option value="<?php echo $obj->id; ?>" <?php echo (isset($post['class_id']) && $post['class_id'] == $obj->id) || isset($class_id) && $class_id == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
@@ -85,14 +83,7 @@
                                             </td>
                                             <td>
 
-                                                <select class="form-control single-select" name="section_id" id="section_id">
-                                                    <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                </select>
-
-                                            </td>
-                                            <td>
-
-                                                <select class="form-control" name="subject_id" id="subject_id" required="required">
+                                                <select class="form-control" name="subject_id" id="subject_id" required="required" style="width: 100%;">
                                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                     <?php foreach ($subjects as $obj) { ?>
                                                         <option value="<?php echo $obj->id; ?>"><?php echo $obj->name; ?></option>
@@ -101,7 +92,7 @@
 
                                             </td>
                                             <td>
-                                                <select class="form-control" name="teacher_id" id="add_teacher_id" required="required">
+                                                <select class="form-control" name="teacher_id" id="add_teacher_id" required="required" style="width: 100%;">
                                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                     <?php foreach ($teachers as $obj) { ?>
                                                         <option value="<?php echo $obj->id; ?>" <?php echo isset($post['teacher_id']) && $post['teacher_id'] == $obj->id ?  'selected="selected"' : ''; ?>><?php echo $obj->name; ?></option>
@@ -155,77 +146,6 @@
             }
         });
     }
-</script>
-
-
-<!-- Super admin js START  -->
-<script type="text/javascript">
-    var edit = false;
-    <?php if (isset($school_id)) { ?>
-        edit = true;
-    <?php } ?>
-
-    $("document").ready(function() {
-        <?php if (isset($school_id) && !empty($school_id)) { ?>
-            $("#edit_school_id").trigger('change');
-        <?php } ?>
-    });
-
-    <?php if (isset($class_id) && isset($section_id)) { ?>
-        get_section_by_class('<?php echo $class_id; ?>', '<?php echo $section_id; ?>');
-    <?php } ?>
-
-    function get_section_by_class(class_id, section_id) {
-
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo site_url('ajax/get_section_by_class'); ?>",
-            data: {
-                class_id: class_id,
-                section_id: section_id
-            },
-            async: false,
-            success: function(response) {
-                if (response) {
-                    $('.section_div').show();
-                    $('#section_id').html(response);
-                } else {
-                    $('.section_div').hide();
-                    get_student_by_class(school_id, class_id, '');
-                }
-            }
-        });
-    }
-
-
-
-    function get_teacher_by_school(school_id, teacher_id) {
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo site_url('ajax/get_teacher_by_school'); ?>",
-            data: {
-                school_id: school_id,
-                teacher_id: teacher_id
-            },
-            async: false,
-            success: function(response) {
-                if (response) {
-                    if (edit) {
-                        $('#edit_teacher_id').html(response);
-                    } else {
-                        $('#add_teacher_id').html(response);
-                    }
-                }
-            }
-        });
-    }
-</script>
-<!-- Super admin js end -->
-
-<!-- datatable with buttons -->
-<script type="text/javascript">
     $(document).ready(function() {
         $('#datatable-responsive').DataTable({
             dom: 'Bfrtip',
@@ -242,14 +162,4 @@
         });
     });
 
-
-    function get_subject_by_class(url) {
-
-        if (url) {
-            window.location.href = url;
-        }
-    }
-
-    $("#add").validate();
-    $("#edit").validate();
 </script>
