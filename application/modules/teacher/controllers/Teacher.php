@@ -206,11 +206,10 @@ class Teacher extends MY_Controller {
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
 
         if (!$this->input->post('id')) {   
-            $this->form_validation->set_rules('username', $this->lang->line('username'), 'trim|required|callback_username');
+            $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|required|valid_email|callback_email');
             $this->form_validation->set_rules('password', $this->lang->line('password'), 'trim|required|min_length[6]|max_length[20]');
         }
         
-        $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|valid_email');
         $this->form_validation->set_rules('role_id', $this->lang->line('role'), 'trim|required');
         $this->form_validation->set_rules('school_id', $this->lang->line('school'), 'trim|required');
 
@@ -241,45 +240,36 @@ class Teacher extends MY_Controller {
 
         
                     
-    /*****************Function username**********************************
+    /*****************Function email**********************************
     * @type            : Function
-    * @function name   : username
-    * @description     : Unique check for "Teacher username" data/value                  
+    * @function name   : email
+    * @description     : Unique check for "Teacher email" data/value                  
     *                       
     * @param           : null
     * @return          : boolean true/false 
     * ********************************************************** */ 
-    public function username() {
+    public function email() {
         if ($this->input->post('id') == '') {
-            $username = $this->teacher->duplicate_check($this->input->post('username'));
-            if ($username) {
-                $this->form_validation->set_message('username', $this->lang->line('already_exist'));
+            $email = $this->teacher->duplicate_check($this->input->post('email'));
+            if ($email) {
+                $this->form_validation->set_message('email', $this->lang->line('already_exist'));
                 return FALSE;
             } else {
-                if(preg_match('/^[a-zA-Z0-9_]{4,30}$/', $this->input->post('username'))){
-                    return TRUE;
-                }else{                  
-                    $this->form_validation->set_message('username', $this->lang->line('username_only')); 
-                    return FALSE;
-                }
+                return TRUE;
             }
         } else if ($this->input->post('id') != '') {
-            $username = $this->teacher->duplicate_check($this->input->post('username'), $this->input->post('id'));
-            if ($username) {
-                $this->form_validation->set_message('username', $this->lang->line('already_exist'));
+            $email = $this->teacher->duplicate_check($this->input->post('email'), $this->input->post('id'));
+            if ($email) {
+                $this->form_validation->set_message('email', $this->lang->line('already_exist'));
                 return FALSE;
             } else {
-                if(preg_match('/^[a-zA-Z0-9_]{4,30}$/', $this->input->post('username'))){
-                    return TRUE;
-                }else{                  
-                    $this->form_validation->set_message('username', $this->lang->line('username_only')); 
-                    return FALSE;
-                }
+                return TRUE;
             }
         } else {
             return TRUE;
         }
     }  
+        
     
     
     /*****************Function resume**********************************

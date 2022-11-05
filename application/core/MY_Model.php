@@ -231,7 +231,7 @@ class MY_Model extends CI_Model {
         $data['role_id']    = $this->input->post('role_id');
         $data['password']   = md5($this->input->post('password'));
         $data['temp_password'] = base64_encode($this->input->post('password'));
-        $data['username']   = $this->input->post('username');
+        $data['username']   = $this->input->post('email');
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['created_by'] = logged_in_user_id();
         $data['status']     = 1; // by default would be able to login

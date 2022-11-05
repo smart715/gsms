@@ -251,18 +251,11 @@
                                 <div class="row"> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="email"><?php echo $this->lang->line('email'); ?> </label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="email"  id="email" value="<?php echo isset($post['email']) ?  $post['email'] : ''; ?>" placeholder="<?php echo $this->lang->line('email'); ?>" type="email" autocomplete="off">
+                                            <label for="email"><?php echo $this->lang->line('email'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="email"  id="email" value="<?php echo isset($post['email']) ?  $post['email'] : ''; ?>" required="required" placeholder="<?php echo $this->lang->line('email'); ?>" type="email" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('email'); ?></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="username"><?php echo $this->lang->line('username'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="username"  id="username" value="<?php echo isset($post['username']) ?  $post['username'] : ''; ?>" placeholder="<?php echo $this->lang->line('username'); ?>" required="required" type="text" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('username'); ?></div>
-                                        </div>
-                                    </div> 
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="password"><?php echo $this->lang->line('password'); ?> <span class="required">*</span></label>
@@ -552,22 +545,14 @@
                                 </div>
                                 <div class="row"> 
                                     
+                                    
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="email"><?php echo $this->lang->line('email'); ?></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="email"  id="email" value="<?php echo isset($teacher->email) ?  $teacher->email : ''; ?>" placeholder="<?php echo $this->lang->line('email'); ?>" type="email" autocomplete="off">
+                                            <label for="email"><?php echo $this->lang->line('email'); ?> <span class="required">*</span></label>
+                                            <input  class="form-control col-md-7 col-xs-12"  name="email"  id="email" value="<?php echo isset($teacher->email) ?  $teacher->email : ''; ?>" placeholder="<?php echo $this->lang->line('email'); ?>"  readonly="readonly" required="required" type="email" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('email'); ?></div>
                                         </div>
                                     </div> 
-                                    
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="username"><?php echo $this->lang->line('username'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="username"  readonly="readonly"  id="username" value="<?php echo isset($teacher->username) ?  $teacher->username : ''; ?>" placeholder="<?php echo $this->lang->line('username'); ?>" required="required" type="text" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('username'); ?></div>
-                                        </div>
-                                    </div>                                    
-                                    
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="salary_grade_id"><?php echo $this->lang->line('salary_grade'); ?> <span class="required">*</span></label>
