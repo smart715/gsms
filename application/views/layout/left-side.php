@@ -448,7 +448,7 @@
                         has_permission(VIEW, 'gradebook', 'reportcard') ||
                         has_permission(VIEW, 'gradebook', 'finalreport')
                     ) { ?>
-                        <li><a><i class="fa fa-file-text-o"></i> Grade Report<span class="fa fa-chevron-down"></span></a>
+                        <li><a><i class="fa fa-file-text-o"></i> Grade Book<span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
                                 <?php if (has_permission(VIEW, 'gradebook', 'gradereport')) { ?>
                                     <li><a href="<?php echo site_url('gradebook/gradereport/index'); ?>">Grade Report</a></li>
