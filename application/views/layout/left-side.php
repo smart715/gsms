@@ -277,7 +277,7 @@
                                 <?php if (has_permission(VIEW, 'academic', 'syllabus')) { ?>
                                     <li><a href="<?php echo site_url('academic/syllabus/index'); ?>"><?php echo $this->lang->line('syllabus'); ?></a></li>
                                 <?php } ?>
-                                <?php if (has_permission(VIEW, 'academic', 'material')) { ?>
+                                <!-- <?php if (has_permission(VIEW, 'academic', 'material')) { ?>
                                     <li><a href="<?php echo site_url('academic/material/index'); ?>"><?php echo $this->lang->line('material'); ?></a></li>
                                 <?php } ?>
                                 <?php if (has_permission(VIEW, 'academic', 'liveclass')) { ?>
@@ -288,13 +288,13 @@
                                 <?php } ?>
                                 <?php if (has_permission(VIEW, 'academic', 'submission')) { ?>
                                     <li><a href="<?php echo site_url('academic/submission/index'); ?>"><?php echo $this->lang->line('submission'); ?></a></li>
-                                <?php } ?>
+                                <?php } ?> -->
                             </ul>
                         </li>
                     <?php } ?>
 
 
-                    <?php if (
+                    <!-- <?php if (
                         has_permission(VIEW, 'lessonplan', 'lessonplan') ||
                         has_permission(VIEW, 'lessonplan', 'lesson') ||
                         has_permission(VIEW, 'lessonplan', 'status') ||
@@ -326,7 +326,7 @@
 
                     <?php if (has_permission(VIEW, 'academic', 'routine')) { ?>
                         <li> <a href="<?php echo site_url('academic/routine/index'); ?>"> <i class="fa fa-clock-o"></i><?php echo $this->lang->line('class_routine'); ?></a></li>
-                    <?php } ?>
+                    <?php } ?> -->
 
                     <?php if (has_permission(VIEW, 'guardian', 'guardian')) { ?>
                         <li><a href="<?php echo site_url('guardian/index'); ?>"><i class="fa fa-paw"></i> <?php echo $this->lang->line('guardian'); ?></a> </li>
@@ -443,8 +443,7 @@
                             </ul>
                         </li>
                     <?php } ?>
-
-
+                    <!-- 
                     <?php if (
                         has_permission(VIEW, 'onlineexam', 'instruction') ||
                         has_permission(VIEW, 'onlineexam', 'question') ||
@@ -549,7 +548,7 @@
                                 <?php } ?>
                             </ul>
                         </li>
-                    <?php } ?>
+                    <?php } ?> -->
 
                     <?php if (has_permission(VIEW, 'academic', 'promotion')) { ?>
                         <li><a href="<?php echo site_url('academic/promotion'); ?>"><i class="fa fa-mail-forward"></i><?php echo $this->lang->line('promotion'); ?></a></li>
