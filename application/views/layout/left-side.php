@@ -443,6 +443,25 @@
                             </ul>
                         </li>
                     <?php } ?>
+                    <?php if (
+                        has_permission(VIEW, 'gradebook', 'gradereport') ||
+                        has_permission(VIEW, 'gradebook', 'reportcard') ||
+                        has_permission(VIEW, 'gradebook', 'finalreport')
+                    ) { ?>
+                        <li><a><i class="fa fa-file-text-o"></i> Grade Report<span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <?php if (has_permission(VIEW, 'gradebook', 'gradereport')) { ?>
+                                    <li><a href="<?php echo site_url('gradebook/gradereport/index'); ?>">Grade Report</a></li>
+                                <?php } ?>
+                                <?php if (has_permission(VIEW, 'gradebook', 'reportcard')) { ?>
+                                    <li><a href="<?php echo site_url('gradebook/reportcard/index'); ?>">Report Card</a></li>
+                                <?php } ?>
+                                <?php if (has_permission(VIEW, 'gradebook', 'finalreport')) { ?>
+                                    <li><a href="<?php echo site_url('gradebook/finalreport/index'); ?>">Final Report</a></li>
+                                <?php } ?>
+                            </ul>
+                        </li>
+                    <?php } ?>
                     <!-- 
                     <?php if (
                         has_permission(VIEW, 'onlineexam', 'instruction') ||

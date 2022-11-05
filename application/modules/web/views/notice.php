@@ -3,7 +3,7 @@
         <div class="page-header-content">
             <h2 class="title"><span class="inner"><?php echo $this->lang->line('notice'); ?></span></h2>
             <ul class="links">
-                <li><a href="<?php echo site_url($school->school_url); ?>"><?php echo $this->lang->line('home'); ?></a></li>
+                <li><a href="<?php echo site_url(); ?>"><?php echo $this->lang->line('home'); ?></a></li>
                 <li><a href="javascript:void(0);"><?php echo $this->lang->line('notice'); ?></a></li>
             </ul>
         </div>
@@ -20,7 +20,7 @@
                             <h2 class="for"><?php echo $this->lang->line('notice_for'); ?>: <?php echo $obj->notice_for ? $obj->notice_for : $this->lang->line('all'); ?></h2>
                         </div>
                         <div class="content">
-                            <a href="<?php echo site_url($school->school_url.'/notice-detail/'.$obj->id); ?>">
+                            <a href="<?php echo site_url('/notice-detail/'.$obj->id); ?>">
                                 <h2 class="title"><?php echo substr($obj->title, 0, 40); ?>...</h2>
                             </a>
                             <ul class="meta">
@@ -31,7 +31,7 @@
                                 <?php echo strip_tags(substr($obj->notice, 0, 150)); ?> ...
                             </p>
                             <div class="more-wrapper">
-                                <a href="<?php echo site_url($school->school_url.'/notice-detail/'.$obj->id); ?>" class="more"><?php echo $this->lang->line('read_more'); ?></a>
+                                <a href="<?php echo site_url('/notice-detail/'.$obj->id); ?>" class="more"><?php echo $this->lang->line('read_more'); ?></a>
                             </div>
                         </div>
                     </div>

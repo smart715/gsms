@@ -3,8 +3,8 @@
             <div class="page-header-content">
                 <h2 class="title"><span class="inner"><?php echo $this->lang->line('notice_detail'); ?></span></h2>
                 <ul class="links">
-                    <li><a href="<?php echo site_url($school->school_url); ?>"><?php echo $this->lang->line('home'); ?></a></li>
-                    <li><a href="<?php echo site_url($school->school_url.'/notice'); ?>"><?php echo $this->lang->line('notice'); ?></a></li>
+                    <li><a href="<?php echo site_url(); ?>"><?php echo $this->lang->line('home'); ?></a></li>
+                    <li><a href="<?php echo site_url('/notice'); ?>"><?php echo $this->lang->line('notice'); ?></a></li>
                     <li><a href="javascript:void(0);"><?php echo $this->lang->line('notice_detail'); ?></a></li>
                 </ul>
             </div>
@@ -46,7 +46,7 @@
                             <?php if(isset($notices) && !empty($notices)){ ?>
                                 <?php foreach($notices AS $obj){ ?>
                                 <div class="sw-single-news">
-                                    <a href="<?php echo site_url($school->school_url.'/notice-detail/'.$obj->id); ?>">
+                                    <a href="<?php echo site_url('/notice-detail/'.$obj->id); ?>">
                                         <span class="content">
                                             <span class="news-title"><?php echo $obj->title; ?></span>
                                             <span class="meta">

@@ -3,7 +3,7 @@
         <div class="page-header-content">
             <h2 class="title"><span class="inner"><?php echo $this->lang->line('about_school'); ?></span></h2>
             <ul class="links">
-                <li><a href="<?php echo site_url($school->school_url); ?>"><?php echo $this->lang->line('home'); ?></a></li>
+                <li><a href="<?php echo site_url(); ?>"><?php echo $this->lang->line('home'); ?></a></li>
                 <li><a href="javascript:void(0);"><?php echo $this->lang->line('about_school'); ?></a></li>
             </ul>
         </div>

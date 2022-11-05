@@ -3,7 +3,7 @@
         <div class="page-header-content">
             <h2 class="title"><span class="inner"><?php echo $this->lang->line('news'); ?></span></h2>
             <ul class="links">
-                <li><a href="<?php echo site_url($school->school_url); ?>"><?php echo $this->lang->line('home'); ?></a></li>
+                <li><a href="<?php echo site_url(); ?>"><?php echo $this->lang->line('home'); ?></a></li>
                 <li><a href="javascript:void(0);"><?php echo $this->lang->line('news'); ?></a></li>
             </ul>
         </div>
@@ -29,7 +29,7 @@
                             <li><span class="icon"><i class="fas fa-calendar-alt"></i></span> <?php echo date($this->global_setting->date_format, strtotime($obj->date)); ?></li>
                         </ul>
                         <div class="content">
-                            <a href="<?php echo site_url($school->school_url.'/news-detail/'.$obj->id); ?>">
+                            <a href="<?php echo site_url('/news-detail/'.$obj->id); ?>">
                                 <h2 class="title">
                                     <?php echo strip_tags(substr($obj->title, 0, 40)); ?> ...
                                 </h2>
@@ -38,7 +38,7 @@
                                <?php echo strip_tags(substr($obj->news, 0, 180)); ?> ...
                             </p>
                             <div class="more-wrapper">
-                                <a href="<?php echo site_url($school->school_url.'/news-detail/'.$obj->id); ?>" class="more"><?php echo $this->lang->line('read_more'); ?></a>
+                                <a href="<?php echo site_url('/news-detail/'.$obj->id); ?>" class="more"><?php echo $this->lang->line('read_more'); ?></a>
                             </div>
                         </div>
                     </div>

@@ -23,6 +23,7 @@ class Web extends CI_Controller {
         parent::__construct();
         $this->load->model('Web_Model', 'web', true); 
         
+        $school_id = getSchoolId();
         $global_setting = $this->db->get_where('global_setting',array('status'=>1))->row();
         if($global_setting){
             $this->global_setting = $global_setting;
@@ -33,15 +34,15 @@ class Web extends CI_Controller {
         } 
    
          
-        if($this->session->userdata('front_school_id')){ 
-            $this->data['school'] = $this->web->get_single('schools', array('status' => 1, 'id'=>$this->session->userdata('front_school_id')));
-            $this->data['footer_pages'] = $this->web->get_list('pages', array('status' => 1, 'page_location'=>'footer', 'school_id'=>$this->session->userdata('front_school_id')));
-            $this->data['header_pages'] = $this->web->get_list('pages', array('status' => 1, 'page_location'=>'header',  'school_id'=>$this->session->userdata('front_school_id')));
-            $this->data['opening_hour'] = $this->web->get_single('opening_hours', array('status' => 1, 'school_id'=>$this->session->userdata('front_school_id')));
+        if($school_id){ 
+            $this->data['school'] = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id));
+            $this->data['footer_pages'] = $this->web->get_list('pages', array('status' => 1, 'page_location'=>'footer', 'school_id'=>$school_id));
+            $this->data['header_pages'] = $this->web->get_list('pages', array('status' => 1, 'page_location'=>'header',  'school_id'=>$school_id));
+            $this->data['opening_hour'] = $this->web->get_single('opening_hours', array('status' => 1, 'school_id'=>$school_id));
         }
 
 
-        if(!empty($global_setting) && !$this->session->userdata('front_school_id')){  
+        if(!empty($global_setting) && !$school_id){  
            
             if($global_setting->language){
                 $this->lang->load($global_setting->language);
@@ -51,7 +52,7 @@ class Web extends CI_Controller {
             
             define('SMS', $global_setting->brand_title);
              
-        }else if(!empty($global_setting) && $this->session->userdata('front_school_id')){
+        }else if(!empty($global_setting) && $school_id){
             
             if($this->data['school']->language){
                 $this->lang->load($this->data['school']->language);
@@ -67,12 +68,27 @@ class Web extends CI_Controller {
         
     public function school(){
          
-        $school_url = $this->uri->segment(1);  
        
-        if(!$school_url){  redirect(); }       
+        // if(!$school_url){  redirect(); }       
         
-        $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url)); 
+        // $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url)); 
         
+        // if(empty($school)){
+        //     $this->session->unset_userdata('front_school_id');
+        // }
+        
+        // if(!empty($school)){          
+        //     $this->session->set_userdata('front_school_id', $school->id);            
+        // }
+        
+        // $school_id = $this->session->userdata('front_school_id');  
+        // if(!empty($school) && $school->id != $school_id){ 
+        //     $this->session->unset_userdata('front_school_id');              
+        //     $this->session->set_userdata('front_school_id', $school->id);            
+        //     redirect($school->school_url);
+        // }
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if(empty($school)){
             $this->session->unset_userdata('front_school_id');
         }
@@ -81,11 +97,9 @@ class Web extends CI_Controller {
             $this->session->set_userdata('front_school_id', $school->id);            
         }
         
-        $school_id = $this->session->userdata('front_school_id');  
         if(!empty($school) && $school->id != $school_id){ 
             $this->session->unset_userdata('front_school_id');              
-            $this->session->set_userdata('front_school_id', $school->id);            
-            redirect($school->school_url);
+            $this->session->set_userdata('front_school_id', $school->id);         
         }
  
        
@@ -120,11 +134,11 @@ class Web extends CI_Controller {
 
         }else{   
             
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
-            if(!empty($school)){
-                $this->session->set_userdata('front_school_id', $school->id);               
-                redirect($school->school_url);
-            }            
+            $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id));         
+            // if(!empty($school)){
+            //     $this->session->set_userdata('front_school_id', $school->id);               
+            //     redirect($school->school_url);
+            // }            
             redirect();              
         }        
     }
@@ -140,7 +154,6 @@ class Web extends CI_Controller {
     * @return          : null 
     * *********************       SaaS           **************************** */
     public function index() {
-        
         if($_POST){
 
             //$this->_prepare_plan_validation();
@@ -189,14 +202,46 @@ class Web extends CI_Controller {
                 $this->data['post'] = $_POST;
             }                
         } 
-        
-        $this->data['sliders'] = $this->web->get_list('saas_sliders', array('status' => 1), '', '', '', 'id', 'ASC');
-        $this->data['faqs'] = $this->web->get_list('saas_faqs', array('status' => 1), '', '', '', 'id', 'ASC');
-        $this->data['plans'] = $this->web->get_list('saas_plans', array('status' => 1), '', '', '', 'id', 'ASC');
-        $this->data['setting'] = $this->db->get_where('saas_settings',array('status'=>1))->row();
-        
-        $this->data['title_for_layout'] = $this->global_setting->brand_title ? $this->global_setting->brand_title : SMS;        
-        $this->load->view('splash', $this->data);        
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
+        if($school){
+            
+            // need to check school subscription status
+            if(!check_saas_status($school->id, 'is_enable_frontend')){                        
+                redirect();
+             }
+                    
+             $this->data['sliders'] = $this->web->get_list('sliders', array('status' => 1, 'school_id'=>$school_id), '', '', '', 'id', 'ASC');
+             $this->data['events'] = $this->web->get_event_list($school_id, 6);
+             $this->data['news'] = $this->web->get_news_list($school_id, 6);
+             
+             $this->data['teacher'] = $this->web->get_total_teacher($school_id);
+             $this->data['student'] = $this->web->get_total_student($school_id);
+             $this->data['staff'] = $this->web->get_total_staff($school_id);
+             $this->data['user'] = $this->web->get_total_user($school_id);            
+             
+             $this->data['feedbacks'] = $this->web->get_feedback_list($school_id, 20);
+             
+             // common data
+             $this->data['school'] = $this->web->get_single('schools', array('status' => 1, 'id'=>$this->session->userdata('front_school_id')));
+             $this->data['footer_pages'] = $this->web->get_list('pages', array('status' => 1, 'page_location'=>'footer', 'school_id'=>$this->session->userdata('front_school_id')));
+             $this->data['header_pages'] = $this->web->get_list('pages', array('status' => 1, 'page_location'=>'header',  'school_id'=>$this->session->userdata('front_school_id')));
+             $this->data['opening_hour'] = $this->web->get_single('opening_hours', array('status' => 1, 'school_id'=>$this->session->userdata('front_school_id')));
+             
+             
+             $this->data['list'] = TRUE;
+             $this->layout->title($this->lang->line('home') . ' | ' . SMS);
+             $this->layout->view('index', $this->data);
+        }else{
+
+            $this->data['sliders'] = $this->web->get_list('saas_sliders', array('status' => 1), '', '', '', 'id', 'ASC');
+            $this->data['faqs'] = $this->web->get_list('saas_faqs', array('status' => 1), '', '', '', 'id', 'ASC');
+            $this->data['plans'] = $this->web->get_list('saas_plans', array('status' => 1), '', '', '', 'id', 'ASC');
+            $this->data['setting'] = $this->db->get_where('saas_settings',array('status'=>1))->row();
+            
+            $this->data['title_for_layout'] = $this->global_setting->brand_title ? $this->global_setting->brand_title : SMS;        
+            $this->load->view('splash', $this->data);  
+        }      
     }
     
     
@@ -280,12 +325,12 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function news() {
         
-        $school_url = $this->uri->segment(1);   
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         
         if($this->session->userdata('front_school_id')){            
           
             $school_id = $this->session->userdata('front_school_id');
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -304,8 +349,7 @@ class Web extends CI_Controller {
             $this->layout->title($this->lang->line('news') . ' | ' . SMS);
             $this->layout->view('news', $this->data);
         
-        }else{    
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
+        }else{       
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -325,12 +369,12 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function news_detail() {
                 
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
 
             $id = $this->uri->segment(3);
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -351,8 +395,7 @@ class Web extends CI_Controller {
             $this->layout->view('news_detail', $this->data);
         
         }else{   
-            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
+                
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -373,11 +416,11 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function notice() {
         
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
 
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -396,8 +439,7 @@ class Web extends CI_Controller {
             $this->layout->view('notice', $this->data);
         
         }else{  
-            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
+                   
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -416,13 +458,13 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function notice_detail() {
 
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         
         if($this->session->userdata('front_school_id')){           
 
             $id = $this->uri->segment(3);
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -443,7 +485,6 @@ class Web extends CI_Controller {
         
         }else{    
             
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -463,11 +504,11 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function holiday() {
 
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
 
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -486,7 +527,6 @@ class Web extends CI_Controller {
             $this->layout->view('holiday', $this->data);
             
         }else{  
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -505,7 +545,8 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function holiday_detail() {
 
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
 
             $id = $this->uri->segment(3);
@@ -531,7 +572,6 @@ class Web extends CI_Controller {
         
         }else{  
             
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -550,11 +590,11 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function events() {
 
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
 
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -574,7 +614,6 @@ class Web extends CI_Controller {
             
         }else{      
             
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -593,12 +632,12 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function event_detail(){
 
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
 
             $id = $this->uri->segment(3);
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -618,7 +657,6 @@ class Web extends CI_Controller {
             $this->layout->view('event_detail', $this->data);
         
          }else{            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -639,7 +677,8 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function galleries() {
 
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
 
             $school_id = $this->session->userdata('front_school_id');            
@@ -663,7 +702,6 @@ class Web extends CI_Controller {
          
         }else{    
             
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -682,11 +720,11 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function teachers() {
 
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
 
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -706,7 +744,6 @@ class Web extends CI_Controller {
           
         }else{   
             
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -726,11 +763,11 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function faq() {
 
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
 
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -750,7 +787,6 @@ class Web extends CI_Controller {
             
         }else{     
             
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -770,11 +806,11 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function staff() {
 
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
 
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -793,7 +829,6 @@ class Web extends CI_Controller {
             $this->layout->view('staff', $this->data);
         }else{     
             
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -812,12 +847,12 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function page() { 
         
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
             
             $page_url = $this->uri->segment(3);
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -841,7 +876,6 @@ class Web extends CI_Controller {
             
          }else{   
            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -861,11 +895,11 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function about() {
         
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
             
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -884,7 +918,6 @@ class Web extends CI_Controller {
             
         }else{       
             
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -904,12 +937,12 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function admission_form() {
     
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         
         if($this->session->userdata('front_school_id')){  
             
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -935,7 +968,6 @@ class Web extends CI_Controller {
             
         }else{    
             
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -954,12 +986,12 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function admission_online() {
     
-       $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
        
        if($this->session->userdata('front_school_id')){
            
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
                         
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -1009,7 +1041,6 @@ class Web extends CI_Controller {
            
         }else{     
             
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);
@@ -1458,11 +1489,11 @@ class Web extends CI_Controller {
     * ********************************************************** */
     public function contact() {
 
-        $school_url = $this->uri->segment(1);
+        $school_id = getSchoolId();
+        $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
 
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -1492,7 +1523,6 @@ class Web extends CI_Controller {
         
         }else{   
             
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));         
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
                  redirect($school->school_url);

@@ -9,7 +9,7 @@
                 </div>
                 <div class="col-md-5 col-12">
                     <div class="apply">
-                        <a href="<?php echo site_url($school->school_url.'/admission-online'); ?>">
+                        <a href="<?php echo site_url('/admission-online'); ?>">
                             <span class="icon">
                                 <i class="fa fa-location-arrow"></i>
                             </span>
@@ -47,19 +47,19 @@
                     <div class="footer-widget">
                         <h3 class="title"><?php echo $this->lang->line('quick_link'); ?></h3>
                         <ul class="links">
-                            <li><a href="<?php echo site_url($school->school_url.'/admission-online'); ?>"><?php echo $this->lang->line('admission'); ?></a></li>
-                            <li><a href="<?php echo site_url($school->school_url.'/news'); ?>"><?php echo $this->lang->line('news'); ?></a></li>
-                            <li><a href="<?php echo site_url($school->school_url.'/notice'); ?>"><?php echo $this->lang->line('notice'); ?></a></li>
-                            <li><a href="<?php echo site_url($school->school_url.'/holiday'); ?>"><?php echo $this->lang->line('holiday'); ?></a></li>
-                            <li><a href="<?php echo site_url($school->school_url.'/events'); ?>"><?php echo $this->lang->line('event'); ?></a></li>
-                            <li><a href="<?php echo site_url($school->school_url.'/galleries'); ?>"><?php echo $this->lang->line('gallery'); ?></a></li>
-                            <li><a href="<?php echo site_url($school->school_url.'/teachers'); ?>"><?php echo $this->lang->line('teacher'); ?></a></li>
-                            <li><a href="<?php echo site_url($school->school_url.'/staff'); ?>"><?php echo $this->lang->line('staff'); ?></a></li>
-                            <li><a href="<?php echo site_url($school->school_url.'/faq'); ?>"><?php echo $this->lang->line('faq'); ?></a></li>
-                            <li><a href="<?php echo site_url($school->school_url.'/contact'); ?>"><?php echo $this->lang->line('contact_us'); ?></a></li>
+                            <li><a href="<?php echo site_url('/admission-online'); ?>"><?php echo $this->lang->line('admission'); ?></a></li>
+                            <li><a href="<?php echo site_url('/news'); ?>"><?php echo $this->lang->line('news'); ?></a></li>
+                            <li><a href="<?php echo site_url('/notice'); ?>"><?php echo $this->lang->line('notice'); ?></a></li>
+                            <li><a href="<?php echo site_url('/holiday'); ?>"><?php echo $this->lang->line('holiday'); ?></a></li>
+                            <li><a href="<?php echo site_url('/events'); ?>"><?php echo $this->lang->line('event'); ?></a></li>
+                            <li><a href="<?php echo site_url('/galleries'); ?>"><?php echo $this->lang->line('gallery'); ?></a></li>
+                            <li><a href="<?php echo site_url('/teachers'); ?>"><?php echo $this->lang->line('teacher'); ?></a></li>
+                            <li><a href="<?php echo site_url('/staff'); ?>"><?php echo $this->lang->line('staff'); ?></a></li>
+                            <li><a href="<?php echo site_url('/faq'); ?>"><?php echo $this->lang->line('faq'); ?></a></li>
+                            <li><a href="<?php echo site_url('/contact'); ?>"><?php echo $this->lang->line('contact_us'); ?></a></li>
                             <?php if(isset($footer_pages) && !empty($footer_pages)){ ?>
                                <?php foreach($footer_pages AS $obj ){ ?>
-                                    <li><a href="<?php echo site_url($school->school_url.'/page/'.$obj->page_slug); ?>"><?php echo $obj->page_title; ?></a></li>
+                                    <li><a href="<?php echo site_url('/page/'.$obj->page_slug); ?>"><?php echo $obj->page_title; ?></a></li>
                                 <?php } ?> 
                             <?php } ?>                             
                         </ul>

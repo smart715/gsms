@@ -3,7 +3,7 @@
         <div class="page-header-content">
             <h2 class="title"><span class="inner"><?php echo $this->lang->line('admission_form'); ?></span></h2>
             <ul class="links">
-                <li><a href="<?php echo site_url($school->school_url); ?>"><?php echo $this->lang->line('home'); ?></a></li>
+                <li><a href="<?php echo site_url(); ?>"><?php echo $this->lang->line('home'); ?></a></li>
                 <li><a href="javascript:void(0);"><?php echo $this->lang->line('admission_form'); ?></a></li>
             </ul>
         </div>
@@ -366,7 +366,7 @@
         <div class="row no-print">
             <div class="col-md-12 col-sm-12 text-center margin-top no-print">
                 <button class="btn btn-info glbscl-link-btn hvr-bs" onclick="window.print();"><i class="fa fa-print"></i> <?php echo $this->lang->line('print'); ?> / <?php echo $this->lang->line('admission_form'); ?></button>
-                <a  class="btn btn-info glbscl-link-btn hvr-bs"  href="<?php echo site_url($school->school_url.'/admission-online'); ?>"><?php echo $this->lang->line('online_admission'); ?></a>
+                <a  class="btn btn-info glbscl-link-btn hvr-bs"  href="<?php echo site_url('/admission-online'); ?>"><?php echo $this->lang->line('online_admission'); ?></a>
             </div>
         </div>
     </div>

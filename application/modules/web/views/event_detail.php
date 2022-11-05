@@ -3,7 +3,7 @@
         <div class="page-header-content">
             <h2 class="title"><span class="inner"><?php echo $this->lang->line('event_detail'); ?></span></h2>
             <ul class="links">
-                <li><a href="<?php echo site_url($school->school_url); ?>"><?php echo $this->lang->line('home'); ?></a></li>
+                <li><a href="<?php echo site_url(); ?>"><?php echo $this->lang->line('home'); ?></a></li>
                 <li><a href="<?php echo site_url('events'); ?>"><?php echo $this->lang->line('event'); ?></a></li>
                 <li><a href="javascript:void(0);"><?php echo $this->lang->line('event_detail'); ?></a></li>
             </ul>
@@ -52,7 +52,7 @@
                         <?php if(isset($events) && !empty($events)){ ?> 
                             <?php foreach($events AS $obj){ ?>
                                 <div class="sw-single-news">
-                                    <a href="<?php echo site_url($school->school_url.'/event-detail/'.$obj->id); ?>">
+                                    <a href="<?php echo site_url('/event-detail/'.$obj->id); ?>">
                                         <span class="img">
                                             <?php if(isset($obj->image) && !empty($obj->image)){ ?>
                                                 <img src="<?php echo UPLOAD_PATH; ?>event/<?php echo $obj->image; ?>" alt="">

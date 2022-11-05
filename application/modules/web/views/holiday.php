@@ -3,7 +3,7 @@
         <div class="page-header-content">
             <h2 class="title"><span class="inner"><?php echo $this->lang->line('holiday'); ?></span></h2>
             <ul class="links">
-                <li><a href="<?php echo site_url($school->school_url); ?>"><?php echo $this->lang->line('home'); ?></a></li>
+                <li><a href="<?php echo site_url(); ?>"><?php echo $this->lang->line('home'); ?></a></li>
                 <li><a href="javascript:void(0);"><?php echo $this->lang->line('holiday'); ?></a></li>
             </ul>
         </div>
@@ -18,7 +18,7 @@
                 <div class="col-lg-4 col-md-6 col-12">
                     <div class="single-holiday">
                         <div class="content">
-                            <a href="<?php echo site_url($school->school_url.'/holiday-detail/'.$obj->id); ?>">
+                            <a href="<?php echo site_url('/holiday-detail/'.$obj->id); ?>">
                             <h2 class="title"><?php echo substr($obj->title, 0, 40); ?>...</h2>
                             </a>
                             <ul class="meta">
@@ -32,7 +32,7 @@
                                 <?php echo strip_tags(substr($obj->note, 0, 180)); ?> ...
                             </p>
                             <div class="more-wrapper">
-                                <a href="<?php echo site_url($school->school_url.'/holiday-detail/'.$obj->id); ?>" class="more"><?php echo $this->lang->line('read_more'); ?></a>
+                                <a href="<?php echo site_url('/holiday-detail/'.$obj->id); ?>" class="more"><?php echo $this->lang->line('read_more'); ?></a>
                             </div>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
         <div class="page-header-content">
             <h2 class="title"><span class="inner"><?php echo $this->lang->line('online_admission'); ?></span></h2>
             <ul class="links">
-                <li><a href="<?php echo site_url($school->school_url); ?>"><?php echo $this->lang->line('home'); ?></a></li>
+                <li><a href="<?php echo site_url(); ?>"><?php echo $this->lang->line('home'); ?></a></li>
                 <li><a href="javascript:void(0);"><?php echo $this->lang->line('online_admission'); ?></a></li>
             </ul>
         </div>
@@ -22,7 +22,7 @@
 
 <div class="page-contact-info-area">
     <div class="container">
-        <form action="<?php echo site_url($school->school_url.'/admission-online'); ?>" method="post" id="admission" name="admission" enctype="multipart/form-data">
+        <form action="<?php echo site_url('/admission-online'); ?>" method="post" id="admission" name="admission" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <div class="admission-form">
@@ -454,7 +454,7 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 margin-top">
                             <button type="submit" class="btn btn-info glbscl-link-btn hvr-bs"> <?php echo $this->lang->line('apply_now'); ?></button>
-                            <a  class="btn btn-info glbscl-link-btn hvr-bs"  href="<?php echo site_url($school->school_url.'/admission-form'); ?>"><?php echo $this->lang->line('admission_form'); ?></a>
+                            <a  class="btn btn-info glbscl-link-btn hvr-bs"  href="<?php echo site_url('/admission-form'); ?>"><?php echo $this->lang->line('admission_form'); ?></a>
                         </div>
                     </div>
                 </div>

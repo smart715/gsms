@@ -17,7 +17,7 @@
                                 <?php echo SMS; ?>
                             <?php } ?>
                         </h2>
-                        <a href="<?php echo site_url($school->school_url.'/admission-online'); ?>" class="button btn-hvr"><?php echo $this->lang->line('admission'); ?></a>
+                        <a href="<?php echo site_url('/admission-online'); ?>" class="button btn-hvr"><?php echo $this->lang->line('admission'); ?></a>
                     </div>
                 </div>
             <?php } ?>
@@ -31,7 +31,7 @@
                         <h2 class="title-2">                            
                            <?php echo SMS; ?>                           
                         </h2>
-                        <a href="<?php echo site_url($school->school_url.'/admission-online'); ?>" class="button btn-hvr"><?php echo $this->lang->line('admission'); ?></a>
+                        <a href="<?php echo site_url('/admission-online'); ?>" class="button btn-hvr"><?php echo $this->lang->line('admission'); ?></a>
                     </div>
                 </div>
         <?php } ?>
@@ -66,7 +66,7 @@
                             <?php echo nl2br(strip_tags(substr($school->about_text, 0, 550))); ?>...   
                         </p>
                         <div class="button-wrapper">
-                            <a href="<?php echo site_url($school->school_url.'/about'); ?>" class="button btn-hvr"><?php echo $this->lang->line('read_more'); ?></a>
+                            <a href="<?php echo site_url('/about'); ?>" class="button btn-hvr"><?php echo $this->lang->line('read_more'); ?></a>
                         </div>
                     </div>
                 </div>
@@ -155,14 +155,14 @@
                                 <li><span class="icon"><i class="fas fa-map-marker-alt"></i></span> <?php echo $obj->event_place; ?></li>
                             </ul>
                             <div class="content">
-                                <a href="<?php echo site_url($school->school_url.'/event-detail/'.$obj->id); ?>">
+                                <a href="<?php echo site_url('/event-detail/'.$obj->id); ?>">
                                     <h2 class="title"><?php echo strip_tags(substr($obj->title, 0, 20)); ?>...</h2>
                                 </a>
                                 <p class="text">
                                     <?php echo strip_tags(substr($obj->note, 0, 160)); ?>...  
                                 </p>
                                 <div class="more-wrapper">
-                                    <a href="<?php echo site_url($school->school_url.'/event-detail/'.$obj->id); ?>" class="more"><?php echo $this->lang->line('read_more'); ?></a>
+                                    <a href="<?php echo site_url('/event-detail/'.$obj->id); ?>" class="more"><?php echo $this->lang->line('read_more'); ?></a>
                                 </div>
                             </div>
                         </div>
@@ -256,14 +256,14 @@
                             <li><span class="icon"><i class="fas fa-calendar-alt"></i></span> <?php echo date($this->global_setting->date_format, strtotime($obj->date)); ?></li>
                         </ul>
                         <div class="content">
-                            <a href="<?php echo site_url($school->school_url.'/news-detail/'.$obj->id); ?>">
+                            <a href="<?php echo site_url('/news-detail/'.$obj->id); ?>">
                                 <h2 class="title"><?php echo strip_tags(substr($obj->title, 0, 20)); ?> ...</h2>
                             </a>
                             <p class="text">
                                <?php echo strip_tags(substr($obj->news, 0, 160)); ?> ...
                             </p>
                             <div class="more-wrapper">
-                                <a href="<?php echo site_url($school->school_url.'/news-detail/'.$obj->id); ?>" class="more"><?php echo $this->lang->line('read_more'); ?></a>
+                                <a href="<?php echo site_url('/news-detail/'.$obj->id); ?>" class="more"><?php echo $this->lang->line('read_more'); ?></a>
                             </div>
                         </div>
                     </div>
