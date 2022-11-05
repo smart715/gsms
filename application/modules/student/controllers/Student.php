@@ -304,19 +304,17 @@ class Student extends MY_Controller {
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
 
         if (!$this->input->post('id')) {
-            $this->form_validation->set_rules('username', $this->lang->line('username'), 'trim|required|callback_username');
+            $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|valid_email|callback_email');
             $this->form_validation->set_rules('password', $this->lang->line('password'), 'trim|required|min_length[6]|max_length[20]');
             $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required');
             $this->form_validation->set_rules('roll_no', $this->lang->line('roll_no'), 'trim|required');          
         }
 
-        $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|valid_email');
         $this->form_validation->set_rules('school_id', $this->lang->line('school_name'), 'trim|required');
         $this->form_validation->set_rules('type_id', $this->lang->line('student_type'), 'trim');
         
         $this->form_validation->set_rules('admission_no', $this->lang->line('admission_no'), 'trim|required');
         $this->form_validation->set_rules('admission_date', $this->lang->line('admission_date'), 'trim|required');
-        $this->form_validation->set_rules('section_id', $this->lang->line('section'), 'trim|required');
 
     
         $this->form_validation->set_rules('registration_no', $this->lang->line('registration_no'), 'trim');
@@ -337,7 +335,6 @@ class Student extends MY_Controller {
         }
         
         if ($this->input->post('is_guardian') != 'exist_guardian' && !$this->input->post('id')) {
-            $this->form_validation->set_rules('gud_username',   $this->lang->line('username'), 'trim|required');
             $this->form_validation->set_rules('gud_name',   $this->lang->line('name'), 'trim|required');
             $this->form_validation->set_rules('gud_phone',  $this->lang->line('phone'), 'trim|required|min_length[6]|max_length[20]');
         }
@@ -350,40 +347,30 @@ class Student extends MY_Controller {
         
     }
                         
-    /*****************Function username**********************************
+    /*****************Function email**********************************
     * @type            : Function
-    * @function name   : username
-    * @description     : Unique check for "Student username" data/value                  
+    * @function name   : email
+    * @description     : Unique check for "Student email" data/value                  
     *                       
     * @param           : null
     * @return          : boolean true/false 
     * ********************************************************** */ 
-    public function username() {
+    public function email() {
         if ($this->input->post('id') == '') {
-            $username = $this->student->duplicate_check($this->input->post('username'));
-            if ($username) {
-                $this->form_validation->set_message('username', $this->lang->line('already_exist'));
+            $email = $this->student->duplicate_check($this->input->post('email'));
+            if ($email) {
+                $this->form_validation->set_message('email', $this->lang->line('already_exist'));
                 return FALSE;
             } else {
-                if(preg_match('/^[a-zA-Z0-9_]{4,30}$/', $this->input->post('username'))){
                     return TRUE;
-                }else{                  
-                    $this->form_validation->set_message('username', $this->lang->line('username_only')); 
-                    return FALSE;
-                }
             }
         } else if ($this->input->post('id') != '') {
-            $username = $this->student->duplicate_check($this->input->post('username'), $this->input->post('id'));
-            if ($username) {
-                $this->form_validation->set_message('username', $this->lang->line('already_exist'));
+            $email = $this->student->duplicate_check($this->input->post('email'), $this->input->post('id'));
+            if ($email) {
+                $this->form_validation->set_message('email', $this->lang->line('already_exist'));
                 return FALSE;
             } else {
-                if(preg_match('/^[a-zA-Z0-9_]{4,30}$/', $this->input->post('username'))){
-                    return TRUE;
-                }else{                  
-                    $this->form_validation->set_message('username', $this->lang->line('username_only')); 
-                    return FALSE;
-                }
+                return TRUE;
             }
         } else {
             return TRUE;
@@ -599,7 +586,6 @@ class Student extends MY_Controller {
                 $info['name']     =  $this->input->post('gud_name');
                 $info['phone'] = $this->input->post('gud_phone'); 
                 $info['email'] = $this->input->post('gud_email'); 
-                $info['username'] = $this->input->post('gud_username'); 
                 $info['password'] = rand(10,100000);
                 
                 // now creating guardian user
