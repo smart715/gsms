@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* * *****************Gallery.php**********************************
  * @product name    : Global Multi School Management System Express
@@ -10,32 +10,106 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @copyright       : Codetroopers Team	 	
  * ********************************************************** */
 
-class Gradereport extends MY_Controller {
+class Gradereport extends MY_Controller
+{
 
     public $data = array();
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
-        $this->load->model('Gradereport_Model', 'gradereport', true);       
+        $this->load->model('Gradereport_Model', 'result', true);
     }
 
 
     /*****************Function index**********************************
-    * @type            : Function
-    * @function name   : index
-    * @description     : Load "Gallery List" user interface                 
-    *                      
-    * @param           : null
-    * @return          : null 
-    * ********************************************************** */
-    public function index($school_id = null) {
+     * @type            : Function
+     * @function name   : index
+     * @description     : Load "Gallery List" user interface                 
+     *                      
+     * @param           : null
+     * @return          : null 
+     * ********************************************************** */
+    public function index($school_id = null)
+    {
 
         check_permission(VIEW);
+        $school_id = getSchoolId();
+
+        if ($_POST) {
+
+            $school_id = $this->input->post('school_id');
+            $exam_id = $this->input->post('exam_id');
+            $class_id = $this->input->post('class_id');
+            $section_id = $this->input->post('section_id');
+
+            $school = $this->result->get_school_by_id($school_id);
+
+            if (!$school->academic_year_id) {
+                error($this->lang->line('set_academic_year_for_school'));
+                redirect('exam/examresult/index');
+            }
+
+            $this->data['students'] = $this->result->get_student_list($school_id, $class_id, $section_id, $school->academic_year_id);
+
+            $condition = array(
+                'school_id' => $school_id,
+                'exam_id' => $exam_id,
+                'class_id' => $class_id,
+                'academic_year_id' => $school->academic_year_id
+            );
+
+            if ($section_id) {
+                $condition['section_id'] = $section_id;
+            }
+
+            $data = $condition;
+            if (!empty($this->data['students'])) {
+
+                foreach ($this->data['students'] as $obj) {
+
+                    $condition['student_id'] = $obj->id;
+                    $result = $this->result->get_single('exam_results', $condition);
+
+                    if (empty($result)) {
+                        $data['school_id'] = $school_id;
+                        $data['section_id'] = $obj->section_id;
+                        $data['student_id'] = $obj->id;
+                        $data['exam_id'] = $exam_id;
+                        $data['class_id'] = $class_id;
+                        $data['academic_year_id'] = $school->academic_year_id;
+                        $data['status'] = 1;
+                        $data['created_at'] = date('Y-m-d H:i:s');
+                        $data['created_by'] = logged_in_user_id();
+                        $this->result->insert('exam_results', $data);
+                    }
+                }
+            }
+
+            $this->data['grades'] = $this->result->get_list('grades', array('status' => 1, 'school_id' => $school_id), '', '', '', 'id', 'ASC');
+            $this->data['exam'] =  $this->result->get_single('exams', array('id' => $exam_id, 'school_id' => $school_id));
+
+            $this->data['school_id'] = $school_id;
+            $this->data['exam_id'] = $exam_id;
+            $this->data['class_id'] = $class_id;
+            $this->data['section_id'] = $section_id;
+            $this->data['academic_year_id'] = $school->academic_year_id;
+
+            $class = $this->result->get_single('classes', array('id' => $class_id, 'school_id' => $school_id));
+            create_log('Has been process exam result for class: ' . $class->name);
+        }
+
+        $condition = array();
+        $condition['status'] = 1;
+
+        $school = $this->result->get_school_by_id($school_id);
         
-        $this->data['list'] = TRUE;
+        $condition['school_id'] = $school_id;
+        $this->data['classes'] = $this->result->get_list('classes', $condition, '', '', '', 'id', 'ASC');
+        $condition['academic_year_id'] = $school->academic_year_id;
+        $this->data['exams'] = $this->result->get_list('exams', $condition, '', '', '', 'id', 'ASC');
+
         $this->layout->title('Grade Report | ' . SMS);
         $this->layout->view('gradebook/gradereport/index', $this->data);
     }
-
-
 }
