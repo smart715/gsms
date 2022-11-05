@@ -2520,4 +2520,25 @@ if (!function_exists('get_student_access_data')) {
    }   
 }
 
+
+if (!function_exists('check_school_owner')) {
+
+    function check_school_owner()
+    {
+        $ci = &get_instance();
+        $school_id = getSchoolId();
+        if ($ci->session->userdata('role_id') == SUPER_ADMIN && $school_id != 0) {
+            return TRUE;
+        }else if ($ci->session->userdata('role_id') != ADMIN) {
+            return FALSE;
+        }
+        $user_id = $ci->session->userdata('uid');
+        $school =  $ci->db->get_where('schools', array('id' => $school_id))->row();
+        $user =  $ci->db->get_where('users', array('id' => $user_id))->row();
+        if($user && $school && ($user->username == $school->email)){
+            return true;
+        }        
+        return false;
+    }
+}
 /*STRICT DATA ACCESS END*/

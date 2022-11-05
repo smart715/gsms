@@ -112,8 +112,8 @@
                                 <?php if (has_permission(VIEW, 'administrator', 'permission')) { ?>
                                     <li><a href="<?php echo site_url('administrator/permission/index'); ?>"><?php echo $this->lang->line('role_permission'); ?> (ACL)</a></li>
                                 <?php } ?>
-                                <?php if (has_permission(VIEW, 'administrator', 'superadmin')) { ?>
-                                    <li><a href="<?php echo site_url('administrator/superadmin/index'); ?>"> <?php echo $this->lang->line('manage_super_admin'); ?></a></li>
+                                <?php if (has_permission(VIEW, 'administrator', 'admin')) { ?>
+                                    <li><a href="<?php echo site_url('administrator/admin/index'); ?>"> Manage Admin</a></li>
                                 <?php } ?>
                                 <?php if (has_permission(VIEW, 'administrator', 'user')) { ?>
                                     <li><a href="<?php echo site_url('administrator/user/index'); ?>"><?php echo $this->lang->line('manage_user'); ?></a></li>
