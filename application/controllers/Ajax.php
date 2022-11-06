@@ -236,15 +236,13 @@ class Ajax extends My_Controller {
      * @return          : $str string  value with subject list
      * ********************************************************** */
     public function get_subject_by_class() {
-
-        $school_id = $this->input->post('school_id');
         $class_id = $this->input->post('class_id');
         $subject_id = $this->input->post('subject_id');
        
         if($this->session->userdata('role_id') == TEACHER){
-            $subjects = $this->ajax->get_list('subjects', array('status' => 1, 'class_id' => $class_id, 'school_id'=>$school_id,  'teacher_id'=>$this->session->userdata('profile_id')), '', '', '', 'id', 'ASC');
-        }else{
-            $subjects = $this->ajax->get_list('subjects', array('status' => 1, 'class_id' => $class_id, 'school_id'=>$school_id), '', '', '', 'id', 'ASC');
+            $subjects = $this->ajax->get_subject_by_class( $class_id, $this->session->userdata('profile_id'));
+        }else{            
+            $subjects = $this->ajax->get_subject_by_class( $class_id, '');
         }
        
         $str = '<option value="">--' . $this->lang->line('select') . '--</option>';

@@ -43,9 +43,41 @@ if (!function_exists('getSchoolId')) {
         }
         return $school_id;
     }
-
 }
 
+if (!function_exists('getPeriodTypes')) {
+
+    function getPeriodTypes($period) {
+        if($period == 3){
+            $result = [
+                'period1'=>'Period 1',
+                'period2'=>'Period 2',
+                'period3'=>'Period 3',
+                'exam1'=>'Exam',
+            ];
+        }else if($period == 4){
+            $result = [
+                'period1'=>'Period 1',
+                'period2'=>'Period 2',
+                'period3'=>'Period 3',
+                'period4'=>'Period 4',
+                'exam1'=>'Exam',
+            ];
+        }else{
+            $result = [
+                'period1'=>'Period 1',
+                'period2'=>'Period 2',
+                'period3'=>'Period 3',
+                'exam1'=>'Exam 1',
+                'period4'=>'Period 4',
+                'period5'=>'Period 5',
+                'period6'=>'Period 6',
+                'exam2'=>'Exam 2'
+            ];
+        }
+        return $result;
+    }
+}
 
 if (!function_exists('logged_in_role_id')) {
 

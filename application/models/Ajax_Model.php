@@ -8,6 +8,18 @@ class Ajax_Model extends MY_Model {
         parent::__construct();
     }
     
+    public function get_subject_by_class($class_id, $teacher_id = NULL){
+        $this->db->select('A.*, S.*');
+        $this->db->from('subjectbyclass AS A');        
+        $this->db->join('subjects AS S', 'S.id = A.subject_id', 'left');
+        
+        if($teacher_id){
+            $this->db->where('A.teacher_id', $teacher_id);
+        }
+        $this->db->where('A.class_id', $class_id);            
+        return $this->db->get()->result();       
+    }
+    
     public function get_student_list($class_id, $school_id, $academic_year_id){
         $this->db->select('E.roll_no,  S.id, S.user_id, S.name');
         $this->db->from('enrollments AS E');        

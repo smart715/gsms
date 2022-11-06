@@ -35,64 +35,61 @@ class Gradereport extends MY_Controller
 
         check_permission(VIEW);
         $school_id = getSchoolId();
+        $type = 'period1';
 
         if ($_POST) {
-
-            $school_id = $this->input->post('school_id');
-            $exam_id = $this->input->post('exam_id');
             $class_id = $this->input->post('class_id');
-            $section_id = $this->input->post('section_id');
+            $subject_id = $this->input->post('subject_id');
+            $type = $this->input->post('type');
 
             $school = $this->result->get_school_by_id($school_id);
-
             if (!$school->academic_year_id) {
                 error($this->lang->line('set_academic_year_for_school'));
-                redirect('exam/examresult/index');
+                redirect('gradebook/gradereport/index');
             }
 
-            $this->data['students'] = $this->result->get_student_list($school_id, $class_id, $section_id, $school->academic_year_id);
+            $this->data['students'] = $this->result->get_student_list($school_id, $class_id, $subject_id, $school->academic_year_id, $type);
 
             $condition = array(
-                'school_id' => $school_id,
-                'exam_id' => $exam_id,
                 'class_id' => $class_id,
+                'subject_id' => $subject_id,
+                'type' => $type,
                 'academic_year_id' => $school->academic_year_id
             );
 
-            if ($section_id) {
-                $condition['section_id'] = $section_id;
-            }
-
-            $data = $condition;
             if (!empty($this->data['students'])) {
 
                 foreach ($this->data['students'] as $obj) {
-
                     $condition['student_id'] = $obj->id;
-                    $result = $this->result->get_single('exam_results', $condition);
-
-                    if (empty($result)) {
-                        $data['school_id'] = $school_id;
-                        $data['section_id'] = $obj->section_id;
-                        $data['student_id'] = $obj->id;
-                        $data['exam_id'] = $exam_id;
-                        $data['class_id'] = $class_id;
-                        $data['academic_year_id'] = $school->academic_year_id;
-                        $data['status'] = 1;
-                        $data['created_at'] = date('Y-m-d H:i:s');
-                        $data['created_by'] = logged_in_user_id();
-                        $this->result->insert('exam_results', $data);
+                    $result = $this->result->get_single('grade_reports', $condition);
+                    $marks = $this->input->post('marks_' . $obj->id);
+                    if (!is_null($marks)) {
+                        if (empty($result)) {
+                            $data['student_id'] = $obj->id;
+                            $data['class_id'] = $class_id;
+                            $data['subject_id'] = $subject_id;
+                            $data['type'] = $type;
+                            $data['academic_year_id'] = $school->academic_year_id;
+                            $data['is_locked'] = 0;
+                            $data['created_at'] = date('Y-m-d H:i:s');
+                            $data['created_by'] = logged_in_user_id();
+                            $data['marks'] = $marks;
+                            $this->result->insert('grade_reports', $data);
+                        } else {
+                            $condition['is_locked'] = 0;
+                            $this->result->update('grade_reports', array('marks' => $marks), array('id' => $result->id, 'is_locked' => 0));
+                        }
                     }
                 }
+                $this->data['students'] = $this->result->get_student_list($school_id, $class_id, $subject_id, $school->academic_year_id, $type);
             }
+            // exit;
 
-            $this->data['grades'] = $this->result->get_list('grades', array('status' => 1, 'school_id' => $school_id), '', '', '', 'id', 'ASC');
-            $this->data['exam'] =  $this->result->get_single('exams', array('id' => $exam_id, 'school_id' => $school_id));
+            // $this->data['grades'] = $this->result->get_list('grades', array('status' => 1, 'school_id' => $school_id), '', '', '', 'id', 'ASC');
+            // $this->data['exam'] =  $this->result->get_single('exams', array('id' => $exam_id, 'school_id' => $school_id));
 
-            $this->data['school_id'] = $school_id;
-            $this->data['exam_id'] = $exam_id;
             $this->data['class_id'] = $class_id;
-            $this->data['section_id'] = $section_id;
+            $this->data['subject_id'] = $subject_id;
             $this->data['academic_year_id'] = $school->academic_year_id;
 
             $class = $this->result->get_single('classes', array('id' => $class_id, 'school_id' => $school_id));
@@ -103,11 +100,12 @@ class Gradereport extends MY_Controller
         $condition['status'] = 1;
 
         $school = $this->result->get_school_by_id($school_id);
-        
+
         $condition['school_id'] = $school_id;
         $this->data['classes'] = $this->result->get_list('classes', $condition, '', '', '', 'id', 'ASC');
-        $condition['academic_year_id'] = $school->academic_year_id;
-        $this->data['exams'] = $this->result->get_list('exams', $condition, '', '', '', 'id', 'ASC');
+
+        $this->data['type'] = $type;
+        $this->data['types'] = getPeriodTypes($type);
 
         $this->layout->title('Grade Report | ' . SMS);
         $this->layout->view('gradebook/gradereport/index', $this->data);

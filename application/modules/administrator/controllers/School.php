@@ -397,6 +397,7 @@ class School extends MY_Controller {
         $items[] = 'zoom_secret'; 
         $items[] = 'enable_frontend';
         $items[] = 'final_result_type';
+        $items[] = 'period_num';
         $items[] = 'registration_date';
         $items[] = 'footer';
         $items[] = 'google_map';
