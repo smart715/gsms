@@ -572,7 +572,7 @@ class Student extends MY_Controller {
             $data['status'] = 1;
             $data['status_type'] = 'regular';
             
-             // create guardian and guardian user if not exist
+            //  create guardian and guardian user if not exist
             if($this->input->post('is_guardian') == 'exist_guardian'){
                 
                 $data['guardian_id'] = $this->input->post('guardian_id');
@@ -585,7 +585,7 @@ class Student extends MY_Controller {
                 $info['role_id']  = GUARDIAN;
                 $info['name']     =  $this->input->post('gud_name');
                 $info['phone'] = $this->input->post('gud_phone'); 
-                $info['email'] = $this->input->post('gud_email'); 
+                $info['email'] = $this->input->post('email'); 
                 $info['password'] = rand(10,100000);
                 
                 // now creating guardian user
@@ -595,7 +595,7 @@ class Student extends MY_Controller {
                 $guardian['school_id']    = $data['school_id'];
                 $guardian['name']    = $this->input->post('gud_name');
                 $guardian['phone']   = $this->input->post('gud_phone');
-                $guardian['email']   = $this->input->post('gud_email');
+                $guardian['email']   = $this->input->post('email');
                 $guardian['profession']   = $this->input->post('gud_profession');
                 $guardian['religion']   = $this->input->post('gud_religion');
                 $guardian['national_id'] = $this->input->post('gud_national_id');
@@ -610,7 +610,6 @@ class Student extends MY_Controller {
                 
                 $data['guardian_id'] = $this->student->insert('guardians', $guardian);
             }
-            
             
             // create user 
             $data['user_id'] = $this->student->create_user();
