@@ -89,10 +89,6 @@
                 <div class="x_content">
                     <div class="row">
                         <div class="col-sm-6 col-xs-6  col-sm-offset-3 col-xs-offset-3  layout-box">
-                            <?php if (isset($school)) { ?>
-                                <h4><?php echo $school->school_name; ?></h4>
-                                <p> <?php echo $school->address; ?></p>
-                            <?php } ?>
                             <h4>Report Card</h4>
                             <div class="profile-pic">
                                 <?php if ($student->photo != '') { ?>
@@ -101,9 +97,29 @@
                                     <img src="<?php echo IMG_URL; ?>/default-user.png" alt="" width="45" />
                                 <?php } ?>
                             </div>
-                            <?php echo $this->lang->line('name'); ?> : <?php echo $student->name; ?><br />
-                            <?php echo $this->lang->line('class'); ?> : <?php echo $student->class_name; ?>
-                            <?php echo $student->section?','.$this->lang->line('section').' : '.$student->section:''; ?>
+                            
+                            <table  style="margin: 20px;width:100%;text-align: left;">
+                                <tbody>
+                                    <tr>
+                                        <td width="50%">
+                                            <span><strong><?php echo $this->lang->line('name'); ?> : </strong><?php echo $student->name; ?></span><br>
+                                            <span><strong><?php echo $this->lang->line('class'); ?> : </strong><?php echo $student->class_name; ?></span><br>
+                                            <!-- <span><strong><?php echo $this->lang->line('section'); ?>  : </strong><?php echo $student->section; ?></span><br> -->
+                                            <!-- <span><strong>School Year : </strong></span><br> -->
+                                            <span><strong>Gender : </strong></span><?php echo $student->gender; ?><br>
+                                            <!-- <span><strong>Date of Birth : </strong></span><br>
+                                            <span><strong>Place of Birth : </strong></span><br> -->
+                                            <span><strong>Address : </strong><?php echo $student->present_address; ?></span><br>
+                                        </td>
+                                        <td width="50%">
+                                            <span><strong>School Name : </strong><?php echo $school->school_name; ?></span><br>
+                                            <span><strong>School Address : </strong><?php echo $school->address; ?></span><br>
+                                            <span><strong>School Phone : </strong><?php echo $school->phone; ?></span><br>
+                                            <span><strong>School Email : </strong><?php echo $school->email; ?></span><br>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

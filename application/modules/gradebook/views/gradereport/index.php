@@ -64,7 +64,6 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th><?php echo $this->lang->line('roll_no'); ?></th>
                             <th><?php echo $this->lang->line('name'); ?></th>
                             <th><?php echo $this->lang->line('photo'); ?></th>
                         </tr>
@@ -77,7 +76,6 @@
                             <?php foreach ($students as $obj) { ?>
                                 <tr>
                                     <td><?php echo $count++; ?></td>
-                                    <td><?php echo $obj->roll_no; ?></td>
                                     <td><?php echo ucfirst($obj->name); ?></td>
                                     <td>
                                         <?php if ($obj->photo != '') { ?>
