@@ -265,18 +265,22 @@
                                         <div class="help-block"><?php echo form_error('enable_frontend'); ?></div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-3 col-sm-3 col-xs-12">
                                     <div class="item form-group">
-                                        <label for="final_result_type"><?php echo $this->lang->line('exam_final_result'); ?> <span class="required">*</span></label>
-                                        <select class="form-control col-md-7 col-xs-12" name="final_result_type" required="required">
-                                            <option value="0" <?php if (isset($post) && $post['final_result_type'] == '0') {
+                                        <label for="period_num">Period Num <span class="required">*</span></label>
+                                        <select class="form-control col-md-7 col-xs-12" name="period_num" required="required">
+                                            <option value="3" <?php if (isset($post) && $post['period_num'] == '3') {
                                                                     echo 'selected="selected"';
-                                                                } ?>><?php echo $this->lang->line('avg_of_all_exam'); ?> </option>
-                                            <option value="1" <?php if (isset($post) && $post['final_result_type'] == '1') {
+                                                                } ?>>3</option>
+                                            <option value="4" <?php if (isset($post) && $post['period_num'] == '4') {
                                                                     echo 'selected="selected"';
-                                                                } ?>><?php echo $this->lang->line('only_of_fianl_exam'); ?> </option>
+                                                                } ?>>4</option>
+                                            <option value="6" <?php if (isset($post) && $post['period_num'] == '6') {
+                                                                    echo 'selected="selected"';
+                                                                } ?>>6</option>
                                         </select>
-                                        <div class="help-block"><?php echo form_error('final_result_type'); ?></div>
+                                        <div class="help-block"><?php echo form_error('period_num'); ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -598,16 +602,19 @@
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="final_result_type"><?php echo $this->lang->line('exam_final_result'); ?> <span class="required">*</span></label>
-                                            <select class="form-control col-md-7 col-xs-12" name="final_result_type" required="required">
-                                                <option value="0" <?php if (isset($school) && $school->final_result_type == 0) {
+                                            <label for="period_num">Period Num <span class="required">*</span></label>
+                                            <select class="form-control col-md-7 col-xs-12" name="period_num" required="required">
+                                                <option value="3" <?php if (isset($school) && $school->period_num == 3) {
                                                                         echo 'selected="selected"';
-                                                                    } ?>><?php echo $this->lang->line('avg_of_all_exam'); ?> </option>
-                                                <option value="1" <?php if (isset($school) && $school->final_result_type == 1) {
+                                                                    } ?>>3</option>
+                                                <option value="4" <?php if (isset($school) && $school->period_num == 4) {
                                                                         echo 'selected="selected"';
-                                                                    } ?>><?php echo $this->lang->line('only_of_fianl_exam'); ?> </option>
+                                                                    } ?>>4</option>
+                                                <option value="6" <?php if (isset($school) && $school->period_num == 6) {
+                                                                        echo 'selected="selected"';
+                                                                    } ?>>6</option>
                                             </select>
-                                            <div class="help-block"><?php echo form_error('final_result_type'); ?></div>
+                                            <div class="help-block"><?php echo form_error('period_num'); ?></div>
                                         </div>
                                     </div>
                                 </div>
