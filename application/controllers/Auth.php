@@ -93,12 +93,12 @@ class Auth extends CI_Controller {
                     }
                 }
                 
-               
+               $school_id = getSchoolId();
                 // User table data
                 $this->session->set_userdata('id', $login->id);
                 $this->session->set_userdata('role_id', $login->role_id);
                 $this->session->set_userdata('username', $login->username);
-                $this->session->set_userdata('school_id', $login->school_id);
+                $this->session->set_userdata('school_id', $school_id);
                 
                 
                 if ($login->role_id == SUPER_ADMIN) {
