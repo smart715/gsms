@@ -95,16 +95,14 @@ class Finalreport extends MY_Controller
             $condition['school_id'] = $school_id;
             $subjects = $this->final_report->get_list('subjectbyclass', $condition, '', '', '', 'id', 'ASC');
 
-            if ($action_type == 1) {
-              
-                $final_report = $this->final_report->get_single('final_reports', array('id' => $final_report_id));
-                $final_report_id = $final_report->id;
-                if ($final_report_id != 0) {
-                    foreach ($subjects as $subject) {
-                        $final_report_detail = $this->final_report->get_single('final_report_details', array('final_report_id' => $final_report_id, 'subject_id' => $subject->id));
-                        if (is_null($final_report_detail)) {
-                            $this->final_report->insert('final_report_details',  array('final_report_id' => $final_report_id, 'subject_id' => $subject->id));
-                        }
+
+            $final_report = $this->final_report->get_single('final_reports', array('id' => $final_report_id));
+            $final_report_id = $final_report->id;
+            if ($final_report_id != 0) {
+                foreach ($subjects as $subject) {
+                    $final_report_detail = $this->final_report->get_single('final_report_details', array('final_report_id' => $final_report_id, 'subject_id' => $subject->id));
+                    if (is_null($final_report_detail)) {
+                        $this->final_report->insert('final_report_details',  array('final_report_id' => $final_report_id, 'subject_id' => $subject->id));
                     }
                 }
             }
