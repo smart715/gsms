@@ -30,7 +30,7 @@
                         <div class="col-md-3 col-sm-3 col-xs-12">
                             <div class="item form-group">
                                 <div><?php echo $this->lang->line('subject'); ?></div>
-                                <select class="form-control col-md-7 col-xs-12" name="subject_id" id="subject_id">
+                                <select class="form-control col-md-7 col-xs-12" required="required" name="subject_id" id="subject_id">
                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                 </select>
                                 <div class="help-block"><?php echo form_error('subject_id'); ?></div>
@@ -39,7 +39,7 @@
                         <div class="col-md-3 col-sm-3 col-xs-12">
                             <div class="item form-group">
                                 <div>Grade Type</div>
-                                <select class="form-control col-md-7 col-xs-12" name="type" id="type">
+                                <select class="form-control col-md-7 col-xs-12" required="required" name="type" id="type">
                                     <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                     <?php foreach ($types as $key=>$type_name) { ?>
                                         <option value="<?php echo $key; ?>" <?php if (isset($type) && $type == $key) { echo 'selected="selected"';} ?>><?php echo $type_name; ?></option>
@@ -64,7 +64,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th><?php echo $this->lang->line('roll_no'); ?></th>
+                            <th>Student No</th>
                             <th><?php echo $this->lang->line('name'); ?></th>
                             <th><?php echo $this->lang->line('photo'); ?></th>
                         </tr>

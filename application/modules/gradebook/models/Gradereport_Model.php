@@ -18,7 +18,7 @@ class Gradereport_Model extends MY_Model
         $this->db->from('enrollments AS E');
         $this->db->join('classes AS C', 'C.id = E.class_id', 'left');
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
-        $this->db->join('grade_reports AS G', 'G.class_id = ' . $class_id . ' AND G.student_id = S.id AND  G.subject_id=' . $subject_id . ' AND G.type = "' . $type . '" AND G.academic_year_id = ' . $academic_year_id . ' ', 'left');
+        $this->db->join('grade_reports AS G', 'G.class_id = "' . $class_id . '" AND G.student_id = S.id AND  G.subject_id="' . $subject_id . '" AND G.type = "' . $type . '" AND G.academic_year_id = "' . $academic_year_id . '" ', 'left');
         $this->db->where('E.academic_year_id', $academic_year_id);
         $this->db->where('E.school_id', $school_id);
         $this->db->where('E.class_id', $class_id);
