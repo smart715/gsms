@@ -100,9 +100,13 @@ class Finalreport extends MY_Controller
             $final_report_id = $final_report->id;
             if ($final_report_id != 0) {
                 foreach ($subjects as $subject) {
-                    $final_report_detail = $this->final_report->get_single('final_report_details', array('final_report_id' => $final_report_id, 'subject_id' => $subject->id));
+                    $final_report_detail = $this->final_report->get_single('final_report_details', array('final_report_id' => $final_report_id, 'subject_id' => $subject->subject_id));
                     if (is_null($final_report_detail)) {
-                        $this->final_report->insert('final_report_details',  array('final_report_id' => $final_report_id, 'subject_id' => $subject->id));
+                        $this->final_report->insert('final_report_details',  array('final_report_id' => $final_report_id, 'subject_id' => $subject->subject_id));
+                    } else {
+
+                        $data = $this->input->post('report_' . $subject->id);
+                        $this->final_report->update('final_report_details', array('period_1' => $data[1], 'period_2' => $data[2], 'period_3' => $data[3]), array('final_report_id' => $final_report_id, 'subject_id' => $subject->subject_id));
                     }
                 }
             }

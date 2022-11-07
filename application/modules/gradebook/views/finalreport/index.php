@@ -173,7 +173,7 @@
                                             <td><?php echo $obj->subject_name;  ?></td>
                                             <td align="right" width="10%">
                                                 <?php if ($editable) { ?>
-                                                    <input type="number" name="report_<?php echo $obj->subject_id; ?>[1]" value="<?php echo $obj->period_1 ?? ''; ?>" min="0" max="100" step="0.01" style="width:80px;">
+                                                    <input type="number" name="report_<?php echo $obj->subject_id; ?>[1]" value="<?php echo $obj->period_1 ?? ''; ?>" min="0" max="100" step="0.01" style="width:100%;">
                                                 <?php } else {
                                                     echo $obj->period_1 > 0 ? $obj->period_1 : '';
                                                 } ?>
@@ -182,7 +182,7 @@
                                             <td><?php echo $obj->subject_name;  ?></td>
                                             <td align="right" width="10%">
                                                 <?php if ($editable) { ?>
-                                                    <input type="number" name="report_<?php echo $obj->subject_id; ?>[2]" value="<?php echo $obj->period_2 ?? ''; ?>" min="0" max="100" step="0.01" style="width:80px;">
+                                                    <input type="number" name="report_<?php echo $obj->subject_id; ?>[2]" value="<?php echo $obj->period_2 ?? ''; ?>" min="0" max="100" step="0.01" style="width:100;">
                                                 <?php } else {
                                                     echo $obj->period_2 > 0 ? $obj->period_2 : '';
                                                 } ?>
@@ -191,7 +191,7 @@
                                             <td><?php echo $obj->subject_name;  ?></td>
                                             <td align="right" width="10%">
                                                 <?php if ($editable) { ?>
-                                                    <input type="number" name="report_<?php echo $obj->subject_id; ?>[3]" value="<?php echo $obj->period_3 ?? ''; ?>" min="0" max="100" step="0.01" style="width:80px;">
+                                                    <input type="number" name="report_<?php echo $obj->subject_id; ?>[3]" value="<?php echo $obj->period_3 ?? ''; ?>" min="0" max="100" step="0.01" style="width:100;">
                                                 <?php } else {
                                                     echo $obj->period_3 > 0 ? $obj->period_3 : '';
                                                 } ?>
@@ -303,15 +303,15 @@
 
     $("#savebtn").click(function() {
         $("#action_type").val("1");
-        $("#reportcard").submit();
+        $("#finalreport_form").submit();
     });
     $("#lockBtn").click(function() {
         $("#action_type").val("2");
-        $("#reportcard").submit();
+        $("#finalreport_form").submit();
     });
     $("#unlockBtn").click(function() {
         $("#action_type").val("3");
-        $("#reportcard").submit();
+        $("#finalreport_form").submit();
     });
 
     $('.fn_school_id').on('change', function() {
