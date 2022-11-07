@@ -11,7 +11,7 @@
 
 
             <div class="x_content no-print">
-                <?php echo form_open_multipart(site_url('exam/resultcard/index'), array('name' => 'resultcard', 'id' => 'resultcard', 'class' => 'form-horizontal form-label-left'), ''); ?>
+                <?php echo form_open_multipart(site_url('gradebook/reportcard/index'), array('name' => 'resultcard', 'id' => 'resultcard', 'class' => 'form-horizontal form-label-left'), ''); ?>
                 <div class="row">
 
                     <?php $this->load->view('layout/school_list_filter'); ?>
@@ -26,7 +26,7 @@
                                     <option value="<?php echo $obj->id; ?>" <?php if (isset($academic_year_id) && $academic_year_id == $obj->id) {
                                                                                 echo 'selected="selected"';
                                                                             } ?>><?php echo $obj->session_year;
-                                                                                                                                                                                    echo $running; ?></option>
+                                                                                    echo $running; ?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -114,82 +114,64 @@
                 <table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th rowspan="2"><?php echo $this->lang->line('sl_no'); ?></th>
-                            <th rowspan="2" width="12%"><?php echo $this->lang->line('subject'); ?></th>
-                            <th colspan="2"><?php echo $this->lang->line('written'); ?></th>
-                            <th colspan="2"><?php echo $this->lang->line('tutorial'); ?></th>
-                            <th colspan="2"><?php echo $this->lang->line('practical'); ?></th>
-                            <th colspan="2"><?php echo $this->lang->line('viva'); ?></th>
-                            <th colspan="2"><?php echo $this->lang->line('total'); ?></th>
-                            <th rowspan="2"><?php echo $this->lang->line('letter_grade'); ?></th>
-                            <th rowspan="2"><?php echo $this->lang->line('grade_point'); ?></th>
-                            <th rowspan="2"><?php echo $this->lang->line('lowest'); ?></th>
-                            <th rowspan="2"><?php echo $this->lang->line('height'); ?></th>
-                            <th rowspan="2"><?php echo $this->lang->line('position'); ?></th>
-                        </tr>
-                        <tr>
-                            <th><?php echo $this->lang->line('mark'); ?></th>
-                            <th><?php echo $this->lang->line('obtain'); ?></th>
-                            <th><?php echo $this->lang->line('mark'); ?></th>
-                            <th><?php echo $this->lang->line('obtain'); ?></th>
-                            <th><?php echo $this->lang->line('mark'); ?></th>
-                            <th><?php echo $this->lang->line('obtain'); ?></th>
-                            <th><?php echo $this->lang->line('mark'); ?></th>
-                            <th><?php echo $this->lang->line('obtain'); ?></th>
-                            <th><?php echo $this->lang->line('mark'); ?></th>
-                            <th><?php echo $this->lang->line('obtain'); ?></th>
+                            <th><?php echo $this->lang->line('sl_no'); ?></th>
+                            <th width="12%" style="text-align: center;"><?php echo $this->lang->line('subject'); ?></th>>
+                            <th>1st Period</th>
+                            <th>2nd Period</th>
+                            <th>3rd Period</th>
+                            <th>Semester Exam</th>
+                            <th>Semester Average</th>
+                            <th>4th Period</th>
+                            <th>5th Period</th>
+                            <th>6th Period</th>
+                            <th>Semester Exam</th>
+                            <th>Semester Average</th>
+                            <th>Year Average</th>
                         </tr>
                     </thead>
                     <tbody id="fn_mark">
+                        <?php $index = 1;
 
-                        <?php if (isset($exams) && !empty($exams)) { ?>
-                            <?php foreach ($exams as $ex) { ?>
-
+                        $average_period_1 = 0;
+                        $average_period_2 = 0;
+                        $average_period_3 = 0;
+                        $average_period_4 = 0;
+                        $average_period_5 = 0;
+                        $average_period_6 = 0;
+                        $average_exam_1 = 0;
+                        $average_exam_2 = 0;
+                        ?>
+                        <?php if (isset($result) && !empty($result)) {
+                            foreach ($result as $obj) {
+                                $average_period_1 += $obj->period1;
+                                $average_period_2 += $obj->period2;
+                                $average_period_3 += $obj->period3;
+                                $average_period_4 += $obj->period4;
+                                $average_period_5 += $obj->period5;
+                                $average_period_6 += $obj->period6;
+                                $average_exam_1 += $obj->exam_1;
+                                $average_exam_2 += $obj->exam_2;
+                                $average_1 = number_format((($obj->period1 + $obj->period2 + $obj->period3) / 3 + $obj->exam_1) / 2, 2);
+                                $average_2 = number_format((($obj->period4 + $obj->period5 + $obj->period6) / 3 + $obj->exam_2) / 2, 2);
+                                $average_3 = number_format(($average_1 + $average_2) / 2, 2);
+                                if ($average_1 <= 0 || $obj->exam_1 <= 0) $average_1 = "";
+                                if ($average_2 <= 0 || $obj->exam_2 <= 0) $average_2 = "";
+                                if ($average_3 <= 0 || $obj->exam_2 <= 0) $average_3 = ""; ?>
                                 <tr style="background: #f9f9f9;">
-                                    <th colspan="17"><?php echo $ex->title; ?></th>
+                                    <td align="center"><?php echo $index++;  ?></td>
+                                    <td align="center"><?php echo $obj->subject_name; ?></td>
+                                    <td align="right"><?php echo $obj->period1; ?></td>
+                                    <td align="right"><?php echo $obj->period2; ?></td>
+                                    <td align="right"><?php echo $obj->period3; ?></td>
+                                    <td align="right"><?php echo $obj->exam1; ?></td>
+                                    <td align="right"><?php echo $average_1;  ?></td>
+                                    <td align="right"><?php echo $obj->period4; ?></td>
+                                    <td align="right"><?php echo $obj->period5; ?></td>
+                                    <td align="right"><?php echo $obj->period6; ?></td>
+                                    <td align="right"><?php echo $obj->exam2; ?></td>
+                                    <td align="right"><?php echo $average_2;  ?></td>
+                                    <td align="right"><?php echo $average_3;  ?></td>
                                 </tr>
-
-                                <?php
-                                $exam_subjects = get_subject_list($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $student_id);
-                                $count = 1;
-                                if (isset($exam_subjects) && !empty($exam_subjects)) {
-                                ?>
-
-                                    <?php foreach ($exam_subjects as $obj) { ?>
-
-                                        <?php $exam = get_exam_result($school_id, $ex->id, $student_id, $academic_year_id, $class_id, $section_id); ?>
-                                        <?php if (@$exam->name == '') {
-                                            continue;
-                                        } ?>
-
-                                        <?php $lh       = get_lowet_height_mark($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $obj->subject_id); ?>
-                                        <?php $position = get_position_in_subject($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $obj->subject_id, $obj->obtain_total_mark); ?>
-                                        <tr>
-                                            <td><?php echo $count++;  ?></td>
-                                            <td><?php echo ucfirst($obj->subject); ?></td>
-                                            <td><?php echo $obj->written_mark; ?></td>
-                                            <td><?php echo $obj->written_obtain; ?></td>
-                                            <td><?php echo $obj->tutorial_mark; ?></td>
-                                            <td><?php echo $obj->tutorial_obtain; ?></td>
-                                            <td><?php echo $obj->practical_mark; ?></td>
-                                            <td><?php echo $obj->practical_obtain; ?></td>
-                                            <td><?php echo $obj->viva_mark; ?></td>
-                                            <td><?php echo $obj->viva_obtain; ?></td>
-                                            <td><?php echo $obj->exam_total_mark; ?></td>
-                                            <td><?php echo $obj->obtain_total_mark; ?></td>
-                                            <td><?php echo $obj->name; ?></td>
-                                            <td><?php echo $obj->point; ?></td>
-                                            <td><?php echo $lh->lowest; ?></td>
-                                            <td><?php echo $lh->height; ?></td>
-                                            <td><?php echo $position; ?></td>
-                                        </tr>
-                                    <?php } ?>
-                                <?php } else { ?>
-                                    <tr>
-                                        <td colspan="17" align="center"><?php echo $this->lang->line('no_data_found'); ?></td>
-                                    </tr>
-                                <?php } ?>
-
                             <?php } ?>
                         <?php } else { ?>
                             <tr>
@@ -197,118 +179,33 @@
                             </tr>
                         <?php } ?>
                     </tbody>
-                </table>
 
-                <table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th rowspan="2"><?php echo $this->lang->line('sl_no'); ?></th>
-                            <th rowspan="2" width="12%"><?php echo $this->lang->line('exam'); ?></th>
-                            <th colspan="2"><?php echo $this->lang->line('written'); ?></th>
-                            <th colspan="2"><?php echo $this->lang->line('tutorial'); ?></th>
-                            <th colspan="2"><?php echo $this->lang->line('practical'); ?></th>
-                            <th colspan="2"><?php echo $this->lang->line('viva'); ?></th>
-                            <th colspan="2"><?php echo $this->lang->line('total'); ?></th>
-                            <th rowspan="2"><?php echo $this->lang->line('average_grade_point'); ?></th>
-                            <th rowspan="2"><?php echo $this->lang->line('letter_grade'); ?></th>
-                            <th rowspan="2"><?php echo $this->lang->line('lowest'); ?></th>
-                            <th rowspan="2"><?php echo $this->lang->line('height'); ?></th>
-                            <th rowspan="2"><?php echo $this->lang->line('position'); ?></th>
-                        </tr>
-                        <tr>
-                            <th><?php echo $this->lang->line('mark'); ?></th>
-                            <th><?php echo $this->lang->line('obtain'); ?></th>
-                            <th><?php echo $this->lang->line('mark'); ?></th>
-                            <th><?php echo $this->lang->line('obtain'); ?></th>
-                            <th><?php echo $this->lang->line('mark'); ?></th>
-                            <th><?php echo $this->lang->line('obtain'); ?></th>
-                            <th><?php echo $this->lang->line('mark'); ?></th>
-                            <th><?php echo $this->lang->line('obtain'); ?></th>
-                            <th><?php echo $this->lang->line('mark'); ?></th>
-                            <th><?php echo $this->lang->line('obtain'); ?></th>
-                        </tr>
-                    </thead>
-                    <?php
-
-                    $count = 1;
-                    if (isset($exams) && !empty($exams)) {
-                    ?>
-
-                        <?php foreach ($exams as $ex) { ?>
-
-                            <?php $exam = get_exam_result($school_id, $ex->id, $student_id, $academic_year_id, $class_id, $section_id); ?>
-                            <?php if (@$exam->name == '') {
-                                continue;
-                            } ?>
-
-                            <?php $mark = get_exam_wise_markt($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $student_id); ?>
-                            <?php $obtain_total_mark = $mark->written_obtain + $mark->tutorial_obtain + $mark->practical_obtain + $mark->viva_obtain; ?>
-                            <?php $rank = get_position_in_exam($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $obtain_total_mark); ?>
-                            <?php $exam_lh = get_lowet_height_result($school_id, $academic_year_id, $ex->id, $class_id, $section_id, $student_id); ?>
-
+                    <?php if (isset($result) && !is_null($result)) { ?>
+                        <tfooter>
                             <tr>
-                                <td><?php echo $count++;  ?></td>
-                                <td><?php echo ucfirst($ex->title); ?></td>
-                                <td><?php echo $mark->written_mark; ?></td>
-                                <td><?php echo $mark->written_obtain; ?></td>
-                                <td><?php echo $mark->tutorial_mark; ?></td>
-                                <td><?php echo $mark->tutorial_obtain; ?></td>
-                                <td><?php echo $mark->practical_mark; ?></td>
-                                <td><?php echo $mark->practical_obtain; ?></td>
-                                <td><?php echo $mark->viva_mark; ?></td>
-                                <td><?php echo $mark->viva_obtain; ?></td>
-                                <td><?php echo $mark->written_mark + $mark->tutorial_mark + $mark->practical_mark + $mark->viva_mark; ?></td>
-                                <td><?php echo $obtain_total_mark; ?></td>
-                                <td><?php echo $mark->point > 0 ? @number_format($mark->point / $mark->total_subject, 2) : 0; ?></td>
-                                <td><?php echo @$exam->name; ?></td>
-                                <td><?php echo $exam_lh->lowest; ?></td>
-                                <td><?php echo $exam_lh->height; ?></td>
-                                <td><?php echo $rank; ?></td>
+                                <td></td>
+                                <td align="center">Average</td>
+                                <td align="right"><?php if ($average_period_1 > 0) echo number_format($average_period_1 / ($index - 1), 2); ?></td>
+                                <td align="right"><?php if ($average_period_2 > 0) echo number_format($average_period_2 / ($index - 1), 2); ?></td>
+                                <td align="right"><?php if ($average_period_3 > 0) echo number_format($average_period_3 / ($index - 1), 2); ?></td>
+                                <td align="right"><?php if ($average_exam_1 > 0) echo number_format($average_exam_1 / ($index - 1), 2); ?></td>
+                                <td align="right"><?php if ($average_exam_1 > 0) echo number_format((($average_period_1 + $average_period_2 + $average_period_3) / 3 + $average_exam_1) / (2 * ($index - 1)), 2);  ?></td>
+
+                                <td align="right"><?php if ($average_period_4 > 0) echo number_format($average_period_4 / ($index - 1), 2); ?></td>
+                                <td align="right"><?php if ($average_period_5 > 0) echo number_format($average_period_5 / ($index - 1), 2); ?></td>
+                                <td align="right"><?php if ($average_period_6 > 0) echo number_format($average_period_6 / ($index - 1), 2); ?></td>
+                                <td align="right"><?php if ($average_exam_2 > 0) echo number_format($average_exam_2 / ($index - 1), 2); ?></td>
+                                <td align="right"><?php if ($average_exam_2 > 0) echo number_format((($average_period_4 + $average_period_5 + $average_period_6) / 3 + $average_exam_2) / (2 * ($index - 1)), 2);  ?></td>
+                                <td align="right"><?php if ($average_exam_2 > 0) echo number_format((($average_period_1 + $average_period_2 + $average_period_3 + $average_period_4 + $average_period_5 + $average_period_6) / 12 + ($average_exam_1 + $average_exam_2) / 4) / ($index - 1), 2);  ?></td>
                             </tr>
-                        <?php } ?>
+                        </tfooter>
                     <?php } ?>
                 </table>
 
+
             </div>
 
-            <?php if (isset($student) && !empty($student)) { ?>
-                <table class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th><?php echo $this->lang->line('total_subject'); ?></th>
-                            <th><?php echo $this->lang->line('total_mark'); ?></th>
-                            <th><?php echo $this->lang->line('obtain_mark'); ?></th>
-                            <th><?php echo $this->lang->line('percentage'); ?></th>
-                            <th><?php echo $this->lang->line('average_grade_point'); ?></th>
-                            <th><?php echo $this->lang->line('letter_grade'); ?></th>
-                            <th><?php echo $this->lang->line('status'); ?></th>
-                            <th><?php echo $this->lang->line('position_in_section'); ?></th>
-                            <th><?php echo $this->lang->line('position_in_class'); ?></th>
-                            <th><?php echo $this->lang->line('remark'); ?></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        <?php $class_position = get_student_position($school_id, $academic_year_id, $class_id, $student_id); ?>
-                        <?php $section_position = get_student_position($school_id, $academic_year_id, $class_id, $student_id, $section_id); ?>
-
-                        <tr>
-                            <td><?php echo isset($final_result->total_subject) ? $final_result->total_subject : 0; ?></td>
-                            <td><?php echo isset($final_result->total_mark) ? $final_result->total_mark : 0; ?></td>
-                            <td><?php echo isset($final_result->total_obtain_mark) ? $final_result->total_obtain_mark : 0; ?></td>
-                            <td><?php echo isset($final_result->total_mark) && $final_result->total_mark > 0 ? number_format(@$final_result->total_obtain_mark / $final_result->total_mark * 100, 2) : 0; ?>%</td>
-                            <td><?php echo isset($final_result->avg_grade_point) && $final_result->avg_grade_point > 0 ? $final_result->avg_grade_point : 0; ?></td>
-                            <td><?php echo isset($final_result->grade) ? $final_result->grade : 0; ?></td>
-                            <td><?php echo isset($final_result->result_status) ? $this->lang->line($final_result->result_status) : ''; ?></td>
-                            <td><?php echo $section_position; ?></td>
-                            <td><?php echo $class_position; ?></td>
-                            <td><?php echo isset($final_result->remark) ? $final_result->remark : '--'; ?></td>
-
-                        </tr>
-                    </tbody>
-                </table>
-            <?php } ?>
-            <div class="rowt">
+            <!-- <div class="rowt">
                 <div class="col-lg-12">&nbsp;</div>
             </div>
             <div class="rowt">
@@ -321,16 +218,16 @@
                 <div class="col-xs-4 text-center signature">
                     <?php echo $this->lang->line('class_teacher'); ?>
                 </div>
-            </div>
+            </div> -->
 
             <div class="row no-print">
                 <div class="col-xs-12 text-right">
                     <button class="btn btn-default " onclick="window.print();"><i class="fa fa-print"></i> <?php echo $this->lang->line('print'); ?></button>
                 </div>
             </div>
-            <div class="col-md-12 col-sm-12 col-xs-12 no-print">
+            <!-- <div class="col-md-12 col-sm-12 col-xs-12 no-print">
                 <div class="instructions"><strong><?php echo $this->lang->line('instruction'); ?>: </strong> <?php echo $this->lang->line('mark_sheet_instruction'); ?></div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
@@ -424,16 +321,16 @@
             success: function(response) {
                 if (response) {
                     $('#section_id').html(response);
-                }else{
-                    get_student_by_section(class_id,'','');
-                    $('#section_id').html('<option value="">--Select--</option>');                    
+                } else {
+                    get_student_by_section(class_id, '', '');
+                    $('#section_id').html('<option value="">--Select--</option>');
                 }
             }
         });
     }
 
     <?php if (isset($class_id) || isset($section_id)) { ?>
-        get_student_by_section('<?php echo $class_id; ?>','<?php echo $section_id; ?>', '<?php echo $student_id; ?>');
+        get_student_by_section('<?php echo $class_id; ?>', '<?php echo $section_id; ?>', '<?php echo $student_id; ?>');
     <?php } ?>
 
     function get_student_by_section(class_id, section_id, student_id) {

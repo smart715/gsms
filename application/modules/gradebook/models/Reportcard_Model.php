@@ -11,18 +11,32 @@ class Reportcard_Model extends MY_Model
         parent::__construct();
     }
 
-    public function get_final_result($school_id, $academic_year_id, $class_id, $section_id, $student_id)
+    public function get_report_card($school_id,$period_num, $academic_year_id, $class_id, $section_id, $student_id)
     {
-        $this->db->select('FR.*, G.name AS grade');
-        $this->db->from('final_results AS FR');
-        $this->db->join('grades AS G', 'G.id = FR.grade_id', 'left');
-        $this->db->where('FR.academic_year_id', $academic_year_id);
-        $this->db->where('FR.school_id', $school_id);
-        $this->db->where('FR.class_id', $class_id);
-        $this->db->where('FR.section_id', $section_id);
-        $this->db->where('FR.student_id', $student_id);
-        return $this->db->get()->row();
-        //echo $this->db->last_query();   
+        $periods = getPeriodTypes($period_num);
+        $select = '';
+        foreach($periods AS $key=>$period){
+            $select .= ', GR_'.$key.'.marks AS '.$key;
+        }
+        $this->db->select('S.name AS subject_name '.$select);
+        $this->db->from('subjectbyclass AS SC');
+        $this->db->join('subjects AS S', 'S.id = SC.subject_id', 'left');
+
+        foreach($periods AS $key=>$period){
+            $this->db->join('grade_reports AS GR_'.$key, 
+            'GR_'.$key.'.subject_id = S.id 
+            AND GR_'.$key.'.student_id = '.$student_id.' 
+            AND  GR_'.$key.'.academic_year_id = '.$academic_year_id.' 
+            AND  GR_'.$key.'.type = "'.$key.'" ', 
+            'left');
+        }
+        // $this->db->where('SC.school_id', $school_id);
+        $this->db->where('SC.class_id', $class_id);
+        // $this->db->where('E.academic_year_id', $academic_year_id);
+
+        $this->db->order_by('S.id', 'ASC');
+
+        return $this->db->get()->result();
     }
 
     public function get_student_list($school_id = null, $class_id = null, $section_id = null, $academic_year_id = null)
