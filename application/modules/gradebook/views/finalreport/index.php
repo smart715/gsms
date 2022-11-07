@@ -80,9 +80,9 @@
                     <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group"><br />
                             <button id="send" type="submit" class="btn btn-success"><?php echo $this->lang->line('find'); ?></button>
-                            <?php if (isset($report_card) && $report_card->status == 1) { ?>
+                            <?php if (isset($final_report) && $final_report->status == 1) { ?>
                                 <button id="unlockBtn" type="button" class="btn btn-danger">Unlock</button>
-                            <?php } else if (isset($report_card)) { ?>
+                            <?php } else if (isset($final_report)) { ?>
                                 <button id="lockBtn" type="button" class="btn btn-warning">Lock</button>
                             <?php } ?>
                         </div>
