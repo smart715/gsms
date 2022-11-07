@@ -105,7 +105,7 @@ class Finalreport extends MY_Controller
                         $this->final_report->insert('final_report_details',  array('final_report_id' => $final_report_id, 'subject_id' => $subject->subject_id));
                     } else {
 
-                        $data = $this->input->post('report_' . $subject->id);
+                        $data = $this->input->post('report_' . $subject->subject_id);
                         $this->final_report->update('final_report_details', array('period_1' => $data[1], 'period_2' => $data[2], 'period_3' => $data[3]), array('final_report_id' => $final_report_id, 'subject_id' => $subject->subject_id));
                     }
                 }
