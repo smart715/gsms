@@ -166,14 +166,14 @@
                                     $average_period_4 += $obj->period4;
                                     $average_period_5 += $obj->period5;
                                     $average_period_6 += $obj->period6;
-                                    $average_exam_1 += $obj->exam_1;
-                                    $average_exam_2 += $obj->exam_2;
-                                    $average_1 = number_format((($obj->period1 + $obj->period2 + $obj->period3) / 3 + $obj->exam_1) / 2, 2);
-                                    $average_2 = number_format((($obj->period4 + $obj->period5 + $obj->period6) / 3 + $obj->exam_2) / 2, 2);
+                                    $average_exam_1 += $obj->exam1;
+                                    $average_exam_2 += $obj->exam2;
+                                    $average_1 = number_format((($obj->period1 + $obj->period2 + $obj->period3) / 3 + $obj->exam1) / 2, 2);
+                                    $average_2 = number_format((($obj->period4 + $obj->period5 + $obj->period6) / 3 + $obj->exam2) / 2, 2);
                                     $average_3 = number_format(($average_1 + $average_2) / 2, 2);
-                                    if ($average_1 <= 0 || $obj->exam_1 <= 0) $average_1 = "";
-                                    if ($average_2 <= 0 || $obj->exam_2 <= 0) $average_2 = "";
-                                    if ($average_3 <= 0 || $obj->exam_2 <= 0) $average_3 = ""; ?>
+                                    if ($average_1 <= 0 || $obj->exam1 <= 0) $average_1 = "";
+                                    if ($average_2 <= 0 || $obj->exam2 <= 0) $average_2 = "";
+                                    if ($average_3 <= 0 || $obj->exam2 <= 0) $average_3 = ""; ?>
                                     <tr style="background: #f9f9f9;">
                                         <td align="center"><?php echo $index++;  ?></td>
                                         <td align="center"><?php echo $obj->subject_name; ?></td>

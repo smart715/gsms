@@ -156,9 +156,9 @@
                                     $average_period_2 += $obj->period_2;
                                     $average_period_3 += $obj->period_3;
                                     $average_period_4 += $obj->period_4;
-                                    $average_exam_1 += $obj->exam_1;
-                                    $average_1 = number_format((($obj->period_1 + $obj->period_2 + $obj->period_3 + $obj->period_4) / 4 + $obj->exam_1) / 2, 2);
-                                    if ($average_1 <= 0 || $obj->exam_1 <= 0) $average_1 = ""; ?>
+                                    $average_exam_1 += $obj->exam1;
+                                    $average_1 = number_format((($obj->period_1 + $obj->period_2 + $obj->period_3 + $obj->period_4) / 4 + $obj->exam1) / 2, 2);
+                                    if ($average_1 <= 0 || $obj->exam1 <= 0) $average_1 = ""; ?>
                                     <tr style="background: #f9f9f9;">
                                         <td align="center"><?php echo $index++;  ?></td>
                                         <td align="center"><?php echo $obj->subject_name; ?></td>
