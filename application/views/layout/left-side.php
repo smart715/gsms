@@ -41,6 +41,10 @@
                                 <ul class="nav child_menu">
                                     <?php if (has_permission(VIEW, 'setting', 'setting')) { ?>
                                         <li><a href="<?php echo site_url('setting/index'); ?>"><?php echo $this->lang->line('school_setting'); ?></a></li>
+                                    <li><a href="<?php echo site_url('setting/extracurricularactivities/index'); ?>">Extra Curricular Activities</a>
+                                    </li>
+                                    <li><a href="<?php echo site_url('setting/markingstandard/index'); ?>">Marking Standard</a>
+                                    </li>
                                     <?php } ?>
                                     <?php if (has_permission(VIEW, 'setting', 'payment')) { ?>
                                         <li><a href="<?php echo site_url('setting/payment/index'); ?>"><?php echo $this->lang->line('payment_setting'); ?></a></li>
