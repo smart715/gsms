@@ -354,6 +354,11 @@
                         </div>
                     </div>
                 <?php } ?>
+                <div class="x_content">
+                    <div class="row">
+                        <center>iAcademic automated generated report, <?php echo date("m/d/Y") ?>.</center>
+                    </div>
+                </div>
                 <!-- <div class="rowt">
                 <div class="col-lg-12">&nbsp;</div>
             </div>

@@ -167,21 +167,21 @@
                                     $average_period_2 += $obj->period2;
                                     $average_period_3 += $obj->period3;
                                     $average_exam_1 += $obj->exam1;
-                                    $average_1 = number_format((($obj->period1 + $obj->period2 + $obj->period3 ) / 3 + $obj->exam1) / 2, 2);
+                                    $average_1 = number_format((($obj->period1 + $obj->period2 + $obj->period3) / 3 + $obj->exam1) / 2, 2);
                                     if ($average_1 <= 0 || $obj->exam1 <= 0) $average_1 = ""; ?>
                                     <tr style="background: #f9f9f9;">
                                         <td align="center"><?php echo $index++;  ?></td>
                                         <td align="center"><?php echo $obj->subject_name; ?></td>
                                         <td align="right">
                                             <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period1" value="<?php echo $obj->period1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" >
+                                                <input type="number" name="report_<?php echo $obj->id; ?>_period1" value="<?php echo $obj->period1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;">
                                             <?php } else {
                                                 echo $obj->period1;
                                             } ?>
                                         </td>
                                         <td align="right">
                                             <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period2" value="<?php echo $obj->period2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" >
+                                                <input type="number" name="report_<?php echo $obj->id; ?>_period2" value="<?php echo $obj->period2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;">
                                             <?php } else {
                                                 echo $obj->period2;
                                             } ?>
@@ -211,7 +211,7 @@
                                     <td align="right"><?php if ($average_period_2 > 0) echo number_format($average_period_2 / ($index - 1), 2); ?></td>
                                     <td align="right"><?php if ($average_period_3 > 0) echo number_format($average_period_3 / ($index - 1), 2); ?></td>
                                     <td align="right"><?php if ($average_exam_1 > 0) echo number_format($average_exam_1 / ($index - 1), 2); ?></td>
-                                        <td align="right"><?php if ($average_exam_1 > 0) echo number_format((($average_period_1 + $average_period_2 + $average_period_3) / 3 + $average_exam_1) / (2 * ($index - 1)), 2);  ?></td>
+                                    <td align="right"><?php if ($average_exam_1 > 0) echo number_format((($average_period_1 + $average_period_2 + $average_period_3) / 3 + $average_exam_1) / (2 * ($index - 1)), 2);  ?></td>
 
                                 </tr>
                             <?php } else { ?>
@@ -260,19 +260,19 @@
                                 </tbody>
                             <?php } ?>
 
-                        <?php if ($editable && isset($result) && !is_null($result)) { ?>
-                            <tfooter class="x_content no-print">
-                                <tr>
-                                    <th></th>
-                                    <th align="center">Is Locked?</th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period1" <?php echo $period1_locked?'checked':''; ?>></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period2" <?php echo $period2_locked?'checked':''; ?>></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period3"<?php echo $period3_locked?'checked':''; ?>></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_exam1" <?php echo $exam1_locked?'checked':''; ?>></th>
-                                    <th></th>
-                                </tr>
-                            </tfooter>
-                        <?php } ?>
+                            <?php if ($editable && isset($result) && !is_null($result)) { ?>
+                                <tfooter class="x_content no-print">
+                                    <tr>
+                                        <th></th>
+                                        <th align="center">Is Locked?</th>
+                                        <th style="text-align: center;"><input type="checkbox" name="locked_period1" <?php echo $period1_locked ? 'checked' : ''; ?>></th>
+                                        <th style="text-align: center;"><input type="checkbox" name="locked_period2" <?php echo $period2_locked ? 'checked' : ''; ?>></th>
+                                        <th style="text-align: center;"><input type="checkbox" name="locked_period3" <?php echo $period3_locked ? 'checked' : ''; ?>></th>
+                                        <th style="text-align: center;"><input type="checkbox" name="locked_exam1" <?php echo $exam1_locked ? 'checked' : ''; ?>></th>
+                                        <th></th>
+                                    </tr>
+                                </tfooter>
+                            <?php } ?>
                     </table>
 
 
@@ -336,6 +336,11 @@
                         </div>
                     </div>
                 <?php } ?>
+                <div class="x_content">
+                    <div class="row">
+                        <center>iAcademic automated generated report, <?php echo date("m/d/Y") ?>.</center>
+                    </div>
+                </div>
                 <!-- <div class="rowt">
                 <div class="col-lg-12">&nbsp;</div>
             </div>
