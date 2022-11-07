@@ -12,6 +12,7 @@
 
             <?php echo form_open_multipart(site_url('gradebook/reportcard/index'), array('name' => 'reportcard', 'id' => 'reportcard', 'class' => 'form-horizontal form-label-left'), ''); ?>
             <input type="hidden" value="0" id="action_type" name="action_type">
+            <input type="hidden" value="0" id="report_card_id" name="report_card_id">
             <div class="x_content no-print">
                 <div class="row">
 
@@ -77,9 +78,14 @@
                         </div>
                     <?php } ?>
 
-                    <div class="col-md-1 col-sm-1 col-xs-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="form-group"><br />
                             <button id="send" type="submit" class="btn btn-success"><?php echo $this->lang->line('find'); ?></button>
+                            <?php if (isset($report_card) && $report_card->status == 1) { ?>
+                                <button id="unlockBtn" type="button" class="btn btn-danger">Unlock</button>
+                            <?php } else if (isset($report_card)) { ?>
+                                <button id="lockBtn" type="button" class="btn btn-warning">Lock</button>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -187,14 +193,14 @@
                                         <td align="center"><?php echo $obj->subject_name; ?></td>
                                         <td align="right">
                                             <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period1" value="<?php echo $obj->period1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" >
+                                                <input type="number" name="report_<?php echo $obj->id; ?>_period1" value="<?php echo $obj->period1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;">
                                             <?php } else {
                                                 echo $obj->period1;
                                             } ?>
                                         </td>
                                         <td align="right">
                                             <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period2" value="<?php echo $obj->period2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" >
+                                                <input type="number" name="report_<?php echo $obj->id; ?>_period2" value="<?php echo $obj->period2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;">
                                             <?php } else {
                                                 echo $obj->period2;
                                             } ?>
@@ -269,26 +275,89 @@
                                 </tr>
                             <?php } ?>
                         </tbody>
+                        <p>
+                            <?php if (isset($time_list) && count($time_list) > 0) { ?>
+                                <tbody>
+                                    <?php foreach ($time_list as $obj) {
+                                        if ($obj->type == 1) $type_name = "Days Absent";
+                                        else if ($obj->type == 2) $type_name = "Conduct";
+                                        else if ($obj->type == 3) $type_name = "Days present";
+                                        else $type_name = "Time/tardy";
+                                    ?>
+                                        <tr>
+                                            <td></td>
+                                            <td><?php echo $type_name; ?></td>
+                                            <td align="right">
+                                                <?php if ($editable) { ?>
+                                                    <input type="number" name="time_<?php echo $obj->type; ?>[1]" value="<?php echo $obj->period_1 ?? ''; ?>" min="0" style="width:80px;">
+                                                <?php } else {
+                                                    echo $obj->period_1 > 0 ? $obj->period_1 : '';
+                                                } ?>
+                                            </td>
+                                            <td align="right">
+                                                <?php if ($editable) { ?>
+                                                    <input type="number" name="time_<?php echo $obj->type; ?>[2]" value="<?php echo $obj->period_2 ?? ''; ?>" min="0" style="width:80px;">
+                                                <?php } else {
+                                                    echo $obj->period_2 > 0 ? $obj->period_2 : '';
+                                                } ?>
+                                            </td>
+                                            <td align="right">
+                                                <?php if ($editable) { ?>
+                                                    <input type="number" name="time_<?php echo $obj->type; ?>[3]" value="<?php echo $obj->period_3 ?? ''; ?>" min="0" style="width:80px;">
+                                                <?php } else {
+                                                    echo $obj->period_3 > 0 ? $obj->period_3 : '';
+                                                } ?>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td align="right">
+                                                <?php if ($editable) { ?>
+                                                    <input type="number" name="time_<?php echo $obj->type; ?>[4]" value="<?php echo $obj->period_4 ?? ''; ?>" min="0" style="width:80px;">
+                                                <?php } else {
+                                                    echo $obj->period_4 > 0 ? $obj->period_4 : '';
+                                                } ?>
+                                            </td>
+                                            <td align="right">
+                                                <?php if ($editable) { ?>
+                                                    <input type="number" name="time_<?php echo $obj->type; ?>[5]" value="<?php echo $obj->period_5 ?? ''; ?>" min="0" style="width:80px;">
+                                                <?php } else {
+                                                    echo $obj->period_5 > 0 ? $obj->period_5 : '';
+                                                } ?>
+                                            </td>
+                                            <td align="right">
+                                                <?php if ($editable) { ?>
+                                                    <input type="number" name="time_<?php echo $obj->type; ?>[6]" value="<?php echo $obj->period_6 ?? ''; ?>" min="0" style="width:80px;">
+                                                <?php } else {
+                                                    echo $obj->period_6 > 0 ? $obj->period_6 : '';
+                                                } ?>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            <?php } ?>
 
-                        <?php if (isset($result) && !is_null($result)) { ?>
-                            <tfooter>
-                                <tr>
-                                    <th></th>
-                                    <th align="center">Is Locked?</th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period1" <?php echo $period1_locked?'checked':''; ?>></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period2" <?php echo $period2_locked?'checked':''; ?>></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period3" <?php echo $period3_locked?'checked':''; ?>></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_exam1" <?php echo $exam1_locked?'checked':''; ?>></th>
-                                    <th></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period4" <?php echo $period4_locked?'checked':''; ?>></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period5" <?php echo $period5_locked?'checked':''; ?>></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period6" <?php echo $period6_locked?'checked':''; ?>></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_exam2" <?php echo $exam2_locked?'checked':''; ?>></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </tfooter>
-                        <?php } ?>
+                            <?php if ($editable && isset($result) && !is_null($result)) { ?>
+                                <tfooter>
+                                    <tr>
+                                        <th></th>
+                                        <th align="center">Is Locked?</th>
+                                        <th style="text-align: center;"><input type="checkbox" name="locked_period1" <?php echo $period1_locked ? 'checked' : ''; ?>></th>
+                                        <th style="text-align: center;"><input type="checkbox" name="locked_period2" <?php echo $period2_locked ? 'checked' : ''; ?>></th>
+                                        <th style="text-align: center;"><input type="checkbox" name="locked_period3" <?php echo $period3_locked ? 'checked' : ''; ?>></th>
+                                        <th style="text-align: center;"><input type="checkbox" name="locked_exam1" <?php echo $exam1_locked ? 'checked' : ''; ?>></th>
+                                        <th></th>
+                                        <th style="text-align: center;"><input type="checkbox" name="locked_period4" <?php echo $period4_locked ? 'checked' : ''; ?>></th>
+                                        <th style="text-align: center;"><input type="checkbox" name="locked_period5" <?php echo $period5_locked ? 'checked' : ''; ?>></th>
+                                        <th style="text-align: center;"><input type="checkbox" name="locked_period6" <?php echo $period6_locked ? 'checked' : ''; ?>></th>
+                                        <th style="text-align: center;"><input type="checkbox" name="locked_exam2" <?php echo $exam2_locked ? 'checked' : ''; ?>></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </tfooter>
+                            <?php } ?>
                     </table>
 
 
@@ -369,7 +438,9 @@
 
                 <div class="row no-print">
                     <div class="col-xs-12 text-right">
-                        <button id="savebtn" type="button" class="btn btn-success">Save</button>
+                        <?php if ($editable) { ?>
+                            <button id="savebtn" type="button" class="btn btn-success">Save</button>
+                        <?php } ?>
                         <button class="btn btn-default " onclick="window.print();"><i class="fa fa-print"></i> <?php echo $this->lang->line('print'); ?></button>
                     </div>
                 </div>
@@ -395,6 +466,15 @@
         $("#action_type").val("1");
         $("#reportcard").submit();
     });
+    $("#lockBtn").click(function() {
+        $("#action_type").val("2");
+        $("#reportcard").submit();
+    });
+    $("#unlockBtn").click(function() {
+        $("#action_type").val("3");
+        $("#reportcard").submit();
+    });
+
     $('.fn_school_id').on('change', function() {
 
         var school_id = $(this).val();

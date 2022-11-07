@@ -60,7 +60,52 @@ class Reportcard extends MY_Controller
             }
 
             $academic_year_id = $this->input->post('academic_year_id');
-            if ($this->input->post('action_type') == 1) {
+            $action_type = $this->input->post('action_type');
+            $report_card_id = $this->input->post('report_card_id');
+            $report_card = $this->resultcard->get_single('report_cards', array('id' => $report_card_id));
+            if(!isset($report_card_id) || $report_card_id == 0){
+                $report_card = $this->resultcard->get_single('report_cards', array('school_id' => $school_id,'class_id' => $class_id,'student_id' => $student_id,'academic_year_id' => $school->academic_year_id));
+                if($report_card) $report_card_id = $report_card->id;
+            }
+            
+            if(!isset($report_card) ){
+                $data = array();
+                $data['school_id'] = $school_id;
+                $data['class_id'] = $class_id;
+                $data['section_id'] = $section_id;
+                $data['student_id'] = $student_id;
+                $data['academic_year_id'] = $academic_year_id;
+                $data['status'] = '0';
+                $data['created_at'] = date('Y-m-d H:i:s');
+                $data['modified_at'] = date('Y-m-d H:i:s');
+                $data['created_by'] = logged_in_user_id();
+                $data['modified_by'] = logged_in_user_id();
+                $report_card_id = $this->resultcard->insert('report_cards', $data);
+            }
+            if ($action_type == '2' && $report_card_id != 0) {                
+                $this->resultcard->update('report_cards', array('status' => '1'), array('id' => $report_card_id));
+            }else if($action_type == '3' && $report_card_id != 0){
+                $this->resultcard->update('report_cards', array('status' => '0'), array('id' => $report_card_id));
+            }
+            
+            $report_card = $this->resultcard->get_single('report_cards', array('id' => $report_card_id));
+            $this->data['report_card'] = $report_card;
+
+            if ($report_card_id != 0) {
+                $time_list = $this->resultcard->get_list('report_card_times', array('report_card_id' => $report_card_id), '', '', '', 'id', 'ASC');
+                if (is_null($time_list) || count($time_list) == 0) {
+                    $this->resultcard->insert('report_card_times',  array('report_card_id' => $report_card_id, 'type' => 1));
+                    $this->resultcard->insert('report_card_times',  array('report_card_id' => $report_card_id, 'type' => 2));
+                    $this->resultcard->insert('report_card_times',  array('report_card_id' => $report_card_id, 'type' => 3));
+                    $this->resultcard->insert('report_card_times',  array('report_card_id' => $report_card_id, 'type' => 4));
+                }
+            }
+            if ($action_type == 1) {
+              
+                for ($i = 1; $i <= 4; $i++) {
+                    $data = $this->input->post('time_' . $i);
+                    $this->resultcard->update('report_card_times', array('period_1' => $data[1], 'period_2' => $data[2], 'period_3' => $data[3], 'period_4' => $data[4], 'period_5' => $data[5], 'period_6' => $data[6]), array('report_card_id' => $report_card_id, 'type' => $i));
+                }
                 $condition = array();
                 $condition['class_id'] = $class_id;
                 $condition['school_id'] = $school_id;
@@ -111,11 +156,15 @@ class Reportcard extends MY_Controller
             $this->data['section_id'] = $section_id;
             $this->data['student_id'] = $student_id;
             $this->data['result'] = $this->resultcard->get_report_card($school_id, $period_num, $academic_year_id, $class_id, $section_id, $student_id);
+            
+            $this->data['time_list'] = $this->resultcard->get_list('report_card_times', array('report_card_id' => $report_card_id), '', '', '', 'id', 'ASC');
+            if ($this->session->userdata('role_id') == ADMIN || $this->session->userdata('role_id') == SUPER_ADMIN) {
+                if(!isset($report_card) || $report_card->status == 0)
+                $this->data['editable'] = true;
+            }
+
         }
 
-        if ($this->session->userdata('role_id') == ADMIN || $this->session->userdata('role_id') == SUPER_ADMIN) {
-            $this->data['editable'] = true;
-        }
 
         $condition = array();
         $condition['status'] = 1;
