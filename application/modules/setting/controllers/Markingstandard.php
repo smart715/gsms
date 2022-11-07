@@ -57,13 +57,14 @@ class Markingstandard extends MY_Controller {
     public function add() {
         
         
+        $school_id = getSchoolId();   
         if ($_POST) {
             
             $this->_prepare_section_validation();
          
             if ($this->form_validation->run() === TRUE) {
                 $data = array();
-                $data['school_id'] = $this->session->userdata('school_id');  
+                $data['school_id'] = $school_id;  
                 $data['name'] = $this->input->post('name');
                 $data['percent'] = $this->input->post('percent');
                 $data['note'] = $this->input->post('note');
@@ -82,7 +83,7 @@ class Markingstandard extends MY_Controller {
         }
 
         
-        $condition['school_id'] = $this->session->userdata('school_id');        
+        $condition['school_id'] = $school_id;        
         $this->data['activities'] = $this->activities->get_list('marking_standard', $condition, '','', '', 'id', 'ASC');
         $this->data['list'] = true;
         $this->layout->title($this->lang->line('add'). ' | ' . SMS);
@@ -102,6 +103,7 @@ class Markingstandard extends MY_Controller {
     public function edit($id = null) {       
        
         
+        $school_id = getSchoolId();   
         if(!is_numeric($id)){
             error($this->lang->line('unexpected_error'));
             redirect('setting/markingstandard/index/');
@@ -138,7 +140,7 @@ class Markingstandard extends MY_Controller {
             }
         }
 
-        $condition['school_id'] = $this->session->userdata('school_id');        
+        $condition['school_id'] = $school_id;        
         $this->data['activities'] = $this->activities->get_list('marking_standard', $condition, '','', '', 'id', 'ASC');
         $this->data['edit'] = TRUE;   
         $this->layout->title($this->lang->line('edit'). ' | ' . SMS);
