@@ -213,7 +213,7 @@ class Teacher extends MY_Controller {
         $this->form_validation->set_rules('role_id', $this->lang->line('role'), 'trim|required');
         $this->form_validation->set_rules('school_id', $this->lang->line('school'), 'trim|required');
 
-        $this->form_validation->set_rules('department_id', $this->lang->line('department'), 'trim|required');
+        // $this->form_validation->set_rules('department_id', $this->lang->line('department'), 'trim|required');
         $this->form_validation->set_rules('name', $this->lang->line('name'), 'trim|required');
         $this->form_validation->set_rules('phone', $this->lang->line('phone'), 'trim|required|min_length[6]|max_length[20]');
         $this->form_validation->set_rules('present_address', $this->lang->line('present_address'), 'trim');
@@ -223,8 +223,8 @@ class Teacher extends MY_Controller {
         $this->form_validation->set_rules('religion', $this->lang->line('religion'), 'trim');
         $this->form_validation->set_rules('dob', $this->lang->line('birth_date'), 'trim|required');
         $this->form_validation->set_rules('joining_date', $this->lang->line('join_date'), 'trim|required');
-        $this->form_validation->set_rules('salary_grade_id', $this->lang->line('salary_grade'), 'trim|required');
-        $this->form_validation->set_rules('salary_type', $this->lang->line('salary_type'), 'trim|required');
+        // $this->form_validation->set_rules('salary_grade_id', $this->lang->line('salary_grade'), 'trim|required');
+        // $this->form_validation->set_rules('salary_type', $this->lang->line('salary_type'), 'trim|required');
         $this->form_validation->set_rules('facebook_url', $this->lang->line('facebook_url'), 'trim');
         $this->form_validation->set_rules('linkedin_url', $this->lang->line('linkedin_url'), 'trim');
         $this->form_validation->set_rules('instagram_url', $this->lang->line('instagram_url'), 'trim');

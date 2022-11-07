@@ -160,8 +160,8 @@
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="department_id"><?php echo $this->lang->line('department'); ?> <span class="required">*</span></label>
-                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="department_id" id="add_department_id" required="required">
+                                            <label for="department_id"><?php echo $this->lang->line('department'); ?> </label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="department_id" id="add_department_id">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                                 <?php foreach($departments as $obj){ ?>
                                                     <option value="<?php echo $obj->id; ?>"><?php echo $obj->title; ?></option>
@@ -265,8 +265,8 @@
                                     </div>  
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="salary_grade_id"><?php echo $this->lang->line('salary_grade'); ?> <span class="required">*</span></label>
-                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="salary_grade_id" id="add_salary_grade_id" required="required">
+                                            <label for="salary_grade_id"><?php echo $this->lang->line('salary_grade'); ?></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="salary_grade_id" id="add_salary_grade_id" >
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
                                                 <?php foreach($grades as $obj){ ?>                                           
                                                 <option value="<?php echo $obj->id; ?>" <?php if(isset($post['salary_grade_id']) && $post['salary_grade_id'] == $obj->id){ echo 'selected="selected"'; } ?>><?php echo $obj->grade_name; ?></option>
@@ -279,8 +279,8 @@
                                 <div class="row">    
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="salary_type"><?php echo $this->lang->line('salary_type'); ?> <span class="required">*</span></label>
-                                            <select  class="form-control col-md-7 col-xs-12" name="salary_type" id="salary_type" required="required">
+                                            <label for="salary_type"><?php echo $this->lang->line('salary_type'); ?> </label>
+                                            <select  class="form-control col-md-7 col-xs-12" name="salary_type" id="salary_type">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
                                                 <option value="monthly" <?php if(isset($post['salary_type']) && $post['salary_type'] == 'monthly'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('monthly'); ?></option>                                           
                                                 <option value="hourly" <?php if(isset($post['salary_type']) && $post['salary_type'] == 'hourly'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('hourly'); ?></option>                                           
@@ -453,8 +453,8 @@
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="department_id"><?php echo $this->lang->line('department'); ?> <span class="required">*</span></label>
-                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="department_id" id="edit_department_id" required="required">
+                                            <label for="department_id"><?php echo $this->lang->line('department'); ?></label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="department_id" id="edit_department_id" >
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
                                                 <?php foreach($departments as $obj){ ?>                                           
                                                 <option value="<?php echo $obj->id; ?>" <?php if($teacher->department_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $obj->title; ?></option>
@@ -555,8 +555,8 @@
                                     </div> 
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="salary_grade_id"><?php echo $this->lang->line('salary_grade'); ?> <span class="required">*</span></label>
-                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="salary_grade_id" id="edit_salary_grade_id" required="required">
+                                            <label for="salary_grade_id"><?php echo $this->lang->line('salary_grade'); ?> </label>
+                                            <select  class="form-control col-md-7 col-xs-12 quick-field" name="salary_grade_id" id="edit_salary_grade_id" >
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
                                                 <?php foreach($grades as $obj){ ?>                                           
                                                 <option value="<?php echo $obj->id; ?>" <?php if($teacher->salary_grade_id == $obj->id){ echo 'selected="selected"';} ?>><?php echo $obj->grade_name; ?></option>
@@ -567,8 +567,8 @@
                                     </div>  
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="salary_type"><?php echo $this->lang->line('salary_type'); ?> <span class="required">*</span></label>
-                                            <select  class="form-control col-md-7 col-xs-12" name="salary_type" id="edit_salary_type" required="required">
+                                            <label for="salary_type"><?php echo $this->lang->line('salary_type'); ?> </label>
+                                            <select  class="form-control col-md-7 col-xs-12" name="salary_type" id="edit_salary_type" >
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>                                                                                    
                                                 <option value="monthly" <?php if($teacher->salary_type == 'monthly'){ echo 'selected="selected"';} ?>><?php echo $this->lang->line('monthly'); ?></option>                                           
                                                 <option value="hourly" <?php if($teacher->salary_type == 'hourly'){ echo 'selected="selected"';} ?>><?php echo $this->lang->line('hourly'); ?></option>                                           
