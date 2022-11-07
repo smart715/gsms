@@ -89,12 +89,14 @@
                 <div class="x_content">
                     <div class="row">
                         <div class="col-sm-6 col-xs-6  col-sm-offset-3 col-xs-offset-3  layout-box">
-                            <h4>Report Card</h4>
+                            <h4><strong>Report Card</strong></h4>
                             <div class="profile-pic">
-                                <?php if ($student->photo != '') { ?>
-                                    <img src="<?php echo UPLOAD_PATH; ?>/student-photo/<?php echo $student->photo; ?>" alt="" width="80" />
+                            <?php if ($school->logo) { ?>
+                                    <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" style="width: 70px;margin: 0 20px;" />
+                                <?php } elseif ($school->frontend_logo) { ?>
+                                    <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->frontend_logo; ?>" alt="" style="width: 70px;margin: 0 20px;" />
                                 <?php } else { ?>
-                                    <img src="<?php echo IMG_URL; ?>/default-user.png" alt="" width="45" />
+                                    <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->brand_logo; ?>" alt="" style="width: 70px;margin: 0 20px;" />
                                 <?php } ?>
                             </div>
                             
