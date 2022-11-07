@@ -160,6 +160,14 @@
                             ?>
                             <?php if (isset($result) && !empty($result)) {
                                 foreach ($result as $obj) {
+                                    $period1_locked = $obj->period1_locked;
+                                    $period2_locked = $obj->period2_locked;
+                                    $period3_locked = $obj->period3_locked;
+                                    $exam1_locked = $obj->exam1_locked;
+                                    $period4_locked = $obj->period4_locked;
+                                    $period5_locked = $obj->period5_locked;
+                                    $period6_locked = $obj->period6_locked;
+                                    $exam2_locked = $obj->exam2_locked;
                                     $average_period_1 += $obj->period1;
                                     $average_period_2 += $obj->period2;
                                     $average_period_3 += $obj->period3;
@@ -267,15 +275,15 @@
                                 <tr>
                                     <th></th>
                                     <th align="center">Is Locked?</th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period1"></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period2"></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period3"></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_exam1"></th>
+                                    <th style="text-align: center;"><input type="checkbox" name="locked_period1" <?php echo $period1_locked?'checked':''; ?>></th>
+                                    <th style="text-align: center;"><input type="checkbox" name="locked_period2" <?php echo $period2_locked?'checked':''; ?>></th>
+                                    <th style="text-align: center;"><input type="checkbox" name="locked_period3" <?php echo $period3_locked?'checked':''; ?>></th>
+                                    <th style="text-align: center;"><input type="checkbox" name="locked_exam1" <?php echo $exam1_locked?'checked':''; ?>></th>
                                     <th></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period4"></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period5"></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period6"></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_exam2"></th>
+                                    <th style="text-align: center;"><input type="checkbox" name="locked_period4" <?php echo $period4_locked?'checked':''; ?>></th>
+                                    <th style="text-align: center;"><input type="checkbox" name="locked_period5" <?php echo $period5_locked?'checked':''; ?>></th>
+                                    <th style="text-align: center;"><input type="checkbox" name="locked_period6" <?php echo $period6_locked?'checked':''; ?>></th>
+                                    <th style="text-align: center;"><input type="checkbox" name="locked_exam2" <?php echo $exam2_locked?'checked':''; ?>></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
