@@ -37,7 +37,7 @@ class Extracurricularactivities extends MY_Controller {
                        
         
         $condition = array();
-        $condition['school_id'] = $this->session->userdata('school_id');        
+        $condition['school_id'] = getSchoolId();   
         $this->data['activities'] = $this->activities->get_list('extracurricular_activities', $condition, '','', '', 'id', 'ASC');
         $this->data['list'] = true;
         $this->layout->title('Extra Curricular Activities | ' . SMS);
