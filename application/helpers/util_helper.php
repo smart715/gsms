@@ -2573,4 +2573,29 @@ if (!function_exists('check_school_owner')) {
         return false;
     }
 }
+
+if (!function_exists('getGradeLevel')) {
+
+    function getGradeLevel($value)
+    {
+        $value = number_format($value);
+        if($value > 100 || $value < 0) return '';
+        $ci = &get_instance();
+        $school_id = $ci->session->userdata('school_id');
+
+        
+        $ci = &get_instance();
+        $ci->db->select('S.*');
+        $ci->db->from('marking_standard AS S');
+        $ci->db->where('S.school_id', $school_id);
+        $marking_standard = $ci->db->get()->result();
+        $level = "";
+        foreach($marking_standard AS $obj){
+            if($obj->min <= $value && $obj->max >= $value){
+                $level = $obj->name;
+            }
+        } 
+        return $level;
+    }
+}
 /*STRICT DATA ACCESS END*/

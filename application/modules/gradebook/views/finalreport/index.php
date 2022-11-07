@@ -10,9 +10,8 @@
             </div>
 
 
-            <?php echo form_open_multipart(site_url('gradebook/finalreport/index'), array('name' => 'reportcard', 'id' => 'reportcard', 'class' => 'form-horizontal form-label-left'), ''); ?>
+            <?php echo form_open_multipart(site_url('gradebook/finalreport/index'), array('name' => 'finalreport_form', 'id' => 'finalreport_form', 'class' => 'form-horizontal form-label-left'), ''); ?>
             <input type="hidden" value="0" id="action_type" name="action_type">
-            <input type="hidden" value="0" id="report_card_id" name="report_card_id">
             <div class="x_content no-print">
                 <div class="row">
 
@@ -95,7 +94,7 @@
                 <div class="x_content">
                     <div class="row">
                         <div class="col-sm-6 col-xs-6  col-sm-offset-3 col-xs-offset-3  layout-box">
-                            <h4><strong>Report Card</strong></h4>
+                            <h4><strong>Academic Transcript</strong></h4>
                             <div class="profile-pic">
                                 <?php if ($school->logo) { ?>
                                     <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" style="width: 70px;margin: 0 20px;" />
@@ -132,155 +131,101 @@
                     </div>
                 </div>
 
+                <?php if (isset($final_report) && !is_null($final_report))
+                    if ($editable || $final_report->status == 1) {
 
-                <div class="x_content">
-                    <table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th><?php echo $this->lang->line('sl_no'); ?></th>
-                                <th width="12%" style="text-align: center;"><?php echo $this->lang->line('subject'); ?></th>
-                                <th>1st Period</th>
-                                <th>2nd Period</th>
-                                <th>3rd Period</th>
-                                <th>4th Period</th>
-                                <th>Semester Exam</th>
-                                <th>Year Average</th>
-                            </tr>
-                        </thead>
-                        <tbody id="fn_mark">
-                            <?php $index = 1;
+                ?>
 
-                            $average_period_1 = 0;
-                            $average_period_2 = 0;
-                            $average_period_3 = 0;
-                            $average_period_4 = 0;
-                            $average_exam_1 = 0;
-                            ?>
-                            <?php if (isset($result) && !empty($result)) {
-                                foreach ($result as $obj) {
-                                    $period1_locked = $obj->period1_locked;
-                                    $period2_locked = $obj->period2_locked;
-                                    $period3_locked = $obj->period3_locked;
-                                    $exam1_locked = $obj->exam1_locked;
-
-                                    $average_period_1 += $obj->period1;
-                                    $average_period_2 += $obj->period2;
-                                    $average_period_3 += $obj->period3;
-                                    $average_exam_1 += $obj->exam1;
-                                    $average_1 = number_format((($obj->period1 + $obj->period2 + $obj->period3) / 3 + $obj->exam1) / 2, 2);
-                                    if ($average_1 <= 0 || $obj->exam1 <= 0) $average_1 = ""; ?>
-                                    <tr style="background: #f9f9f9;">
-                                        <td align="center"><?php echo $index++;  ?></td>
-                                        <td align="center"><?php echo $obj->subject_name; ?></td>
-                                        <td align="right">
-                                            <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period1" value="<?php echo $obj->period1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;">
-                                            <?php } else {
-                                                echo $obj->period1;
-                                            } ?>
-                                        </td>
-                                        <td align="right">
-                                            <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period2" value="<?php echo $obj->period2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;">
-                                            <?php } else {
-                                                echo $obj->period2;
-                                            } ?>
-                                        </td>
-                                        <td align="right">
-                                            <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period3" value="<?php echo $obj->period3 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;">
-                                            <?php } else {
-                                                echo $obj->period3;
-                                            } ?>
-                                        </td>
-                                        <td align="right">
-                                            <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_exam1" value="<?php echo $obj->exam1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;">
-                                            <?php } else {
-                                                echo $obj->exam1;
-                                            } ?>
-                                        </td>
-                                        <td align="right"><?php echo $average_1;  ?></td>
-                                    </tr>
-                                <?php } ?>
-
+                    <div class="x_content">
+                        <table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                            <thead>
                                 <tr>
-                                    <td></td>
-                                    <td align="center">Average</td>
-                                    <td align="right"><?php if ($average_period_1 > 0) echo number_format($average_period_1 / ($index - 1), 2); ?></td>
-                                    <td align="right"><?php if ($average_period_2 > 0) echo number_format($average_period_2 / ($index - 1), 2); ?></td>
-                                    <td align="right"><?php if ($average_period_3 > 0) echo number_format($average_period_3 / ($index - 1), 2); ?></td>
-                                    <td align="right"><?php if ($average_exam_1 > 0) echo number_format($average_exam_1 / ($index - 1), 2); ?></td>
-                                    <td align="right"><?php if ($average_exam_1 > 0) echo number_format((($average_period_1 + $average_period_2 + $average_period_3) / 3 + $average_exam_1) / (2 * ($index - 1)), 2);  ?></td>
-
+                                    <th class="text-center" colspan="3">10th Grade</th>
+                                    <th class="text-center" colspan="3">11th Grade</th>
+                                    <th class="text-center" colspan="3">12th Grade</th>
                                 </tr>
-                            <?php } else { ?>
                                 <tr>
-                                    <td colspan="17" align="center"><?php echo $this->lang->line('no_data_found'); ?></td>
+                                    <th class="text-center" width="10%">Subject</th>
+                                    <th class="text-center" width="20%" colspan="2">Grade</th>
+                                    <th class="text-center" width="10%">Subject</th>
+                                    <th class="text-center" width="20%" colspan="2">Grade</th>
+                                    <th class="text-center" width="10%">Subject</th>
+                                    <th class="text-center" width="20%" colspan="2">Grade</th>
                                 </tr>
-                            <?php } ?>
-                        </tbody>
-                        <p>
-                            <?php if (isset($time_list) && count($time_list) > 0) { ?>
-                                <tbody>
-                                    <?php foreach ($time_list as $obj) {
-                                        if ($obj->type == 1) $type_name = "Days Absent";
-                                        else if ($obj->type == 2) $type_name = "Conduct";
-                                        else if ($obj->type == 3) $type_name = "Days present";
-                                        else $type_name = "Time/tardy";
+                            </thead>
+
+                            <tbody id="fn_mark">
+
+                                <?php if (isset($final_report) && !is_null($final_report)) { ?>
+
+                                    <?php
+                                    $average_period_1 = 0;
+                                    $average_period_2 = 0;
+                                    $average_period_3 = 0;
+                                    $average_exam_1 = 0;
+                                    $average_exam_2 = 0;
+                                    foreach ($report_list as $obj) {
+                                        $average_period_1 += $obj->period_1;
+                                        $average_period_2 += $obj->period_2;
+                                        $average_period_3 += $obj->period_3;
                                     ?>
                                         <tr>
-                                            <td></td>
-                                            <td><?php echo $type_name; ?></td>
-                                            <td align="right">
+                                            <td><?php echo $obj->subject_name;  ?></td>
+                                            <td align="right" width="10%">
                                                 <?php if ($editable) { ?>
-                                                    <input type="text" name="time_<?php echo $obj->type; ?>[1]" value="<?php echo $obj->period_1 ?? ''; ?>" min="0" style="width:100%;">
+                                                    <input type="number" name="report_<?php echo $obj->subject_id; ?>[1]" value="<?php echo $obj->period_1 ?? ''; ?>" min="0" max="100" step="0.01" style="width:80px;">
                                                 <?php } else {
                                                     echo $obj->period_1 > 0 ? $obj->period_1 : '';
                                                 } ?>
                                             </td>
-                                            <td align="right">
+                                            <td align="center" width="10%"><?php echo getGradeLevel($obj->period_1); ?></td>
+                                            <td><?php echo $obj->subject_name;  ?></td>
+                                            <td align="right" width="10%">
                                                 <?php if ($editable) { ?>
-                                                    <input type="text" name="time_<?php echo $obj->type; ?>[2]" value="<?php echo $obj->period_2 ?? ''; ?>" min="0" style="width:100;">
+                                                    <input type="number" name="report_<?php echo $obj->subject_id; ?>[2]" value="<?php echo $obj->period_2 ?? ''; ?>" min="0" max="100" step="0.01" style="width:80px;">
                                                 <?php } else {
                                                     echo $obj->period_2 > 0 ? $obj->period_2 : '';
                                                 } ?>
                                             </td>
-                                            <td align="right">
+                                            <td align="center" width="10%"><?php echo getGradeLevel($obj->period_2); ?></td>
+                                            <td><?php echo $obj->subject_name;  ?></td>
+                                            <td align="right" width="10%">
                                                 <?php if ($editable) { ?>
-                                                    <input type="text" name="time_<?php echo $obj->type; ?>[3]" value="<?php echo $obj->period_3 ?? ''; ?>" min="0" style="width:100;">
+                                                    <input type="number" name="report_<?php echo $obj->subject_id; ?>[3]" value="<?php echo $obj->period_3 ?? ''; ?>" min="0" max="100" step="0.01" style="width:80px;">
                                                 <?php } else {
                                                     echo $obj->period_3 > 0 ? $obj->period_3 : '';
                                                 } ?>
                                             </td>
-                                            <td></td>
-                                            <td></td>
+                                            <td align="center" width="10%"><?php echo getGradeLevel($obj->period_3); ?></td>
                                         </tr>
                                     <?php } ?>
-                                </tbody>
-                            <?php } ?>
+                                <?php } ?>
 
-                            <?php if ($editable && isset($result) && !is_null($result)) { ?>
-                                <tfooter class="x_content no-print">
+                            </tbody>
+                            <?php if (isset($final_report) && !is_null($final_report)) { ?>
+                                <tfooter>
                                     <tr>
-                                        <th></th>
-                                        <th align="center">Is Locked?</th>
-                                        <th style="text-align: center;"><input type="checkbox" name="locked_period1" <?php echo $period1_locked ? 'checked' : ''; ?>></th>
-                                        <th style="text-align: center;"><input type="checkbox" name="locked_period2" <?php echo $period2_locked ? 'checked' : ''; ?>></th>
-                                        <th style="text-align: center;"><input type="checkbox" name="locked_period3" <?php echo $period3_locked ? 'checked' : ''; ?>></th>
-                                        <th style="text-align: center;"><input type="checkbox" name="locked_exam1" <?php echo $exam1_locked ? 'checked' : ''; ?>></th>
-                                        <th></th>
+                                        <td><strong>Average</strong></td>
+                                        <td align="right"><?php if ($average_period_1 > 0) echo number_format($average_period_1 / count($report_list), 2); ?></td>
+                                        <td align="center" width="10%"><?php echo getGradeLevel($average_period_1 / count($report_list)); ?></td>
+                                        <td><strong>Average</strong></td>
+                                        <td align="right"><?php if ($average_period_2 > 0) echo number_format($average_period_2 / count($report_list), 2); ?></td>
+                                        <td align="center" width="10%"><?php echo getGradeLevel($average_period_2 / count($report_list)); ?></td>
+                                        <td><strong>Average</strong></td>
+                                        <td align="right"><?php if ($average_period_3 > 0) echo number_format($average_period_3 / count($report_list), 2); ?></td>
+                                        <td align="center" width="10%"><?php echo getGradeLevel($average_period_3 / count($report_list)); ?></td>
                                     </tr>
                                 </tfooter>
                             <?php } ?>
-                    </table>
+                        </table>
 
 
-                </div>
+                    </div>
+
+
+                <?php } ?>
 
                 <?php echo form_close(); ?>
-
-
                 <?php if (isset($marking_standard) && !is_null($marking_standard)) { ?>
                     <div class="x_content">
                         <div class="row">
@@ -312,7 +257,7 @@
                 <?php } ?>
                 <div class="x_content">
                     <div class="row">
-                        <center>iAcademic automated generated report, <?php echo date("m/d/Y") ?>.</center>
+                        <center>iAcademic automated generated report, Signature is not required. <?php echo date("m/d/Y") ?>.</center>
                     </div>
                 </div>
                 <!-- <div class="rowt">
