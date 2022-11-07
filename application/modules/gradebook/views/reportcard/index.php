@@ -115,7 +115,7 @@
                     <thead>
                         <tr>
                             <th><?php echo $this->lang->line('sl_no'); ?></th>
-                            <th width="12%" style="text-align: center;"><?php echo $this->lang->line('subject'); ?></th>>
+                            <th width="12%" style="text-align: center;"><?php echo $this->lang->line('subject'); ?></th>
                             <th>1st Period</th>
                             <th>2nd Period</th>
                             <th>3rd Period</th>
