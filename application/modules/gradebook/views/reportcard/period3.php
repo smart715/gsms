@@ -234,21 +234,21 @@
                                             <td><?php echo $type_name; ?></td>
                                             <td align="right">
                                                 <?php if ($editable) { ?>
-                                                    <input type="number" name="time_<?php echo $obj->type; ?>[1]" value="<?php echo $obj->period_1 ?? ''; ?>" min="0" style="width:80px;">
+                                                    <input type="text" name="time_<?php echo $obj->type; ?>[1]" value="<?php echo $obj->period_1 ?? ''; ?>" min="0" style="width:100%;">
                                                 <?php } else {
                                                     echo $obj->period_1 > 0 ? $obj->period_1 : '';
                                                 } ?>
                                             </td>
                                             <td align="right">
                                                 <?php if ($editable) { ?>
-                                                    <input type="number" name="time_<?php echo $obj->type; ?>[2]" value="<?php echo $obj->period_2 ?? ''; ?>" min="0" style="width:80px;">
+                                                    <input type="text" name="time_<?php echo $obj->type; ?>[2]" value="<?php echo $obj->period_2 ?? ''; ?>" min="0" style="width:100;">
                                                 <?php } else {
                                                     echo $obj->period_2 > 0 ? $obj->period_2 : '';
                                                 } ?>
                                             </td>
                                             <td align="right">
                                                 <?php if ($editable) { ?>
-                                                    <input type="number" name="time_<?php echo $obj->type; ?>[3]" value="<?php echo $obj->period_3 ?? ''; ?>" min="0" style="width:80px;">
+                                                    <input type="text" name="time_<?php echo $obj->type; ?>[3]" value="<?php echo $obj->period_3 ?? ''; ?>" min="0" style="width:100;">
                                                 <?php } else {
                                                     echo $obj->period_3 > 0 ? $obj->period_3 : '';
                                                 } ?>
