@@ -35,7 +35,8 @@
                                         <thead>
                                             <tr>
                                                 <th><?php echo $this->lang->line('sl_no'); ?></th>
-                                                <th width="50%">Name</th>
+                                                <th width="30%">Name</th>
+                                                <th width="30%">Grade</th>
                                                 <th><?php echo $this->lang->line('action'); ?></th>
                                             </tr>
                                         </thead>
@@ -46,6 +47,7 @@
                                                 <tr>
                                                     <td><?php echo $count++; ?></td>
                                                     <td><?php echo $obj->name; ?></td>
+                                                    <td><?php echo $obj->grade; ?></td>
                                                     <td>
                                                         <a href="<?php echo site_url('setting/extracurricularactivities/edit/' . $obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
                                                         <a href="<?php echo site_url('setting/extracurricularactivities/delete/' . $obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
@@ -63,7 +65,6 @@
                                 <div class="x_content">
                                     <?php echo form_open(site_url('setting/extracurricularactivities/add'), array('name' => 'add', 'id' => 'add', 'class' => 'form-horizontal form-label-left'), ''); ?>
 
-                                    <?php $this->load->view('layout/school_list_form'); ?>
 
                                     <div class="item form-group">
                                         <div class="row">
@@ -72,6 +73,16 @@
                                             <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <input class="form-control" name="name" id="name" value="<?php echo isset($post['name']) ?  $post['name'] : ''; ?>" placeholder="<?php echo $this->lang->line('name'); ?>" required="required" type="text" autocomplete="off">
                                                 <div class="help-block"><?php echo form_error('name'); ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <div class="row">
+                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Grade<span class="required">*</span>
+                                            </label>
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <input class="form-control" name="grade" id="grade" value="<?php echo isset($post['grade']) ?  $post['grade'] : ''; ?>" placeholder="grade" required="required" type="text" autocomplete="off">
+                                                <div class="help-block"><?php echo form_error('grade'); ?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -99,12 +110,22 @@
 
                                         <div class="item form-group">
                                             <div class="row">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('name'); ?> <span class="required">*</span>
-                                            </label>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <input class="form-control" name="name" id="name" value="<?php echo isset($section->name) ?  $section->name : ''; ?>" placeholder="<?php echo $this->lang->line('section'); ?> <?php echo $this->lang->line('name'); ?>" required="required" type="text" autocomplete="off">
-                                                <div class="help-block"><?php echo form_error('name'); ?></div>
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"><?php echo $this->lang->line('name'); ?> <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control" name="name" id="name" value="<?php echo isset($section->name) ?  $section->name : ''; ?>" placeholder="<?php echo $this->lang->line('name'); ?>" required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"><?php echo form_error('name'); ?></div>
+                                                </div>
                                             </div>
+                                        </div>
+                                        <div class="item form-group">
+                                            <div class="row">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Grade <span class="required">*</span>
+                                                </label>
+                                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                                    <input class="form-control" name="grade" id="grade" value="<?php echo isset($section->nagrademe) ?  $section->grade : ''; ?>" placeholder="grade" required="required" type="text" autocomplete="off">
+                                                    <div class="help-block"><?php echo form_error('grade'); ?></div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -130,77 +151,6 @@
     </div>
 
 
-    <!-- Super admin js START  -->
-    <script type="text/javascript">
-        $("document").ready(function() {
-            <?php if (isset($section) && !empty($section)) { ?>
-                $("#edit_school_id").trigger('change');
-            <?php } ?>
-        });
-
-        $('.fn_school_id').on('change', function() {
-
-            var school_id = $(this).val();
-            var class_id = '';
-            var teacher_id = '';
-            <?php if (isset($section) && !empty($section)) { ?>
-                class_id = '<?php echo $section->class_id; ?>';
-                teacher_id = '<?php echo $section->teacher_id; ?>';
-            <?php } ?>
-
-            if (!school_id) {
-                toastr.error('<?php echo $this->lang->line('select_school'); ?>');
-                return false;
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "<?php echo site_url('ajax/get_class_by_school'); ?>",
-                data: {
-                    school_id: school_id,
-                    class_id: class_id
-                },
-                async: false,
-                success: function(response) {
-                    if (response) {
-                        if (class_id) {
-                            $('#edit_class_id').html(response);
-                        } else {
-                            $('#add_class_id').html(response);
-                        }
-
-                        get_teacher_by_school(school_id, teacher_id);
-                    }
-                }
-            });
-        });
-
-
-        function get_teacher_by_school(school_id, teacher_id) {
-
-            $.ajax({
-                type: "POST",
-                url: "<?php echo site_url('ajax/get_teacher_by_school'); ?>",
-                data: {
-                    school_id: school_id,
-                    teacher_id: teacher_id
-                },
-                async: false,
-                success: function(response) {
-                    if (response) {
-                        if (teacher_id) {
-                            $('#edit_teacher_id').html(response);
-                        } else {
-                            $('#add_teacher_id').html(response);
-                        }
-                    }
-                }
-            });
-        }
-    </script>
-    <!-- Super admin js end -->
-
-
     <!-- datatable with buttons -->
     <script type="text/javascript">
         $(document).ready(function() {
@@ -220,34 +170,6 @@
             });
         });
 
-
-        <?php if (isset($filter_class_id)) { ?>
-            get_class_by_school('<?php echo $filter_school_id; ?>', '<?php echo $filter_class_id; ?>');
-        <?php } ?>
-
-        function get_class_by_school(school_id, class_id) {
-
-            $.ajax({
-                type: "POST",
-                url: "<?php echo site_url('ajax/get_class_by_school'); ?>",
-                data: {
-                    school_id: school_id,
-                    class_id: class_id
-                },
-                async: false,
-                success: function(response) {
-                    if (response) {
-                        $('#filter_class_id').html(response);
-                    }
-                }
-            });
-        }
-
-        function get_section_by_class(url) {
-            if (url) {
-                window.location.href = url;
-            }
-        }
 
 
         $("#add").validate();

@@ -67,6 +67,7 @@ class Extracurricularactivities extends MY_Controller {
                 $data = array();
                 $data['school_id'] = $school_id;  
                 $data['name'] = $this->input->post('name');
+                $data['grade'] = $this->input->post('grade');
                 $insert_id = $this->activities->insert('extracurricular_activities', $data);
                 if ($insert_id) {                    
                     success($this->lang->line('insert_success'));
@@ -113,6 +114,7 @@ class Extracurricularactivities extends MY_Controller {
             if ($this->form_validation->run() === TRUE) {
                 $data = array();
                 $data['name'] = $this->input->post('name');
+                $data['grade'] = $this->input->post('grade');
                 $updated = $this->activities->update('extracurricular_activities', $data, array('id' => $this->input->post('id')));
 
                 if ($updated) {

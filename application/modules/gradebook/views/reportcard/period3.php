@@ -248,7 +248,7 @@
                                         <?php foreach ($extracurricular_activities as $activity) { ?>
                                             <tr>
                                                 <td><?php echo $activity->name; ?></td>
-                                                <td>E</td>
+                                                <td><?php echo $activity->grade; ?></td>
                                             </tr>
                                         <?php } ?>
                                     </tbody>
