@@ -136,13 +136,8 @@
                                 <th>1st Period</th>
                                 <th>2nd Period</th>
                                 <th>3rd Period</th>
-                                <th>Semester Exam</th>
-                                <th>Semester Average</th>
                                 <th>4th Period</th>
-                                <th>5th Period</th>
-                                <th>6th Period</th>
                                 <th>Semester Exam</th>
-                                <th>Semester Average</th>
                                 <th>Year Average</th>
                             </tr>
                         </thead>
@@ -153,89 +148,56 @@
                             $average_period_2 = 0;
                             $average_period_3 = 0;
                             $average_period_4 = 0;
-                            $average_period_5 = 0;
-                            $average_period_6 = 0;
                             $average_exam_1 = 0;
-                            $average_exam_2 = 0;
                             ?>
                             <?php if (isset($result) && !empty($result)) {
                                 foreach ($result as $obj) {
-                                    $average_period_1 += $obj->period1;
-                                    $average_period_2 += $obj->period2;
-                                    $average_period_3 += $obj->period3;
-                                    $average_period_4 += $obj->period4;
-                                    $average_period_5 += $obj->period5;
-                                    $average_period_6 += $obj->period6;
+                                    $average_period_1 += $obj->period_1;
+                                    $average_period_2 += $obj->period_2;
+                                    $average_period_3 += $obj->period_3;
+                                    $average_period_4 += $obj->period_4;
                                     $average_exam_1 += $obj->exam_1;
-                                    $average_exam_2 += $obj->exam_2;
-                                    $average_1 = number_format((($obj->period1 + $obj->period2 + $obj->period3) / 3 + $obj->exam_1) / 2, 2);
-                                    $average_2 = number_format((($obj->period4 + $obj->period5 + $obj->period6) / 3 + $obj->exam_2) / 2, 2);
-                                    $average_3 = number_format(($average_1 + $average_2) / 2, 2);
-                                    if ($average_1 <= 0 || $obj->exam_1 <= 0) $average_1 = "";
-                                    if ($average_2 <= 0 || $obj->exam_2 <= 0) $average_2 = "";
-                                    if ($average_3 <= 0 || $obj->exam_2 <= 0) $average_3 = ""; ?>
+                                    $average_1 = number_format((($obj->period_1 + $obj->period_2 + $obj->period_3 + $obj->period_4) / 4 + $obj->exam_1) / 2, 2);
+                                    if ($average_1 <= 0 || $obj->exam_1 <= 0) $average_1 = ""; ?>
                                     <tr style="background: #f9f9f9;">
                                         <td align="center"><?php echo $index++;  ?></td>
                                         <td align="center"><?php echo $obj->subject_name; ?></td>
                                         <td align="right">
                                             <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period1" value="<?php echo $obj->period1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period1_locked ? 'readonly' : '' ?>>
+                                                <input type="number" name="report_<?php echo $obj->id; ?>_period1" value="<?php echo $obj->period1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" >
                                             <?php } else {
                                                 echo $obj->period1;
                                             } ?>
                                         </td>
                                         <td align="right">
                                             <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period2" value="<?php echo $obj->period2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period2_locked ? 'readonly' : '' ?>>
+                                                <input type="number" name="report_<?php echo $obj->id; ?>_period2" value="<?php echo $obj->period2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" >
                                             <?php } else {
                                                 echo $obj->period2;
                                             } ?>
                                         </td>
                                         <td align="right">
                                             <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period3" value="<?php echo $obj->period3 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period3_locked ? 'readonly' : '' ?>>
+                                                <input type="number" name="report_<?php echo $obj->id; ?>_period3" value="<?php echo $obj->period3 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;">
                                             <?php } else {
                                                 echo $obj->period3;
                                             } ?>
                                         </td>
                                         <td align="right">
                                             <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_exam1" value="<?php echo $obj->exam1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->exam1_locked ? 'readonly' : '' ?>>
-                                            <?php } else {
-                                                echo $obj->exam1;
-                                            } ?>
-                                        </td>
-                                        <td align="right"><?php echo $average_1;  ?></td>
-                                        <td align="right">
-                                            <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period4" value="<?php echo $obj->period4 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period4_locked ? 'readonly' : '' ?>>
+                                                <input type="number" name="report_<?php echo $obj->id; ?>_period4" value="<?php echo $obj->period4 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;">
                                             <?php } else {
                                                 echo $obj->period4;
                                             } ?>
                                         </td>
                                         <td align="right">
                                             <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period5" value="<?php echo $obj->period5 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period5_locked ? 'readonly' : '' ?>>
+                                                <input type="number" name="report_<?php echo $obj->id; ?>_exam1" value="<?php echo $obj->exam1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;">
                                             <?php } else {
-                                                echo $obj->period5;
+                                                echo $obj->exam1;
                                             } ?>
                                         </td>
-                                        <td align="right">
-                                            <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_period6" value="<?php echo $obj->period6 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period6_locked ? 'readonly' : '' ?>>
-                                            <?php } else {
-                                                echo $obj->period6;
-                                            } ?>
-                                        </td>
-                                        <td align="right">
-                                            <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_exam2" value="<?php echo $obj->exam2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->exam2_locked ? 'readonly' : '' ?>>
-                                            <?php } else {
-                                                echo $obj->exam2;
-                                            } ?>
-                                        </td>
-                                        <td align="right"><?php echo $average_2;  ?></td>
-                                        <td align="right"><?php echo $average_3;  ?></td>
+                                        <td align="right"><?php echo $average_1;  ?></td>
                                     </tr>
                                 <?php } ?>
 
@@ -245,15 +207,10 @@
                                     <td align="right"><?php if ($average_period_1 > 0) echo number_format($average_period_1 / ($index - 1), 2); ?></td>
                                     <td align="right"><?php if ($average_period_2 > 0) echo number_format($average_period_2 / ($index - 1), 2); ?></td>
                                     <td align="right"><?php if ($average_period_3 > 0) echo number_format($average_period_3 / ($index - 1), 2); ?></td>
-                                    <td align="right"><?php if ($average_exam_1 > 0) echo number_format($average_exam_1 / ($index - 1), 2); ?></td>
-                                    <td align="right"><?php if ($average_exam_1 > 0) echo number_format((($average_period_1 + $average_period_2 + $average_period_3) / 3 + $average_exam_1) / (2 * ($index - 1)), 2);  ?></td>
-
                                     <td align="right"><?php if ($average_period_4 > 0) echo number_format($average_period_4 / ($index - 1), 2); ?></td>
-                                    <td align="right"><?php if ($average_period_5 > 0) echo number_format($average_period_5 / ($index - 1), 2); ?></td>
-                                    <td align="right"><?php if ($average_period_6 > 0) echo number_format($average_period_6 / ($index - 1), 2); ?></td>
-                                    <td align="right"><?php if ($average_exam_2 > 0) echo number_format($average_exam_2 / ($index - 1), 2); ?></td>
-                                    <td align="right"><?php if ($average_exam_2 > 0) echo number_format((($average_period_4 + $average_period_5 + $average_period_6) / 3 + $average_exam_2) / (2 * ($index - 1)), 2);  ?></td>
-                                    <td align="right"><?php if ($average_exam_2 > 0) echo number_format((($average_period_1 + $average_period_2 + $average_period_3 + $average_period_4 + $average_period_5 + $average_period_6) / 12 + ($average_exam_1 + $average_exam_2) / 4) / ($index - 1), 2);  ?></td>
+                                    <td align="right"><?php if ($average_exam_1 > 0) echo number_format($average_exam_1 / ($index - 1), 2); ?></td>
+                                        <td align="right"><?php if ($average_exam_1 > 0) echo number_format((($average_period_1 + $average_period_2 + $average_period_3 + $average_period_4) / 4 + $average_exam_1) / (2 * ($index - 1)), 2);  ?></td>
+
                                 </tr>
                             <?php } else { ?>
                                 <tr>
@@ -270,13 +227,8 @@
                                     <th style="text-align: center;"><input type="checkbox" name="locked_period1"></th>
                                     <th style="text-align: center;"><input type="checkbox" name="locked_period2"></th>
                                     <th style="text-align: center;"><input type="checkbox" name="locked_period3"></th>
+                                    <th style="text-align: center;"><input type="checkbox" name="locked_period4"></th>
                                     <th style="text-align: center;"><input type="checkbox" name="locked_exam1"></th>
-                                    <th></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period1"></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period2"></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_period3"></th>
-                                    <th style="text-align: center;"><input type="checkbox" name="locked_exam2"></th>
-                                    <th></th>
                                     <th></th>
                                 </tr>
                             </tfooter>

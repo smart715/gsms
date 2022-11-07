@@ -128,6 +128,6 @@ class Reportcard extends MY_Controller
         $this->data['marking_standard'] = $this->resultcard->get_list('marking_standard', array('school_id' => $school_id), '', '', '', 'id', 'ASC');
 
         $this->layout->title($this->lang->line('manage_result_card') . ' | ' . SMS);
-        $this->layout->view('gradebook/reportcard/index', $this->data);
+        $this->layout->view('gradebook/reportcard/period'.$period_num, $this->data);
     }
 }

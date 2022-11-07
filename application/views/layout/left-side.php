@@ -41,10 +41,6 @@
                                 <ul class="nav child_menu">
                                     <?php if (has_permission(VIEW, 'setting', 'setting')) { ?>
                                         <li><a href="<?php echo site_url('setting/index'); ?>"><?php echo $this->lang->line('school_setting'); ?></a></li>
-                                    <li><a href="<?php echo site_url('setting/extracurricularactivities/index'); ?>">Extra Curricular Activities</a>
-                                    </li>
-                                    <li><a href="<?php echo site_url('setting/markingstandard/index'); ?>">Marking Standard</a>
-                                    </li>
                                     <?php } ?>
                                     <?php if (has_permission(VIEW, 'setting', 'payment')) { ?>
                                         <li><a href="<?php echo site_url('setting/payment/index'); ?>"><?php echo $this->lang->line('payment_setting'); ?></a></li>
@@ -118,6 +114,11 @@
                                 <?php } ?>
                                 <?php if (has_permission(VIEW, 'administrator', 'admin')) { ?>
                                     <li><a href="<?php echo site_url('administrator/admin/index'); ?>"> Manage Admin</a></li>
+
+                                    <li><a href="<?php echo site_url('setting/extracurricularactivities/index'); ?>">Extra Curricular Activities</a>
+                                    </li>
+                                    <li><a href="<?php echo site_url('setting/markingstandard/index'); ?>">Marking Standard</a>
+                                    </li>
                                 <?php } ?>
                                 <?php if (has_permission(VIEW, 'administrator', 'user')) { ?>
                                     <li><a href="<?php echo site_url('administrator/user/index'); ?>"><?php echo $this->lang->line('manage_user'); ?></a></li>
@@ -299,11 +300,11 @@
 
 
                     <!-- <?php if (
-                        has_permission(VIEW, 'lessonplan', 'lessonplan') ||
-                        has_permission(VIEW, 'lessonplan', 'lesson') ||
-                        has_permission(VIEW, 'lessonplan', 'status') ||
-                        has_permission(VIEW, 'lessonplan', 'topic')
-                    ) { ?>
+                                has_permission(VIEW, 'lessonplan', 'lessonplan') ||
+                                has_permission(VIEW, 'lessonplan', 'lesson') ||
+                                has_permission(VIEW, 'lessonplan', 'status') ||
+                                has_permission(VIEW, 'lessonplan', 'topic')
+                            ) { ?>
                         <li><a><i class="fa fa-bars"></i> <?php echo $this->lang->line('lesson_plan'); ?><span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
                                 <?php if (has_permission(VIEW, 'lessonplan', 'lesson')) { ?>
