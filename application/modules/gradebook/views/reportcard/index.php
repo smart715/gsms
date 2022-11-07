@@ -10,8 +10,9 @@
             </div>
 
 
+            <?php echo form_open_multipart(site_url('gradebook/reportcard/index'), array('name' => 'reportcard', 'id' => 'reportcard', 'class' => 'form-horizontal form-label-left'), ''); ?>
+            <input type="hidden" value="0" id="action_type" name="action_type">
             <div class="x_content no-print">
-                <?php echo form_open_multipart(site_url('gradebook/reportcard/index'), array('name' => 'resultcard', 'id' => 'resultcard', 'class' => 'form-horizontal form-label-left'), ''); ?>
                 <div class="row">
 
                     <?php $this->load->view('layout/school_list_filter'); ?>
@@ -82,7 +83,6 @@
                         </div>
                     </div>
                 </div>
-                <?php echo form_close(); ?>
             </div>
 
             <?php if (isset($student) && !empty($student)) { ?>
@@ -91,7 +91,7 @@
                         <div class="col-sm-6 col-xs-6  col-sm-offset-3 col-xs-offset-3  layout-box">
                             <h4><strong>Report Card</strong></h4>
                             <div class="profile-pic">
-                            <?php if ($school->logo) { ?>
+                                <?php if ($school->logo) { ?>
                                     <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" style="width: 70px;margin: 0 20px;" />
                                 <?php } elseif ($school->frontend_logo) { ?>
                                     <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->frontend_logo; ?>" alt="" style="width: 70px;margin: 0 20px;" />
@@ -99,8 +99,8 @@
                                     <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->brand_logo; ?>" alt="" style="width: 70px;margin: 0 20px;" />
                                 <?php } ?>
                             </div>
-                            
-                            <table  style="margin: 20px;width:100%;text-align: left;">
+
+                            <table style="margin: 20px;width:100%;text-align: left;">
                                 <tbody>
                                     <tr>
                                         <td width="50%">
@@ -177,28 +177,36 @@
                                 <tr style="background: #f9f9f9;">
                                     <td align="center"><?php echo $index++;  ?></td>
                                     <td align="center"><?php echo $obj->subject_name; ?></td>
-                                    <td align="right"><?php echo $obj->period1; ?></td>
-                                    <td align="right"><?php echo $obj->period2; ?></td>
-                                    <td align="right"><?php echo $obj->period3; ?></td>
-                                    <td align="right"><?php echo $obj->exam1; ?></td>
+                                    <td align="right">
+                                        <input type="number" name="report_<?php echo $obj->id; ?>_period1" value="<?php echo $obj->period1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period1_locked ? 'readonly' : '' ?>>
+                                    </td>
+                                    <td align="right">
+                                        <input type="number" name="report_<?php echo $obj->id; ?>_period2" value="<?php echo $obj->period2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period2_locked ? 'readonly' : '' ?>>
+                                    </td>
+                                    <td align="right">
+                                        <input type="number" name="report_<?php echo $obj->id; ?>_period3" value="<?php echo $obj->period3 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period3_locked ? 'readonly' : '' ?>>
+                                    </td>
+                                    <td align="right">
+                                        <input type="number" name="report_<?php echo $obj->id; ?>_exam1" value="<?php echo $obj->exam1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->exam1_locked ? 'readonly' : '' ?>>
+                                    </td>
                                     <td align="right"><?php echo $average_1;  ?></td>
-                                    <td align="right"><?php echo $obj->period4; ?></td>
-                                    <td align="right"><?php echo $obj->period5; ?></td>
-                                    <td align="right"><?php echo $obj->period6; ?></td>
-                                    <td align="right"><?php echo $obj->exam2; ?></td>
+                                    <td align="right">
+                                        <input type="number" name="report_<?php echo $obj->id; ?>_period4" value="<?php echo $obj->period4 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period4_locked ? 'readonly' : '' ?>>
+                                    </td>
+                                    <td align="right">
+                                        <input type="number" name="report_<?php echo $obj->id; ?>_period5" value="<?php echo $obj->period5 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period5_locked ? 'readonly' : '' ?>>
+                                    </td>
+                                    <td align="right">
+                                        <input type="number" name="report_<?php echo $obj->id; ?>_period6" value="<?php echo $obj->period6 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period6_locked ? 'readonly' : '' ?>>
+                                    </td>
+                                    <td align="right">
+                                        <input type="number" name="report_<?php echo $obj->id; ?>_exam2" value="<?php echo $obj->exam2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->exam2_locked ? 'readonly' : '' ?>>
+                                    </td>
                                     <td align="right"><?php echo $average_2;  ?></td>
                                     <td align="right"><?php echo $average_3;  ?></td>
                                 </tr>
                             <?php } ?>
-                        <?php } else { ?>
-                            <tr>
-                                <td colspan="17" align="center"><?php echo $this->lang->line('no_data_found'); ?></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
 
-                    <?php if (isset($result) && !is_null($result)) { ?>
-                        <tfooter>
                             <tr>
                                 <td></td>
                                 <td align="center">Average</td>
@@ -215,6 +223,30 @@
                                 <td align="right"><?php if ($average_exam_2 > 0) echo number_format((($average_period_4 + $average_period_5 + $average_period_6) / 3 + $average_exam_2) / (2 * ($index - 1)), 2);  ?></td>
                                 <td align="right"><?php if ($average_exam_2 > 0) echo number_format((($average_period_1 + $average_period_2 + $average_period_3 + $average_period_4 + $average_period_5 + $average_period_6) / 12 + ($average_exam_1 + $average_exam_2) / 4) / ($index - 1), 2);  ?></td>
                             </tr>
+                        <?php } else { ?>
+                            <tr>
+                                <td colspan="17" align="center"><?php echo $this->lang->line('no_data_found'); ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+
+                    <?php if (isset($result) && !is_null($result)) { ?>
+                        <tfooter>
+                            <tr>
+                                <th></th>
+                                <th align="center">Is Locked?</th>
+                                <th style="text-align: center;"><input type="checkbox" name="locked_period1"></th>
+                                <th style="text-align: center;"><input type="checkbox" name="locked_period2"></th>
+                                <th style="text-align: center;"><input type="checkbox" name="locked_period3"></th>
+                                <th style="text-align: center;"><input type="checkbox" name="locked_exam1"></th>
+                                <th></th>
+                                <th style="text-align: center;"><input type="checkbox" name="locked_period1"></th>
+                                <th style="text-align: center;"><input type="checkbox" name="locked_period2"></th>
+                                <th style="text-align: center;"><input type="checkbox" name="locked_period3"></th>
+                                <th style="text-align: center;"><input type="checkbox" name="locked_exam2"></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
                         </tfooter>
                     <?php } ?>
                 </table>
@@ -222,6 +254,7 @@
 
             </div>
 
+            <?php echo form_close(); ?>
             <!-- <div class="rowt">
                 <div class="col-lg-12">&nbsp;</div>
             </div>
@@ -239,6 +272,7 @@
 
             <div class="row no-print">
                 <div class="col-xs-12 text-right">
+                    <button id="savebtn" type="button" class="btn btn-success">Save</button>
                     <button class="btn btn-default " onclick="window.print();"><i class="fa fa-print"></i> <?php echo $this->lang->line('print'); ?></button>
                 </div>
             </div>
@@ -259,6 +293,10 @@
         <?php } ?>
     });
 
+    $("#savebtn").click(function() {
+        $("#action_type").val("1");
+        $("#reportcard").submit();
+    });
     $('.fn_school_id').on('change', function() {
 
         var school_id = $(this).val();

@@ -35,7 +35,7 @@ class Reportcard extends MY_Controller
 
         check_permission(VIEW);
         $school_id = getSchoolId();
-        
+
         $school = $this->resultcard->get_school_by_id($school_id);
         $period_num = $school->period_num;
 
@@ -60,6 +60,49 @@ class Reportcard extends MY_Controller
             }
 
             $academic_year_id = $this->input->post('academic_year_id');
+            if ($this->input->post('action_type') == 1) {
+                $condition = array();
+                $condition['class_id'] = $class_id;
+                $condition['school_id'] = $school_id;
+                $subjects = $this->resultcard->get_list('subjectbyclass', $condition, '', '', '', 'id', 'ASC');
+
+                $periods = getPeriodTypes($period_num);
+                foreach ($subjects as $subject) {
+                    foreach ($periods as $key => $period) {
+
+                        $condition = array(
+                            'class_id' => $class_id,
+                            'student_id' => $student_id,
+                            'subject_id' => $subject->subject_id,
+                            'type' => $key,
+                            'academic_year_id' => $academic_year_id
+                        );
+                        $result = $this->resultcard->get_single('grade_reports', $condition);
+                        $marks = $this->input->post('report_' . $subject->subject_id . '_' . $key);
+                        $is_locked = 0;
+                        if($this->input->post('locked_' . $key) && $this->input->post('locked_' . $key)=='on')
+                        $is_locked = 1;
+                        if (!is_null($marks)) {
+                            if (empty($result)) {
+                                $data['student_id'] = $student_id;
+                                $data['class_id'] = $class_id;
+                                $data['subject_id'] = $subject->subject_id;
+                                $data['type'] = $key;
+                                $data['academic_year_id'] = $academic_year_id;
+                                $data['is_locked'] = $is_locked;
+                                $data['created_at'] = date('Y-m-d H:i:s');
+                                $data['created_by'] = logged_in_user_id();
+                                $data['marks'] = $marks;
+                                $this->resultcard->insert('grade_reports', $data);
+                            } else {
+                                // $this->resultcard->update('grade_reports', array('marks' => $marks, 'is_locked' => $is_locked), $condition);
+                                $this->resultcard->update('grade_reports', array('marks' => $marks, 'is_locked' => $is_locked), array('id' => $result->id));
+
+                            }
+                        }
+                    }
+                }
+            }
 
             $this->data['school'] = $school;
             $this->data['school_id'] = $school_id;
@@ -68,7 +111,7 @@ class Reportcard extends MY_Controller
             $this->data['class_id'] = $class_id;
             $this->data['section_id'] = $section_id;
             $this->data['student_id'] = $student_id;
-            $this->data['result'] = $this->resultcard->get_report_card($school_id,$period_num, $academic_year_id, $class_id, $section_id, $student_id);
+            $this->data['result'] = $this->resultcard->get_report_card($school_id, $period_num, $academic_year_id, $class_id, $section_id, $student_id);
         }
 
 
@@ -81,50 +124,5 @@ class Reportcard extends MY_Controller
 
         $this->layout->title($this->lang->line('manage_result_card') . ' | ' . SMS);
         $this->layout->view('gradebook/reportcard/index', $this->data);
-    }
-
-    public function all()
-    {
-
-        check_permission(VIEW);
-
-        if ($_POST) {
-
-
-            $school_id = $this->input->post('school_id');
-            $class_id = $this->input->post('class_id');
-            $section_id = $this->input->post('section_id');
-
-            if ($this->session->userdata('role_id') == STUDENT) {
-                $class_id = $this->session->userdata('class_id');
-                $section_id = $this->session->userdata('section_id');
-            }
-
-            $school = $this->resultcard->get_school_by_id($school_id);
-            $academic_year_id = $this->input->post('academic_year_id');
-
-            $students = $this->resultcard->get_student_list($school_id, $class_id, $section_id, $academic_year_id);
-            $this->data['exams']    = $this->resultcard->get_list('exams', array('school_id' => $school_id, 'status' => 1, 'academic_year_id' => $academic_year_id), '', '', '', 'id', 'ASC');
-
-            $this->data['school'] = $school;
-            $this->data['school_id'] = $school_id;
-            $this->data['academic_year_id'] = $academic_year_id;
-            $this->data['students'] = $students;
-            $this->data['class_id'] = $class_id;
-            $this->data['section_id'] = $section_id;
-        }
-
-
-        $condition = array();
-        $condition['status'] = 1;
-        if ($this->session->userdata('role_id') != SUPER_ADMIN) {
-
-            $condition['school_id'] = getSchoolId();
-            $this->data['classes'] = $this->resultcard->get_list('classes', $condition, '', '', '', 'id', 'ASC');
-            $this->data['academic_years'] = $this->resultcard->get_list('academic_years', $condition, '', '', '', 'id', 'ASC');
-        }
-
-        $this->layout->title($this->lang->line('manage_all_result_card') . ' | ' . SMS);
-        $this->layout->view('result_card/all', $this->data);
     }
 }

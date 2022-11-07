@@ -16,9 +16,9 @@ class Reportcard_Model extends MY_Model
         $periods = getPeriodTypes($period_num);
         $select = '';
         foreach($periods AS $key=>$period){
-            $select .= ', GR_'.$key.'.marks AS '.$key;
+            $select .= ', GR_'.$key.'.marks AS '.$key.', GR_'.$key.'.is_locked AS '.$key.'_locked';
         }
-        $this->db->select('S.name AS subject_name '.$select);
+        $this->db->select('S.id, S.name AS subject_name '.$select);
         $this->db->from('subjectbyclass AS SC');
         $this->db->join('subjects AS S', 'S.id = SC.subject_id', 'left');
 
