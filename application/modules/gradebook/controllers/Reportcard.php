@@ -80,8 +80,8 @@ class Reportcard extends MY_Controller
                         $result = $this->resultcard->get_single('grade_reports', $condition);
                         $marks = $this->input->post('report_' . $subject->subject_id . '_' . $key);
                         $is_locked = 0;
-                        if($this->input->post('locked_' . $key) && $this->input->post('locked_' . $key)=='on')
-                        $is_locked = 1;
+                        if ($this->input->post('locked_' . $key) && $this->input->post('locked_' . $key) == 'on')
+                            $is_locked = 1;
                         if (!is_null($marks)) {
                             if (empty($result)) {
                                 $data['student_id'] = $student_id;
@@ -97,7 +97,6 @@ class Reportcard extends MY_Controller
                             } else {
                                 // $this->resultcard->update('grade_reports', array('marks' => $marks, 'is_locked' => $is_locked), $condition);
                                 $this->resultcard->update('grade_reports', array('marks' => $marks, 'is_locked' => $is_locked), array('id' => $result->id));
-
                             }
                         }
                     }
@@ -124,6 +123,9 @@ class Reportcard extends MY_Controller
         $condition['school_id'] = getSchoolId();
         $this->data['classes'] = $this->resultcard->get_list('classes', $condition, '', '', '', 'id', 'ASC');
         $this->data['academic_years'] = $this->resultcard->get_list('academic_years', $condition, '', '', '', 'id', 'ASC');
+
+        $this->data['extracurricular_activities'] = $this->resultcard->get_list('extracurricular_activities', array('school_id' => $school_id), '', '', '', 'id', 'ASC');
+        $this->data['marking_standard'] = $this->resultcard->get_list('marking_standard', array('school_id' => $school_id), '', '', '', 'id', 'ASC');
 
         $this->layout->title($this->lang->line('manage_result_card') . ' | ' . SMS);
         $this->layout->view('gradebook/reportcard/index', $this->data);
