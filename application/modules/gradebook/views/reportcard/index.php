@@ -93,7 +93,7 @@
                                 <h4><?php echo $school->school_name; ?></h4>
                                 <p> <?php echo $school->address; ?></p>
                             <?php } ?>
-                            <h4><?php echo $this->lang->line('result_card'); ?></h4>
+                            <h4>Report Card</h4>
                             <div class="profile-pic">
                                 <?php if ($student->photo != '') { ?>
                                     <img src="<?php echo UPLOAD_PATH; ?>/student-photo/<?php echo $student->photo; ?>" alt="" width="80" />
@@ -102,9 +102,8 @@
                                 <?php } ?>
                             </div>
                             <?php echo $this->lang->line('name'); ?> : <?php echo $student->name; ?><br />
-                            <?php echo $this->lang->line('class'); ?> : <?php echo $student->class_name; ?>,
-                            <?php echo $this->lang->line('section'); ?> : <?php echo $student->section; ?>,
-                            <?php echo $this->lang->line('roll_no'); ?> : <?php echo $student->roll_no; ?>
+                            <?php echo $this->lang->line('class'); ?> : <?php echo $student->class_name; ?>
+                            <?php echo $student->section?','.$this->lang->line('section').' : '.$student->section:''; ?>
                         </div>
                     </div>
                 </div>
