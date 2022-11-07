@@ -73,7 +73,7 @@
                                 <li><a class="smoothscroll" href="#_feature"><?php echo $this->lang->line('features'); ?></a></li>
                                 <li><a class="smoothscroll" href="#_contact"><?php echo $this->lang->line('contact'); ?></a></li>
                                 <?php if(isset($demo_school) && !empty($demo_school)){ ?>
-                                    <li><a class="visit-school" href="<?php echo site_url($demo_school->school_url); ?>"><?php echo $this->lang->line('visit_school'); ?></a></li>
+                                    <li><a class="visit-school" href="<?php echo site_url(); ?>"><?php echo $this->lang->line('visit_school'); ?></a></li>
                                 <?php } ?>  
                                 <?php if (logged_in_user_id()) { ?>     
                                     <li><a href="<?php echo site_url('auth/logout'); ?>"><?php echo $this->lang->line('logout'); ?></a></li>
@@ -491,7 +491,7 @@
                                 <li><a href="#"><?php echo $this->lang->line('features'); ?></a></li>
                                 <li><a href="#"><?php echo $this->lang->line('contact_us'); ?></a></li>
                                 <?php if(isset($demo_school) && !empty($demo_school)){ ?>
-                                    <li><a href="<?php echo site_url($demo_school->school_url); ?>"><?php echo $this->lang->line('visit_school'); ?></a></li>
+                                    <li><a href="<?php echo site_url(); ?>"><?php echo $this->lang->line('visit_school'); ?></a></li>
                                 <?php } ?>
                                 <?php if (logged_in_user_id()) { ?>     
                                     <li><a href="<?php echo site_url('auth/logout'); ?>"><?php echo $this->lang->line('logout'); ?></a></li>

@@ -82,7 +82,7 @@
                         <li>
                             <?php if($this->session->userdata('role_id') != SUPER_ADMIN){ ?>                            
                                     <?php if($this->school_setting->enable_frontend){ ?>
-                                        <a href="<?php echo site_url($this->school_setting->school_url); ?>"><i class="fa fa-globe"></i> <?php echo $this->lang->line('web'); ?></a>
+                                        <a href="<?php echo site_url(); ?>"><i class="fa fa-globe"></i> <?php echo $this->lang->line('web'); ?></a>
                                     <?php } ?> 
                             <?php }else{ ?>  
                                     <a href="<?php echo site_url(); ?>" target="_blank"><i class="fa fa-globe"></i> <?php echo $this->lang->line('web'); ?></a>

@@ -68,11 +68,6 @@ class Web extends CI_Controller {
         
     public function school(){
          
-       
-        // if(!$school_url){  redirect(); }       
-        
-        // $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url)); 
-        
         // if(empty($school)){
         //     $this->session->unset_userdata('front_school_id');
         // }
@@ -85,7 +80,7 @@ class Web extends CI_Controller {
         // if(!empty($school) && $school->id != $school_id){ 
         //     $this->session->unset_userdata('front_school_id');              
         //     $this->session->set_userdata('front_school_id', $school->id);            
-        //     redirect($school->school_url);
+        //     redirect();
         // }
         $school_id = getSchoolId();
         $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
@@ -137,7 +132,7 @@ class Web extends CI_Controller {
             $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id));         
             // if(!empty($school)){
             //     $this->session->set_userdata('front_school_id', $school->id);               
-            //     redirect($school->school_url);
+            //     redirect();
             // }            
             redirect();              
         }        
@@ -340,7 +335,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }           
             
             $this->data['news'] = $this->web->get_news_list($school_id, 100);
@@ -352,7 +347,7 @@ class Web extends CI_Controller {
         }else{       
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();           
         }
@@ -384,7 +379,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }    
             
             $this->data['news'] = $this->web->get_single_news($school_id, $id);  
@@ -398,7 +393,7 @@ class Web extends CI_Controller {
                 
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();             
         }
@@ -430,7 +425,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }   
 
             $this->data['notices'] = $this->web->get_notice_list($school_id, 100);
@@ -442,7 +437,7 @@ class Web extends CI_Controller {
                    
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();
         }
@@ -474,7 +469,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }    
             
             $this->data['notice'] = $this->web->get_single_notice($school_id, $id);
@@ -487,7 +482,7 @@ class Web extends CI_Controller {
             
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();              
         }
@@ -518,7 +513,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }   
             
             $this->data['holidays'] = $this->web->get_holiday_list($school_id, 6);
@@ -529,7 +524,7 @@ class Web extends CI_Controller {
         }else{  
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();             
         }
@@ -549,9 +544,6 @@ class Web extends CI_Controller {
         $school = $this->web->get_single('schools', array('status' => 1, 'id'=>$school_id)); 
         if($this->session->userdata('front_school_id')){           
 
-            $id = $this->uri->segment(3);
-            $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -561,7 +553,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }   
             
             $this->data['holiday'] = $this->web->get_single_holiday($school_id,  $id);
@@ -574,7 +566,7 @@ class Web extends CI_Controller {
             
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();              
         }
@@ -604,7 +596,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }   
             
             $this->data['events'] = $this->web->get_event_list($school_id, 6);
@@ -616,7 +608,7 @@ class Web extends CI_Controller {
             
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();                
         }
@@ -647,7 +639,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }   
             
             $this->data['event'] = $this->web->get_single_event($school_id, $id);
@@ -659,7 +651,7 @@ class Web extends CI_Controller {
          }else{            
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();              
         }
@@ -682,7 +674,6 @@ class Web extends CI_Controller {
         if($this->session->userdata('front_school_id')){           
 
             $school_id = $this->session->userdata('front_school_id');            
-            $school = $this->web->get_single('schools', array('status' => 1, 'school_url'=>$school_url));
             
             // need to check school subscription status
             if(!check_saas_status($school->id, 'is_enable_frontend')){                        
@@ -692,7 +683,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }             
 
             $this->data['galleries'] = $this->web->get_list('galleries', array('status'=>1, 'school_id'=>$school_id, 'is_view_on_web'=>1), '', '', '', 'id', 'DESC');
@@ -704,7 +695,7 @@ class Web extends CI_Controller {
             
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();               
         }
@@ -734,7 +725,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }             
 
             $this->data['teachers'] = $this->web->get_teacher_list($school_id);
@@ -746,7 +737,7 @@ class Web extends CI_Controller {
             
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();                
         }
@@ -777,7 +768,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }                      
 
             $this->data['faqs'] = $this->web->get_faq_list($school_id);
@@ -789,7 +780,7 @@ class Web extends CI_Controller {
             
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();              
         }
@@ -820,7 +811,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }                         
 
             $this->data['employees'] = $this->web->get_employee_list($school_id);
@@ -831,7 +822,7 @@ class Web extends CI_Controller {
             
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();              
         }
@@ -862,7 +853,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }  
             
             $this->data['page'] = $this->web->get_single('pages', array('status' => 1, 'school_id'=>$school_id, 'page_slug'=>$page_url));
@@ -878,7 +869,7 @@ class Web extends CI_Controller {
            
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();              
         }
@@ -909,7 +900,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }             
 
             $this->data['list'] = TRUE;
@@ -920,7 +911,7 @@ class Web extends CI_Controller {
             
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();              
         }
@@ -952,7 +943,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }
 
              if(isset($this->data['school']->enable_online_admission) && $this->data['school']->enable_online_admission){               
@@ -963,14 +954,14 @@ class Web extends CI_Controller {
                 $this->layout->view('admission-form', $this->data);
             
             }else{               
-               redirect($school->school_url);
+               redirect();
            }
             
         }else{    
             
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();               
         }
@@ -1001,7 +992,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }
            
            if(isset($this->data['school']->enable_online_admission) && $this->data['school']->enable_online_admission){
@@ -1020,7 +1011,7 @@ class Web extends CI_Controller {
                         $this->session->set_userdata('error', $this->lang->line('apply_failed'));
                     }
                     
-                    redirect($school->school_url.'/admission-online');
+                    redirect('/admission-online');
                 } else { 
                     $this->session->set_userdata('error', $this->lang->line('apply_failed'));
                     $this->data['post'] = $_POST;
@@ -1036,14 +1027,14 @@ class Web extends CI_Controller {
             $this->layout->view('admission-online', $this->data);
             
            }else{               
-               redirect($school->school_url);
+               redirect();
            }
            
         }else{     
             
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();              
         }
@@ -1503,7 +1494,7 @@ class Web extends CI_Controller {
             if($school->id != $school_id){                
                 $this->session->unset_userdata('front_school_id');              
                 $this->session->set_userdata('front_school_id', $school->id);              
-                redirect($school->school_url);
+                redirect();
             }      
             
             
@@ -1514,7 +1505,7 @@ class Web extends CI_Controller {
                 }else{
                     $this->session->set_userdata('error', $this->lang->line('email_send_failed'));
                 }               
-                redirect(site_url($school->school_url.'/contact'));
+                redirect(site_url('contact'));
             }
 
             $this->data['list'] = TRUE;
@@ -1525,7 +1516,7 @@ class Web extends CI_Controller {
             
             if(!empty($school)){
                 $this->session->set_userdata('front_school_id', $school->id);
-                 redirect($school->school_url);
+                 redirect();
             }
             redirect();              
         }

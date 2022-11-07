@@ -202,9 +202,7 @@ class Auth extends CI_Controller {
         $this->session->sess_destroy();
         
         if(!empty($school)){
-            if($school->school_url){
-                redirect($school->school_url.'/login', 'refresh');
-            }
+            redirect('login', 'refresh');
         }
         redirect('auth/login', 'refresh');
         exit;
