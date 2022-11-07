@@ -1632,5 +1632,5 @@ $config['my_gradebook']['reportcard']['2'] = '1|1|1|1';
 $config['my_gradebook']['finalreport']['2'] = '1|1|1|1';
 $config['my_academic']['classes']['5'] = '0|0|0|0';
 $config['my_gradebook']['gradereport']['5'] = '1|1|1|1';
-$config['my_gradebook']['reportcard']['5'] = '0|0|1|0';
-$config['my_gradebook']['finalreport']['5'] = '0|0|1|0';
+$config['my_gradebook']['reportcard']['5'] = '0|0|0|0';
+$config['my_gradebook']['finalreport']['5'] = '0|0|0|0';
