@@ -178,29 +178,61 @@
                                     <td align="center"><?php echo $index++;  ?></td>
                                     <td align="center"><?php echo $obj->subject_name; ?></td>
                                     <td align="right">
-                                        <input type="number" name="report_<?php echo $obj->id; ?>_period1" value="<?php echo $obj->period1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period1_locked ? 'readonly' : '' ?>>
+                                        <?php if ($editable) { ?>
+                                            <input type="number" name="report_<?php echo $obj->id; ?>_period1" value="<?php echo $obj->period1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period1_locked ? 'readonly' : '' ?>>
+                                        <?php } else {
+                                            echo $obj->period1;
+                                        } ?>
                                     </td>
                                     <td align="right">
-                                        <input type="number" name="report_<?php echo $obj->id; ?>_period2" value="<?php echo $obj->period2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period2_locked ? 'readonly' : '' ?>>
+                                        <?php if ($editable) { ?>
+                                            <input type="number" name="report_<?php echo $obj->id; ?>_period2" value="<?php echo $obj->period2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period2_locked ? 'readonly' : '' ?>>
+                                        <?php } else {
+                                            echo $obj->period2;
+                                        } ?>
                                     </td>
                                     <td align="right">
-                                        <input type="number" name="report_<?php echo $obj->id; ?>_period3" value="<?php echo $obj->period3 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period3_locked ? 'readonly' : '' ?>>
+                                        <?php if ($editable) { ?>
+                                            <input type="number" name="report_<?php echo $obj->id; ?>_period3" value="<?php echo $obj->period3 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period3_locked ? 'readonly' : '' ?>>
+                                        <?php } else {
+                                            echo $obj->period3;
+                                        } ?>
                                     </td>
                                     <td align="right">
-                                        <input type="number" name="report_<?php echo $obj->id; ?>_exam1" value="<?php echo $obj->exam1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->exam1_locked ? 'readonly' : '' ?>>
+                                        <?php if ($editable) { ?>
+                                            <input type="number" name="report_<?php echo $obj->id; ?>_exam1" value="<?php echo $obj->exam1 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->exam1_locked ? 'readonly' : '' ?>>
+                                        <?php } else {
+                                            echo $obj->exam1;
+                                        } ?>
                                     </td>
                                     <td align="right"><?php echo $average_1;  ?></td>
                                     <td align="right">
-                                        <input type="number" name="report_<?php echo $obj->id; ?>_period4" value="<?php echo $obj->period4 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period4_locked ? 'readonly' : '' ?>>
+                                        <?php if ($editable) { ?>
+                                            <input type="number" name="report_<?php echo $obj->id; ?>_period4" value="<?php echo $obj->period4 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period4_locked ? 'readonly' : '' ?>>
+                                        <?php } else {
+                                            echo $obj->period4;
+                                        } ?>
                                     </td>
                                     <td align="right">
-                                        <input type="number" name="report_<?php echo $obj->id; ?>_period5" value="<?php echo $obj->period5 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period5_locked ? 'readonly' : '' ?>>
+                                        <?php if ($editable) { ?>
+                                            <input type="number" name="report_<?php echo $obj->id; ?>_period5" value="<?php echo $obj->period5 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period5_locked ? 'readonly' : '' ?>>
+                                        <?php } else {
+                                            echo $obj->period5;
+                                        } ?>
                                     </td>
                                     <td align="right">
-                                        <input type="number" name="report_<?php echo $obj->id; ?>_period6" value="<?php echo $obj->period6 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period6_locked ? 'readonly' : '' ?>>
+                                        <?php if ($editable) { ?>
+                                            <input type="number" name="report_<?php echo $obj->id; ?>_period6" value="<?php echo $obj->period6 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->period6_locked ? 'readonly' : '' ?>>
+                                        <?php } else {
+                                            echo $obj->period6;
+                                        } ?>
                                     </td>
                                     <td align="right">
-                                        <input type="number" name="report_<?php echo $obj->id; ?>_exam2" value="<?php echo $obj->exam2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->exam2_locked ? 'readonly' : '' ?>>
+                                        <?php if ($editable) { ?>
+                                            <input type="number" name="report_<?php echo $obj->id; ?>_exam2" value="<?php echo $obj->exam2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->exam2_locked ? 'readonly' : '' ?>>
+                                        <?php } else {
+                                            echo $obj->exam2;
+                                        } ?>
                                     </td>
                                     <td align="right"><?php echo $average_2;  ?></td>
                                     <td align="right"><?php echo $average_3;  ?></td>

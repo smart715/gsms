@@ -114,6 +114,9 @@ class Reportcard extends MY_Controller
             $this->data['result'] = $this->resultcard->get_report_card($school_id, $period_num, $academic_year_id, $class_id, $section_id, $student_id);
         }
 
+        if ($this->session->userdata('role_id') == ADMIN || $this->session->userdata('role_id') == SUPER_ADMIN) {
+            $this->data['editable'] = true;
+        }
 
         $condition = array();
         $condition['status'] = 1;
