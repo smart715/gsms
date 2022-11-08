@@ -108,8 +108,7 @@
                             <th><?php echo "Student ID"; ?></th>
                             <th><?php echo $this->lang->line('photo'); ?></th>                                          
                             <th><?php echo "Final Aerage"; ?></th>                                                                       
-                            <th><?php echo $this->lang->line('result'); ?></th>                                            
-                            <th><?php echo $this->lang->line('position'); ?></th>                                            
+                            <th><?php echo $this->lang->line('result'); ?></th>                                               
                             <th><?php echo $this->lang->line('class_option'); ?></th>                                              
                         </tr>
                     </thead>
@@ -120,14 +119,13 @@
                             ?>
                             <?php foreach ($students as $obj) { ?>
                         
-                            <?php  $result = get_exam_final_result($school_id, $obj->id, $academic_year_id, $current_class_id); ?>
-                            <?php  $enroll = get_enrollment($obj->id, $next_session_id, $school_id); ?>
-                            <?php  $position = get_student_position($school_id, $academic_year_id, $current_class_id, $obj->id); ?>
+                            <?php  $result = NULL;//get_exam_final_result($school_id, $obj->id, $academic_year_id, $current_class_id); ?>
+                            <?php  $enroll = NULL;//get_enrollment($obj->id, $next_session_id, $school_id); ?>
                         
                                 <tr>
                                     <td><?php echo $count++;  ?></td>
                                     <td><?php echo ucfirst($obj->name); ?> <br/> <?php echo $obj->phone; ?></td>                                
-                                    <td><?php echo $obj->roll_no; ?></td>
+                                    <td><?php echo $obj->uid; ?></td>
                                     <td>
                                         <?php if ($obj->photo != '') { ?>
                                             <img src="<?php echo UPLOAD_PATH; ?>/student-photo/<?php echo $obj->photo; ?>" alt="" width="50" /> 
@@ -138,7 +136,7 @@
                                     </td>  
                                     <td><?php if(isset($result) && $result->avg_grade_point > 0 ){ echo $result->avg_grade_point; }else{ echo ''; } ?></td>
                                     <td><?php if(isset($result) && $result->result_status ){ echo $this->lang->line($result->result_status); }else{ echo ''; } ?></td>
-                                    <td><?php echo $position; ?></td>
+                           
                                     <td>
                                         <select  class="form-control col-md-7 col-xs-12" name="promotion_class_id[<?php echo $obj->id; ?>]"  required="required">                                
                                             <option value="<?php echo $next_class->id; ?>" <?php if(isset($enroll) && $enroll->class_id == $next_class->id){ echo 'selected="selected"';} ?>><?php echo $next_class->name; ?></option>
