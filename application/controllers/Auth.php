@@ -141,7 +141,7 @@ class Auth extends CI_Controller
                     $this->session->set_userdata('profile_id', $profile->id);
                 }
 
-                if ($login->role_id == SUPER_ADMIN && $school_id == 0) {
+                if ($login->role_id == SUPER_ADMIN && $school_id != 0) {
                     $this->session->set_userdata('role_id', ADMIN);
                 }
                 // set appliction setting
