@@ -462,7 +462,7 @@
                                     <li><a href="<?php echo site_url('gradebook/reportcard/index'); ?>">Report Card</a></li>
                                 <?php } ?>
                                 <?php if (has_permission(VIEW, 'gradebook', 'finalreport')) { ?>
-                                    <li><a href="<?php echo site_url('gradebook/finalreport/index'); ?>">Final Report</a></li>
+                                    <li><a href="<?php echo site_url('gradebook/finalreport/index'); ?>">Transcript</a></li>
                                 <?php } ?>
                             </ul>
                         </li>
