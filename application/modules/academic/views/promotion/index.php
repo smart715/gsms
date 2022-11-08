@@ -173,7 +173,7 @@
                 </div>
                  <?php echo form_close(); ?>
                 
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="instructions"><strong><?php echo $this->lang->line('instruction'); ?>: </strong> 
                         <ol>
                             <li><?php echo $this->lang->line('promotion_instruction_1'); ?></li>
@@ -183,7 +183,7 @@
                             <li><?php echo $this->lang->line('promotion_instruction_5'); ?></li>
                         </ol>
                     </div>
-                </div>
+                </div> -->
                 
             </div>             
         </div>
