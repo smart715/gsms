@@ -259,11 +259,7 @@
                         has_permission(VIEW, 'academic', 'classes') ||
                         has_permission(VIEW, 'academic', 'section') ||
                         has_permission(VIEW, 'academic', 'subject') ||
-                        has_permission(VIEW, 'academic', 'syllabus') ||
-                        has_permission(VIEW, 'academic', 'material') ||
-                        has_permission(VIEW, 'academic', 'liveclass') ||
-                        has_permission(VIEW, 'academic', 'assignment') ||
-                        has_permission(VIEW, 'academic', 'submission')
+                        has_permission(VIEW, 'academic', 'subjectbyclass') 
                     ) { ?>
                         <li><a><i class="fa fa-institution"></i> <?php echo $this->lang->line('academic'); ?><span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
@@ -279,21 +275,6 @@
                                 <?php if (has_permission(VIEW, 'academic', 'subjectbyclass')) { ?>
                                     <li><a href="<?php echo site_url('academic/subjectbyclass/index'); ?>">Subject-Class-Teacher</a></li>
                                 <?php } ?>
-                                <?php if (has_permission(VIEW, 'academic', 'syllabus')) { ?>
-                                    <li><a href="<?php echo site_url('academic/syllabus/index'); ?>"><?php echo $this->lang->line('syllabus'); ?></a></li>
-                                <?php } ?>
-                                <!-- <?php if (has_permission(VIEW, 'academic', 'material')) { ?>
-                                    <li><a href="<?php echo site_url('academic/material/index'); ?>"><?php echo $this->lang->line('material'); ?></a></li>
-                                <?php } ?>
-                                <?php if (has_permission(VIEW, 'academic', 'liveclass')) { ?>
-                                    <li><a href="<?php echo site_url('academic/liveclass/index'); ?>"><?php echo $this->lang->line('live_class'); ?></a></li>
-                                <?php } ?>
-                                <?php if (has_permission(VIEW, 'academic', 'assignment')) { ?>
-                                    <li><a href="<?php echo site_url('academic/assignment/index'); ?>"><?php echo $this->lang->line('assignment'); ?></a></li>
-                                <?php } ?>
-                                <?php if (has_permission(VIEW, 'academic', 'submission')) { ?>
-                                    <li><a href="<?php echo site_url('academic/submission/index'); ?>"><?php echo $this->lang->line('submission'); ?></a></li>
-                                <?php } ?> -->
                             </ul>
                         </li>
                     <?php } ?>
