@@ -306,10 +306,10 @@ class Student extends MY_Controller {
         if (!$this->input->post('id')) {
             $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|valid_email|callback_email');
             $this->form_validation->set_rules('password', $this->lang->line('password'), 'trim|required|min_length[6]|max_length[20]');
-            $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required');
-            $this->form_validation->set_rules('roll_no', "Student ID", 'trim|required');          
+            $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required');        
         }
 
+        $this->form_validation->set_rules('uid', "Student ID", 'trim|required');  
         $this->form_validation->set_rules('school_id', $this->lang->line('school_name'), 'trim|required');
         $this->form_validation->set_rules('type_id', $this->lang->line('student_type'), 'trim');
         
@@ -503,6 +503,7 @@ class Student extends MY_Controller {
 
         $items = array();
 
+        $items[] = 'uid';
         $items[] = 'school_id';
         $items[] = 'type_id';
         $items[] = 'admission_no';       
@@ -996,7 +997,7 @@ class Student extends MY_Controller {
         $data['class_id'] = $this->input->post('class_id');
         $data['section_id'] = $this->input->post('section_id');
         $data['academic_year_id'] = $school->academic_year_id;
-        $data['roll_no'] = $this->input->post('roll_no');
+        // $data['roll_no'] = $this->input->post('roll_no');
         $data['created_at'] = date('Y-m-d H:i:s');
         $data['created_by'] = logged_in_user_id();
         $data['status'] = 1;
@@ -1018,7 +1019,7 @@ class Student extends MY_Controller {
         $data['school_id'] = $this->input->post('school_id');
         $data['class_id'] = $this->input->post('class_id');
         $data['section_id'] = $this->input->post('section_id');
-        $data['roll_no'] = $this->input->post('roll_no');
+        // $data['roll_no'] = $this->input->post('roll_no');
         $data['modified_at'] = date('Y-m-d H:i:s');
         $data['modified_by'] = logged_in_user_id();
 

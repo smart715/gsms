@@ -174,7 +174,7 @@
                                                     <td><?php echo $this->lang->line($obj->group); ?></td>
                                                     <td><?php echo $obj->class_name; ?></td>
                                                     <td><?php echo $obj->section; ?></td>
-                                                    <td><?php echo $obj->roll_no; ?></td>
+                                                    <td><?php echo $obj->uid; ?></td>
                                                     <td><?php echo $obj->email; ?></td>
                                                     <td>
                                                         <?php if (has_permission(EDIT, 'student', 'student') && $obj->status_type == 'regular') { ?>
@@ -343,7 +343,7 @@
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="section_id"><?php echo $this->lang->line('section'); ?> </label>
-                                            <select class="form-control col-md-7 col-xs-12 quick-field" name="section_id" id="add_section_id" onchange="get_roll_no(this.value);">
+                                            <select class="form-control col-md-7 col-xs-12 quick-field" name="section_id" id="add_section_id" onchange="get_uid(this.value);">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                                             </select>
                                             <div class="help-block"><?php echo form_error('section_id'); ?></div>
@@ -366,9 +366,9 @@
                                 <div class="row">
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="roll_no"><?php echo "Student ID"; ?> <span class="required">*</span></label>
-                                            <input class="form-control col-md-7 col-xs-12" name="roll_no" id="add_roll_no" value="<?php echo isset($post['roll_no']) ?  $post['roll_no'] : ''; ?>" placeholder="<?php echo "Student ID"; ?>" required="required" type="text" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('roll_no'); ?></div>
+                                            <label for="uid"><?php echo "Student ID"; ?> <span class="required">*</span></label>
+                                            <input class="form-control col-md-7 col-xs-12" name="uid" id="add_uid" value="<?php echo isset($post['uid']) ?  $post['uid'] : ''; ?>" placeholder="<?php echo "Student ID"; ?>" required="required" type="text" autocomplete="off">
+                                            <div class="help-block"><?php echo form_error('uid'); ?></div>
                                         </div>
                                     </div>
 
@@ -942,9 +942,9 @@
                                     <div class="row">
                                         <div class="col-md-3 col-sm-3 col-xs-12">
                                             <div class="item form-group">
-                                                <label for="roll_no"><?php echo "Student ID"; ?> <span class="required">*</span></label>
-                                                <input class="form-control col-md-7 col-xs-12" name="roll_no" id="roll_no" value="<?php echo isset($student->roll_no) ?  $student->roll_no : ''; ?>" placeholder="<?php echo "Student ID"; ?>" required="required" type="text" autocomplete="off">
-                                                <div class="help-block"><?php echo form_error('roll_no'); ?></div>
+                                                <label for="uid"><?php echo "Student ID"; ?> <span class="required">*</span></label>
+                                                <input class="form-control col-md-7 col-xs-12" name="uid" id="uid" value="<?php echo isset($student->uid) ?  $student->uid : ''; ?>" placeholder="<?php echo "Student ID"; ?>" required="required" type="text" autocomplete="off">
+                                                <div class="help-block"><?php echo form_error('uid'); ?></div>
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-sm-3 col-xs-12">
@@ -1555,10 +1555,10 @@
 
     }
 
-    function get_roll_no(section_id) {
+    function get_uid(section_id) {
 
         if (!section_id) {
-            $('#add_roll_no').val('');
+            $('#add_uid').val('');
             return false;
         }
 
@@ -1574,21 +1574,7 @@
             return false;
         }
 
-        $.ajax({
-            type: "POST",
-            url: "<?php echo site_url('student/get_roll_no'); ?>",
-            data: {
-                school_id: school_id,
-                class_id: class_id,
-                section_id: section_id
-            },
-            async: false,
-            success: function(response) {
-                if (response) {
-                    $('#add_roll_no').val(response);
-                }
-            }
-        });
+       
 
 
     }

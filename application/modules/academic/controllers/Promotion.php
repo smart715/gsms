@@ -126,7 +126,7 @@ class Promotion extends MY_Controller {
                         
                         $data = array();
                         $data['class_id'] = $_POST['promotion_class_id'][$value]; 
-                        $data['roll_no'] = $_POST['roll_no'][$value]; 
+                        // $data['roll_no'] = $_POST['roll_no'][$value]; 
                         
                         
                         $data['section_id'] = $next_class_default_section->id ? $next_class_default_section->id : '';
