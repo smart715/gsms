@@ -340,7 +340,7 @@ class Type extends MY_Controller {
             if ($sign1_type == 'image/jpeg' || $sign1_type == 'image/pjpeg' ||
                     $sign1_type == 'image/jpg' || $sign1_type == 'image/png' ||
                     $sign1_type == 'image/x-png' || $sign1_type == 'image/gif') {
-                $destination = 'assets/uploads/certificate/';
+                $destination = 'assets/uploads/certificate/sign/';
 
                 $file_type = explode('.', $sign1);
                 $extension = strtolower($file_type[count($file_type) - 1]);
@@ -381,7 +381,7 @@ class Type extends MY_Controller {
             if ($sign2_type == 'image/jpeg' || $sign2_type == 'image/pjpeg' ||
                     $sign2_type == 'image/jpg' || $sign2_type == 'image/png' ||
                     $sign2_type == 'image/x-png' || $sign2_type == 'image/gif') {
-                $destination = 'assets/uploads/certificate/';
+                $destination = 'assets/uploads/certificate/sign/';
 
                 $file_type = explode('.', $sign2);
                 $extension = strtolower($file_type[count($file_type) - 1]);
@@ -432,13 +432,13 @@ class Type extends MY_Controller {
             $this->type->delete('certificates', array('id' => $id));          
             // delete certificate sign1
             $destination = 'assets/uploads/';
-            if (file_exists($destination.'/certificate/'.$certificate->sign1)) {
-                @unlink($destination.'/certificate/'.$certificate->sign1);
+            if (file_exists($destination.'/certificate/sign/'.$certificate->sign1)) {
+                @unlink($destination.'/certificate/sign/'.$certificate->sign1);
             }
             // delete certificate sign2
             $destination = 'assets/uploads/';
-            if (file_exists($destination.'/certificate/'.$certificate->sign2)) {
-                @unlink($destination.'/certificate/'.$certificate->sign2);
+            if (file_exists($destination.'/certificate/sign/'.$certificate->sign2)) {
+                @unlink($destination.'/certificate/sign/'.$certificate->sign2);
             }
             create_log('Has been deleted a certificate type : '.$certificate->name);
             success($this->lang->line('delete_success'));
