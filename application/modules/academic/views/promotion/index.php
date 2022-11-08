@@ -106,10 +106,12 @@
                             <th><?php echo $this->lang->line('sl_no'); ?></th>
                             <th><?php echo $this->lang->line('name'); ?>/ <?php echo $this->lang->line('phone'); ?></th>                           
                             <th><?php echo "Student ID"; ?></th>
-                            <th><?php echo $this->lang->line('photo'); ?></th>                                          
-                            <th><?php echo "Final Aerage"; ?></th>                                                                       
-                            <th><?php echo $this->lang->line('result'); ?></th>                                               
-                            <th><?php echo $this->lang->line('class_option'); ?></th>                                              
+                            <th><?php echo $this->lang->line('photo'); ?></th>
+                            <th><?php echo "# of subject <70"; ?></th>
+                            <th><?php echo "Yearly Average"; ?></th>
+                            <th><?php echo $this->lang->line('result'); ?></th>
+                            <th><?php echo $this->lang->line('position'); ?></th>
+                            <th><?php echo $this->lang->line('class_option'); ?></th>
                         </tr>
                     </thead>
                     <tbody id="fn_mark">   
@@ -134,9 +136,11 @@
                                         <?php } ?>
                                         <input type="hidden" value="<?php echo $obj->id; ?>"  name="students[]" />                                       
                                     </td>  
+                                    <td></td>
                                     <td><?php if(isset($result) && $result->avg_grade_point > 0 ){ echo $result->avg_grade_point; }else{ echo ''; } ?></td>
                                     <td><?php if(isset($result) && $result->result_status ){ echo $this->lang->line($result->result_status); }else{ echo ''; } ?></td>
                            
+                                    <td></td>
                                     <td>
                                         <select  class="form-control col-md-7 col-xs-12" name="promotion_class_id[<?php echo $obj->id; ?>]"  required="required">                                
                                             <option value="<?php echo $next_class->id; ?>" <?php if(isset($enroll) && $enroll->class_id == $next_class->id){ echo 'selected="selected"';} ?>><?php echo $next_class->name; ?></option>
