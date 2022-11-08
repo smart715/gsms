@@ -346,7 +346,7 @@
                                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                                     <input type="hidden" name="prev_sign1" id="prev_sign1" value="<?php echo $certificate->sign1; ?>" />
                                                     <?php if ($certificate->sign1) { ?>
-                                                        <img src="<?php echo UPLOAD_PATH; ?>/certificate/<?php echo $certificate->sign1; ?>" alt="" width="120" /><br /><br />
+                                                        <img src="<?php echo UPLOAD_PATH; ?>/certificate/sign/<?php echo $certificate->sign1; ?>" alt="" width="120" /><br /><br />
                                                     <?php } ?>
                                                     <div class="btn btn-default btn-file">
                                                         <i class="fa fa-paperclip"></i> <?php echo $this->lang->line('upload'); ?>
@@ -387,7 +387,7 @@
                                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                                     <input type="hidden" name="prev_sign2" id="prev_sign2" value="<?php echo $certificate->sign2; ?>" />
                                                     <?php if ($certificate->sign2) { ?>
-                                                        <img src="<?php echo UPLOAD_PATH; ?>/certificate/<?php echo $certificate->sign2; ?>" alt="" width="120" /><br /><br />
+                                                        <img src="<?php echo UPLOAD_PATH; ?>/certificate/sign/<?php echo $certificate->sign2; ?>" alt="" width="120" /><br /><br />
                                                     <?php } ?>
                                                     <div class="btn btn-default btn-file">
                                                         <i class="fa fa-paperclip"></i> <?php echo $this->lang->line('upload'); ?>
