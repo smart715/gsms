@@ -724,7 +724,7 @@
                     <?php } ?>
 
                     <?php if (has_permission(VIEW, 'complain', 'complain') || has_permission(VIEW, 'complain', 'type')) { ?>
-                        <li><a><i class="fa fa-commenting"></i> <?php echo $this->lang->line('complain'); ?> <span class="fa fa-chevron-down"></span></a>
+                        <li><a><i class="fa fa-commenting"></i> Conduct <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
                                 <?php if (has_permission(VIEW, 'complain', 'type')) { ?>
                                     <li><a href="<?php echo site_url('complain/type/index'); ?>"><?php echo $this->lang->line('complain_type'); ?></a></li>
