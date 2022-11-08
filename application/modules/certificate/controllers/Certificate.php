@@ -95,7 +95,7 @@ class Certificate extends MY_Controller {
         $this->data['certificate'] = $this->type->get_single('certificates', array('id' => $certificate_id));
         $this->data['school'] = $this->type->get_single('schools', array('id'=>$this->data['certificate']->school_id, 'status'=>1));
         $this->data['student'] = $this->type->get_student($student_id, $class_id, $school->academic_year_id);     
-        $this->data['certificate']->main_text = get_formatted_certificate_text($this->data['certificate']->main_text, $this->data['student']->role_id, $this->data['student']->user_id);
+        $this->data['certificate']->main_text = get_formatted_certificate_text($this->data['certificate']->main_text, STUDENT, $this->data['student']->user_id);
         $this->data['certificate']->student_name = $this->data['student']->name;
 
         create_log('Has been generate a certificate for student : '.$this->data['student']->name);
