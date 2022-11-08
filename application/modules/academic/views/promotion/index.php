@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-md-2 col-sm-2 col-xs-12">
+                    <!-- <div class="col-md-2 col-sm-2 col-xs-12">
                         <div class="item form-group"> 
                             <div><?php echo $this->lang->line('promote_to_class'); ?>  <span class="required">*</span></div>
                             <select  class="form-control col-md-7 col-xs-12" name="next_class_id" id="next_class_id"  required="required" >
@@ -75,7 +75,7 @@
                             </select>
                             <div class="help-block"><?php echo form_error('next_class_id'); ?></div>
                         </div>
-                    </div> 
+                    </div>  -->
                 
                     <div class="col-md-1 col-sm-1 col-xs-12">
                         <div class="form-group"><br/>
@@ -110,7 +110,6 @@
                             <th><?php echo "# of subject <70"; ?></th>
                             <th><?php echo "Yearly Average"; ?></th>
                             <th><?php echo $this->lang->line('result'); ?></th>
-                            <th><?php echo $this->lang->line('position'); ?></th>
                             <th><?php echo $this->lang->line('class_option'); ?></th>
                         </tr>
                     </thead>
@@ -140,7 +139,6 @@
                                     <td><?php if(isset($result) && $result->avg_grade_point > 0 ){ echo $result->avg_grade_point; }else{ echo ''; } ?></td>
                                     <td><?php if(isset($result) && $result->result_status ){ echo $this->lang->line($result->result_status); }else{ echo ''; } ?></td>
                            
-                                    <td></td>
                                     <td>
                                         <select  class="form-control col-md-7 col-xs-12" name="promotion_class_id[<?php echo $obj->id; ?>]"  required="required">                                
                                             <option value="<?php echo $next_class->id; ?>" <?php if(isset($enroll) && $enroll->class_id == $next_class->id){ echo 'selected="selected"';} ?>><?php echo $next_class->name; ?></option>
