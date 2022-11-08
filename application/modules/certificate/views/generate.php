@@ -199,7 +199,7 @@
                                 <div class="col-sm-6 text-footer">
                                     <div style="height:80px;">
                                     <?php if ($certificate->sign1) { ?>
-                                        <img class="signature-img" src="<?php echo UPLOAD_PATH; ?>/certificate/sign/<?php echo $certificate->sign1; ?>" alt="" /> 
+                                        <img class="signature-img" src="<?php echo UPLOAD_PATH; ?>/certificate/<?php echo $certificate->sign1; ?>" alt="" /> 
                                     <?php } ?>
                                     </div>
                                     <hr style="height:3px;border-width:0;color:gray;background-color:#3b9470;margin: 0px 10px 10px 10px;">
@@ -209,7 +209,7 @@
                                 <div class="col-sm-6 text-footer">
                                     <div style="height:80px;">
                                     <?php if ($certificate->sign2) { ?>
-                                        <img class="signature-img" src="<?php echo UPLOAD_PATH; ?>/certificate/sign/<?php echo $certificate->sign2; ?>" alt="" /> 
+                                        <img class="signature-img" src="<?php echo UPLOAD_PATH; ?>/certificate/<?php echo $certificate->sign2; ?>" alt="" /> 
                                     <?php } ?>
                                     </div>
                                     <hr style="height:3px;border-width:0;color:gray;background-color:#3b9470;margin: 0px 10px 10px 10px;">
