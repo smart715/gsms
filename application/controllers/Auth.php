@@ -72,10 +72,9 @@ class Auth extends CI_Controller
                     if (empty($school)) {
                         $this->session->set_flashdata('error', $this->lang->line('invalid_login'));
                         redirect('auth/login');
-                    }else if($school_id != $login->school_id){
+                    } else if ($school_id != $login->school_id) {
                         $url = school_domain($school->subdomain);
-                        redirect("https://".$url, 'auth/login');
-                        
+                        redirect("https://" . $url, 'auth/login');
                     }
                 }
 
@@ -141,8 +140,8 @@ class Auth extends CI_Controller
                 if (isset($profile->id)) {
                     $this->session->set_userdata('profile_id', $profile->id);
                 }
-                
-                if ($login->role_id == SUPER_ADMIN || $school_id == 0) {
+
+                if ($login->role_id == SUPER_ADMIN && $school_id == 0) {
                     $this->session->set_userdata('role_id', ADMIN);
                 }
                 // set appliction setting
