@@ -102,7 +102,7 @@
                   <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th rowspan="2"><?php echo "Student No"; ?></th>
+                            <th rowspan="2"><?php echo "Student ID"; ?></th>
                             <th rowspan="2"><?php echo $this->lang->line('name'); ?></th>
                             <th rowspan="2"><?php echo $this->lang->line('photo'); ?></th>
                             <th colspan="2"><?php echo $this->lang->line('written'); ?></th>                                            

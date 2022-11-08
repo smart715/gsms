@@ -100,7 +100,7 @@
                 <table id="datatable-responsive" class="table table-striped_ table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th><?php echo "Student No"; ?></th>
+                            <th><?php echo "Student ID"; ?></th>
                             <th><?php echo $this->lang->line('name'); ?></th>
                             <th><?php echo $this->lang->line('photo'); ?></th>                            
                             <th><?php echo $this->lang->line('total_subject'); ?></th>                                            

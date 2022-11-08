@@ -30,7 +30,7 @@
                 <strong><?php echo $this->lang->line('sale_to'); ?>:</strong> <?php echo  $user->name; ?> [<?php echo  $user->role; ?>]<br>                
                 <?php
                     if($user->role_id == STUDENT){
-                        echo '<strong>'.$this->lang->line('class').':</strong> '.$user->class_name.', <strong>'. $this->lang->line('section').':</strong> '.$user->section.', <strong>'. "Student No". ':</strong>'. $user->roll_no . ']<br>';
+                        echo '<strong>'.$this->lang->line('class').':</strong> '.$user->class_name.', <strong>'. $this->lang->line('section').':</strong> '.$user->section.', <strong>'. "Student ID". ':</strong>'. $user->roll_no . ']<br>';
                     }
                 ?>
                 <strong><?php echo $this->lang->line('phone'); ?>:</strong> <?php echo $user->phone; ?>   

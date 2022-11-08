@@ -81,7 +81,7 @@
                                                     if(isset($user) && !empty($user)){
                                                         echo $user->name;
                                                         if($obj->role_id == STUDENT){
-                                                            echo '<br/> [ '.$this->lang->line('class').': '.$user->class_name.', '. $this->lang->line('section').': '.$user->section.','. "Student No". ':'. $user->roll_no . ']';
+                                                            echo '<br/> [ '.$this->lang->line('class').': '.$user->class_name.', '. $this->lang->line('section').': '.$user->section.','. "Student ID". ':'. $user->roll_no . ']';
                                                         }
                                                     }
                                                 ?>

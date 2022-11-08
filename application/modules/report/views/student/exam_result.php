@@ -108,7 +108,7 @@
                                 <thead>
                                     <tr>
                                         <th><?php echo $this->lang->line('name'); ?></th>
-                                        <th><?php echo "Student No"; ?></th>
+                                        <th><?php echo "Student ID"; ?></th>
                                         <th><?php echo $this->lang->line('total_subject'); ?></th>                                            
                                         <th><?php echo $this->lang->line('exam_mark'); ?></th>                                            
                                         <th><?php echo $this->lang->line('obtain_mark'); ?></th> 

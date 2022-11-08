@@ -76,7 +76,7 @@
                                                    if(!empty($user) && !empty($user)){
                                                     echo $user->name;
                                                 ?>
-                                                    <br/>[<?php echo $this->lang->line('role').': '. $obj->role_name ?> <?php if($obj->role_id == STUDENT){ echo $this->lang->line('class').': '.$user->class_name.', '.$this->lang->line('section').': '.$user->section.', '."Student No".': '.$user->roll_no; } ?>]
+                                                    <br/>[<?php echo $this->lang->line('role').': '. $obj->role_name ?> <?php if($obj->role_id == STUDENT){ echo $this->lang->line('class').': '.$user->class_name.', '.$this->lang->line('section').': '.$user->section.', '."Student ID".': '.$user->roll_no; } ?>]
                                                 <?php } ?>
                                                 
                                             </td>

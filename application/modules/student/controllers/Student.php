@@ -307,7 +307,7 @@ class Student extends MY_Controller {
             $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|valid_email|callback_email');
             $this->form_validation->set_rules('password', $this->lang->line('password'), 'trim|required|min_length[6]|max_length[20]');
             $this->form_validation->set_rules('class_id', $this->lang->line('class'), 'trim|required');
-            $this->form_validation->set_rules('roll_no', "Student No", 'trim|required');          
+            $this->form_validation->set_rules('roll_no', "Student ID", 'trim|required');          
         }
 
         $this->form_validation->set_rules('school_id', $this->lang->line('school_name'), 'trim|required');

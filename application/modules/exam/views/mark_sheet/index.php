@@ -115,7 +115,7 @@
                         <?php echo $this->lang->line('exam'); ?> : <?php echo $exam->title; ?><br/>
                         <?php echo $this->lang->line('class'); ?> : <?php echo $student->class_name; ?>,
                         <?php echo $this->lang->line('section'); ?> : <?php echo $student->section; ?>,
-                        <?php echo "Student No"; ?> : <?php echo $student->roll_no; ?>
+                        <?php echo "Student ID"; ?> : <?php echo $student->roll_no; ?>
                       
                     </div>
                 </div>            

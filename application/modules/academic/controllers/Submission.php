@@ -611,7 +611,7 @@ class Submission extends MY_Controller {
                 $message .= '<br/>';
                 $message .= $this->lang->line('section'). ': ' . $assignment->section;
                 $message .= '<br/>';
-                $message .= "Student No". ': ' . $submission->roll_no;
+                $message .= "Student ID". ': ' . $submission->roll_no;
                 $message .= '<br/>';
                 $message .= $this->lang->line('subject'). ': ' . $assignment->subject;
                 $message .= '<br/>';
@@ -706,7 +706,7 @@ class Submission extends MY_Controller {
                 $message .= $this->lang->line('student_name').': '.$submission->student_name. ', ';
                 $message .= $this->lang->line('class').': '.$assignment->class_name. ', ';
                 $message .= $this->lang->line('section').': '.$assignment->section. ', ';
-                $message .= "Student No".': '.$submission->roll_no. ', ';
+                $message .= "Student ID".': '.$submission->roll_no. ', ';
                 $message .= $this->lang->line('subject').': '.$assignment->subject. ', ';
                 $message .= $this->lang->line('assignment_date'). ': ' . date('d/m/Y', strtotime($assignment->assigment_date)).',';
                 $message .= $this->lang->line('submission_date'). ': ' . date('d/m/Y', strtotime($assignment->submission_date));

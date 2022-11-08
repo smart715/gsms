@@ -96,7 +96,7 @@
                             <?php echo $this->lang->line('name'); ?> : <?php echo $std->name; ?><br/>
                             <?php echo $this->lang->line('class'); ?> : <?php echo $std->class_name; ?>,
                             <?php echo $this->lang->line('section'); ?> : <?php echo $std->section; ?>,
-                            <?php echo "Student No"; ?> : <?php echo $std->roll_no; ?>
+                            <?php echo "Student ID"; ?> : <?php echo $std->roll_no; ?>
                         </p>
                     </div>
                 </div>            

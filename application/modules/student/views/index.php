@@ -135,7 +135,7 @@
                                             <th><?php echo $this->lang->line('group'); ?></th>
                                             <th><?php echo $this->lang->line('class'); ?></th>
                                             <th><?php echo $this->lang->line('section'); ?></th>
-                                            <th><?php echo "Student No"; ?></th>
+                                            <th><?php echo "Student ID"; ?></th>
                                             <th><?php echo $this->lang->line('email'); ?></th>
                                             <th><?php echo $this->lang->line('action'); ?></th>
                                         </tr>
@@ -366,8 +366,8 @@
                                 <div class="row">
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
-                                            <label for="roll_no"><?php echo "Student No"; ?> <span class="required">*</span></label>
-                                            <input class="form-control col-md-7 col-xs-12" name="roll_no" id="add_roll_no" value="<?php echo isset($post['roll_no']) ?  $post['roll_no'] : ''; ?>" placeholder="<?php echo "Student No"; ?>" required="required" type="text" autocomplete="off">
+                                            <label for="roll_no"><?php echo "Student ID"; ?> <span class="required">*</span></label>
+                                            <input class="form-control col-md-7 col-xs-12" name="roll_no" id="add_roll_no" value="<?php echo isset($post['roll_no']) ?  $post['roll_no'] : ''; ?>" placeholder="<?php echo "Student ID"; ?>" required="required" type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('roll_no'); ?></div>
                                         </div>
                                     </div>
@@ -942,8 +942,8 @@
                                     <div class="row">
                                         <div class="col-md-3 col-sm-3 col-xs-12">
                                             <div class="item form-group">
-                                                <label for="roll_no"><?php echo "Student No"; ?> <span class="required">*</span></label>
-                                                <input class="form-control col-md-7 col-xs-12" name="roll_no" id="roll_no" value="<?php echo isset($student->roll_no) ?  $student->roll_no : ''; ?>" placeholder="<?php echo "Student No"; ?>" required="required" type="text" autocomplete="off">
+                                                <label for="roll_no"><?php echo "Student ID"; ?> <span class="required">*</span></label>
+                                                <input class="form-control col-md-7 col-xs-12" name="roll_no" id="roll_no" value="<?php echo isset($student->roll_no) ?  $student->roll_no : ''; ?>" placeholder="<?php echo "Student ID"; ?>" required="required" type="text" autocomplete="off">
                                                 <div class="help-block"><?php echo form_error('roll_no'); ?></div>
                                             </div>
                                         </div>

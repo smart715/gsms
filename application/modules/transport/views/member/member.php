@@ -82,7 +82,7 @@
                                         <th><?php echo $this->lang->line('name'); ?></th>
                                         <th><?php echo $this->lang->line('class'); ?></th>
                                         <th><?php echo $this->lang->line('section'); ?></th>
-                                        <th><?php echo "Student No"; ?></th>
+                                        <th><?php echo "Student ID"; ?></th>
                                         <th><?php echo $this->lang->line('transport_route'); ?></th>
                                         <th><?php echo $this->lang->line('stop_name'); ?></th>
                                         <th><?php echo $this->lang->line('stop_km'); ?></th>

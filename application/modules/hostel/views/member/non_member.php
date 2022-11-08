@@ -85,7 +85,7 @@
                                         <th><?php echo $this->lang->line('name'); ?></th>
                                         <th><?php echo $this->lang->line('class'); ?></th>
                                         <th><?php echo $this->lang->line('section'); ?></th>
-                                        <th><?php echo "Student No"; ?></th>
+                                        <th><?php echo "Student ID"; ?></th>
                                         <th><?php echo $this->lang->line('select_hostel'); ?> / <?php echo $this->lang->line('room_no'); ?> </th>                                            
                                         <th><?php echo $this->lang->line('action'); ?></th>                                            
                                     </tr>
