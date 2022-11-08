@@ -94,7 +94,7 @@
                                             <td><?php echo $profile->section; ?></td>
                                         </tr>
                                         <tr>
-                                            <th><?php echo $this->lang->line('roll_no'); ?></th>
+                                            <th><?php echo "Student No"; ?></th>
                                             <td><?php echo $profile->roll_no; ?></td>
                                             <th><?php echo $this->lang->line('registration_no'); ?></th>
                                             <td><?php echo $profile->registration_no; ?></td>
@@ -701,8 +701,8 @@
                                 <div class="row">      
                                      <div class="col-md-3 col-sm-3 col-xs-12">
                                          <div class="item form-group">
-                                             <label for="roll_no"><?php echo $this->lang->line('roll_no'); ?> </label>
-                                             <input  class="form-control col-md-7 col-xs-12"  name="roll_no"  id="roll_no" readonly="readonly"  value="<?php echo isset($profile->roll_no) ?  $profile->roll_no : ''; ?>" placeholder="<?php echo $this->lang->line('roll_no'); ?>" required="required" type="text" autocomplete="off">
+                                             <label for="roll_no"><?php echo "Student No"; ?> </label>
+                                             <input  class="form-control col-md-7 col-xs-12"  name="roll_no"  id="roll_no" readonly="readonly"  value="<?php echo isset($profile->roll_no) ?  $profile->roll_no : ''; ?>" placeholder="<?php echo "Student No"; ?>" required="required" type="text" autocomplete="off">
                                              <div class="help-block"><?php echo form_error('roll_no'); ?></div>
                                          </div>
                                      </div>

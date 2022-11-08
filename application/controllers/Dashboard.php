@@ -168,7 +168,7 @@ class Dashboard extends MY_Controller {
                                   <p><strong>'.$obj->session_year.'</strong></p>
                                   <ul class="list-unstyled_" style="padding-left:12px;">
                                         <li>'.$this->lang->line('class').' : '.$obj->class_name.', '.$this->lang->line('section').' : '.$obj->section.'</li>
-                                        <li>'.$this->lang->line('roll_no').' : '.$obj->roll_no.'</li>
+                                        <li>'."Student No".' : '.$obj->roll_no.'</li>
                                         <li>'.$this->lang->line('birth_date').' : '.date('M j, Y', strtotime($obj->dob)).'</li>
                                     </ul>
                                 </div>

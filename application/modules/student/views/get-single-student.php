@@ -69,7 +69,7 @@
                         <td><?php echo $student->section; ?></td>
                     </tr>
                     <tr>
-                        <th><?php echo $this->lang->line('roll_no'); ?></th>
+                        <th><?php echo "Student No"; ?></th>
                         <td><?php echo $student->roll_no; ?></td>
                         <th><?php echo $this->lang->line('registration_no'); ?></th>
                         <td><?php echo $student->registration_no; ?></td>

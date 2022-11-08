@@ -37,7 +37,7 @@
                     <strong><?php echo $this->lang->line('sale_to'); ?>:</strong> <?php echo  $user->name; ?> [<?php echo  $user->role; ?>]<br>                
                     <?php
                     if($receipt->role_id == STUDENT){
-                        echo '<strong>'.$this->lang->line('class').':</strong> '.$user->class_name.', <strong>'. $this->lang->line('section').':</strong> '.$user->section.', <strong>'. $this->lang->line('roll_no'). ':</strong>'. $user->roll_no . ']<br>';
+                        echo '<strong>'.$this->lang->line('class').':</strong> '.$user->class_name.', <strong>'. $this->lang->line('section').':</strong> '.$user->section.', <strong>'. "Student No". ':</strong>'. $user->roll_no . ']<br>';
                     }
                     ?>
                     <strong><?php echo $this->lang->line('phone'); ?>:</strong> <?php echo $user->phone; ?> 

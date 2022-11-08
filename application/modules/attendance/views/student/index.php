@@ -82,7 +82,7 @@
                             <th><?php echo $this->lang->line('name'); ?></th>
                             <th><?php echo $this->lang->line('email'); ?></th>
                             <th><?php echo $this->lang->line('phone'); ?></th>
-                            <th><?php echo $this->lang->line('roll_no'); ?></th>
+                            <th><?php echo "Student No"; ?></th>
                             <th><input type="checkbox" value="P" name="present" id="fn_present" class="fn_all_attendnce"/> <?php echo $this->lang->line('present_all'); ?></th>                                            
                             <th><input type="checkbox" value="L" name="late" id="fn_late"  class="fn_all_attendnce"/> <?php echo $this->lang->line('late_all'); ?></th>                                            
                             <th><input type="checkbox" value="A" name="absent" id="fn_absent"  class="fn_all_attendnce"/> <?php echo $this->lang->line('absent_all'); ?></th>                                            

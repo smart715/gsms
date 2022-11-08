@@ -78,7 +78,7 @@
                                                 <?php echo  $user->name; ?> [<?php echo  $user->role; ?>]<br>                
                                                 <?php
                                                     if($user->role_id == STUDENT){
-                                                        echo $this->lang->line('class').': '.$user->class_name.', '. $this->lang->line('section').': '.$user->section.', '. $this->lang->line('roll_no'). ':'. $user->roll_no;
+                                                        echo $this->lang->line('class').': '.$user->class_name.', '. $this->lang->line('section').': '.$user->section.', '. "Student No". ':'. $user->roll_no;
                                                     }
                                                 }    
                                                 ?>                                                

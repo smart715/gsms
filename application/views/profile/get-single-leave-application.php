@@ -16,7 +16,7 @@
                     $user = get_user_by_role($application->role_id, $application->user_id);
                     echo $user->name;
                     if($application->role_id == STUDENT){
-                        echo ' [ '.$this->lang->line('class').': '.$user->class_name.', '. $this->lang->line('section').': '.$user->section.', '.$this->lang->line('roll_no').': '.$user->roll_no .' ]';
+                        echo ' [ '.$this->lang->line('class').': '.$user->class_name.', '. $this->lang->line('section').': '.$user->section.', '."Student No".': '.$user->roll_no .' ]';
                     }
                  ?>
             </td>

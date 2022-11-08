@@ -98,7 +98,7 @@
                             <th><?php echo $this->lang->line('sl_no'); ?></th>
                             <th><?php echo $this->lang->line('name'); ?></th>
                             <th><?php echo $this->lang->line('phone'); ?></th>
-                            <th><?php echo $this->lang->line('roll_no'); ?></th>
+                            <th><?php echo "Student No"; ?></th>
                             <th><?php echo $this->lang->line('photo'); ?></th>
                             <th>
                                 <?php if(has_permission(VIEW, 'exam', 'attendance') && !has_permission(EDIT, 'exam', 'attendance')){ ?>

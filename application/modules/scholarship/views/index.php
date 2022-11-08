@@ -93,7 +93,7 @@
                                         <th><?php echo $this->lang->line('candidate'); ?></th>
                                         <th><?php echo $this->lang->line('class'); ?></th>
                                         <th><?php echo $this->lang->line('section'); ?></th>
-                                        <th><?php echo $this->lang->line('roll_no'); ?></th>
+                                        <th><?php echo "Student No"; ?></th>
                                         <th> <?php echo $this->lang->line('amount'); ?></th>
                                         <th><?php echo $this->lang->line('payment_date'); ?> </th>
                                         <th><?php echo $this->lang->line('note'); ?> </th>

@@ -19,7 +19,7 @@
                     $user = get_user_by_role($todo->role_id, $todo->user_id);
                     echo $user->name;
                     if($todo->role_id == STUDENT){
-                        echo ' [ '.$this->lang->line('class').': '.$user->class_name.', '. $this->lang->line('section').': '.$user->section.', '.$this->lang->line('roll_no').': '.$user->roll_no .' ]';
+                        echo ' [ '.$this->lang->line('class').': '.$user->class_name.', '. $this->lang->line('section').': '.$user->section.', '."Student No".': '.$user->roll_no .' ]';
                     }
                  ?>
             </td> 

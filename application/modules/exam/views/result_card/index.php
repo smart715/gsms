@@ -99,7 +99,7 @@
                         <?php echo $this->lang->line('name'); ?> : <?php echo $student->name; ?><br/>
                         <?php echo $this->lang->line('class'); ?> : <?php echo $student->class_name; ?>,
                         <?php echo $this->lang->line('section'); ?> : <?php echo $student->section; ?>,
-                        <?php echo $this->lang->line('roll_no'); ?> : <?php echo $student->roll_no; ?>                       
+                        <?php echo "Student No"; ?> : <?php echo $student->roll_no; ?>                       
                     </div>
                 </div>            
             </div>
