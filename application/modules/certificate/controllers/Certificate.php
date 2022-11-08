@@ -96,12 +96,16 @@ class Certificate extends MY_Controller {
         $this->data['school'] = $this->type->get_single('schools', array('id'=>$this->data['certificate']->school_id, 'status'=>1));
         $this->data['student'] = $this->type->get_student($student_id, $class_id, $school->academic_year_id);     
         $this->data['certificate']->main_text = get_formatted_certificate_text($this->data['certificate']->main_text, $this->data['student']->role_id, $this->data['student']->user_id);
-        
-        create_log('Has been generate a certificate for student : '.$this->data['student']->name); 
-        
-        $this->layout->title($this->lang->line('generate_certificate') .' | ' . SMS);
-        $this->load->view('certificate/generate', $this->data); 
-        
+        $this->data['certificate']->student_name = $this->data['student']->name;
+
+        create_log('Has been generate a certificate for student : '.$this->data['student']->name);
+
+        $this->layout->title($this->lang->line('generate_certificate').' | '.SMS);
+        if($this->data['certificate']->type_id == '2')
+            $this->load->view('certificate/generate_2', $this->data);
+        else if($this->data['certificate']->type_id == '3')
+            $this->load->view('certificate/generate_3', $this->data);
+        else $this->load->view('certificate/generate', $this->data);
     }
 
 }

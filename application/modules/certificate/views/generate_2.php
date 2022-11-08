@@ -4,9 +4,9 @@
 
         <title><?php echo $this->lang->line('generate_certificate'); ?></title>
         
-        <?php if($this->global_setting->favicon_icon){ ?>
+        <?php if ($this->global_setting->favicon_icon) { ?>
             <link rel="icon" href="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->favicon_icon; ?>" type="image/x-icon" />             
-        <?php }else{ ?>
+        <?php } else { ?>
             <link rel="icon" href="<?php echo IMG_URL; ?>favicon.ico" type="image/x-icon" />
         <?php } ?>    
         
@@ -17,7 +17,8 @@
         <link href="https://fonts.googleapis.com/css?family=Michroma" rel="stylesheet"> 
         <link href="https://fonts.googleapis.com/css?family=Prosto+One" rel="stylesheet">         
         <!-- Bootstrap -->
-        <link href="<?php echo VENDOR_URL; ?>bootstrap/bootstrap.min.css" rel="stylesheet">       
+        <link rel="stylesheet" href="<?php echo CSS_URL; ?>front/bootstrap.min.css"> 
+        <link rel="stylesheet" href="<?php echo CSS_URL; ?>front/fontawesome-all.min.css">
         <!-- Custom Theme Style -->
         <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
         
@@ -26,7 +27,7 @@
             @page { margin: 0; }   
             @media print {
                 .certificate {                   
-                    background: url("<?php echo IMG_URL; ?>certificate/template1.png") no-repeat !important;    
+                    background: url("<?php echo IMG_URL; ?>certificate/template2.png") no-repeat !important;    
                     min-height: 550px;
                     padding: 10%;
                     width: 100%;
@@ -48,53 +49,49 @@
                 margin-left: auto;
                 margin-right: auto;
                 padding: 80px 60px;
-                background: url("<?php echo IMG_URL; ?>certificate/template1.png") no-repeat;    
+                background: url("<?php echo IMG_URL; ?>certificate/template2.png") no-repeat;    
                 background-size: 100% 100%;
                 -webkit-print-color-adjust: exact !important;
                 color-adjust: exact !important;
                 text-align: center;
                 overflow-wrap: anywhere;
             }
-            
-            .certificate-top {
-                    position: relative;
-            }
 
             .certificate-title-img{
-                max-width: 50px;
-                max-height: 50px;
+                max-width: 80px;
+                max-height: 80px;
             }
             
             .sub-title-img {
                 font-family: 'Prosto One', cursive;   
                 height: 100%;
-                padding-top: 20px;
                 text-align: center;
             }         
             .top-heading-title {
                 text-align: center;
                 font-family: 'Prosto One', cursive;
-                margin-bottom: 0;
-                margin-top: 20px;
-                color: #f6b035;
+                color: #000000;
             } 
                         
             .name-text {
                 font-family: 'Michroma', sans-serif;
-                font-size: 33px;  
-                color: #3b9470;
+                font-size: 50px;
+                color: #000000;
                 text-align: center !important;
+                margin-top: 30px;
 
             }   
-            .award-text{                
+            .award-text{                  
                 font-family: inherit;
-                font-size: 17px;
-                color: #3b9470;
+                font-size: 15px;
+                font-weight: 600;
+                color: #000000;
                 text-align: center !important;
-                margin: 17px;
+                margin: 19px;
             }
             .name-section {
-                text-align: center;
+                text-align: center;    
+                margin-top: 50px;
             }    
             .main-text-block {
                 display: flex;
@@ -108,7 +105,7 @@
                 letter-spacing: -1px;
                 max-width: 250px;
                 text-align: center;
-                color: #66ab86;
+                color: #000000;
             }              
             .main-text span{
                 padding: 0px 20px 0px 20px;                    
@@ -117,20 +114,11 @@
             .footer-section {
                 margin-top: 30px;
             }
-            .footer_text {
-                font-family: 'Prosto One', cursive;
-                font-size: 14px;
-                border-top: 1px dashed;
-                text-align: center;
-                padding-top: 10px;
-                margin :0px  10px 0px 10px;
-                width: 30%; 
-            }
             .text-footer{    
                 padding: 10px 70px;
             }
             .footer-label{                
-                color: #3b9470;
+                color: #000000;
                 font-size: 15px;
                 font-weight: 600;
             }
@@ -150,29 +138,37 @@
              <div class="row">
                  <div class="col-sm-12">                 
                     <div class="certificate">
-
-                        <div class="certificate-top">  
-                            <span class="sub-title-img">
-                                  <?php if ($school->logo) { ?>
-                                    <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" /> 
-                                 <?php } elseif ($school->frontend_logo) { ?>
-                                    <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->frontend_logo; ?>" alt="" /> 
-                                 <?php } else { ?>                                                        
-                                    <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->brand_logo; ?>" alt=""  />
-                                 <?php } ?>
-                            </span>                     
-                            <h2 class="top-heading-title"><?php echo $certificate->top_title; ?></h2>                              
-                         
+                        
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8">
+                                    <h2 class="top-heading-title"><?php echo $certificate->top_title; ?></h2> 
+                                </div>
+                                <div class="col-sm-2">                                    
+                                    <span class="sub-title-img">
+                                        <?php if ($school->logo) { ?>
+                                            <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->logo; ?>" alt="" /> 
+                                        <?php } elseif ($school->frontend_logo) { ?>
+                                            <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $school->frontend_logo; ?>" alt="" /> 
+                                        <?php } else { ?>                                                        
+                                            <img class="certificate-title-img" src="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->brand_logo; ?>" alt=""  />
+                                        <?php } ?>
+                                    </span> 
+                                </div>
+                            </div>
                         </div>
                        <div class="clear"></div>
                         <div class="name-section">    
                                            
                             <div style="text-align:center;">
-                                <h3 class="award-text">AWARDED TO</h3>
+                                <h3 class="award-text">This certificate is presented to</h3>
                             </div>                        
                             <div style="text-align:center;">
                                 <h3 class="name-text"><?php echo $certificate->student_name; ?></h3>
-                            </div>                           
+                            </div>
+                            
+                            <hr style="height:3px;border-width:0;color:gray;background-color:#000000;margin: 0px 100px 0px 100px;">
                         </div>
                         <div class="clear"></div>
                         <div class="main-text-block">
@@ -202,7 +198,7 @@
                                         <img class="signature-img" src="<?php echo UPLOAD_PATH; ?>/certificate/<?php echo $certificate->sign1; ?>" alt="" /> 
                                     <?php } ?>
                                     </div>
-                                    <hr style="height:3px;border-width:0;color:gray;background-color:#3b9470;margin: 0px 10px 10px 10px;">
+                                    <hr style="height:3px;border-width:0;color:gray;background-color:#000;margin: 0px 10px 10px 10px;">
                                     <span class="footer-label"><?php echo $certificate->signer_name1; ?></span><br>
                                     <span class="footer-label"><?php echo $certificate->footer_left; ?></span>
                                 </div>
@@ -212,7 +208,7 @@
                                         <img class="signature-img" src="<?php echo UPLOAD_PATH; ?>/certificate/<?php echo $certificate->sign2; ?>" alt="" /> 
                                     <?php } ?>
                                     </div>
-                                    <hr style="height:3px;border-width:0;color:gray;background-color:#3b9470;margin: 0px 10px 10px 10px;">
+                                    <hr style="height:3px;border-width:0;color:gray;background-color:#000;margin: 0px 10px 10px 10px;">
                                     <span class="footer-label"><?php echo $certificate->signer_name2; ?></span><br>
                                     <span class="footer-label"><?php echo $certificate->footer_right; ?></span>
                                 </div>

@@ -197,7 +197,9 @@ class Type extends MY_Controller {
         $this->form_validation->set_rules('footer_left', $this->lang->line('footer_left'), 'trim');
         $this->form_validation->set_rules('footer_middle', $this->lang->line('footer_middle'), 'trim');
         $this->form_validation->set_rules('footer_right', $this->lang->line('footer_right'), 'trim');
-        $this->form_validation->set_rules('background', $this->lang->line('background'), 'trim|callback_background');
+        $this->form_validation->set_rules('sign1', $this->lang->line('sign1'), 'trim|callback_sign1');
+        $this->form_validation->set_rules('sign2', $this->lang->line('sign2'), 'trim|callback_sign2');
+        $this->form_validation->set_rules('type_id', $this->lang->line('type_id'), 'trim|required');
     }
 
                     
@@ -231,34 +233,47 @@ class Type extends MY_Controller {
         }
     }
     
-    
-           
-    /*****************Function background**********************************
+    /*****************Function sign1**********************************
     * @type            : Function
-    * @function name   : background
-    * @description     : Check background                  
-    *                       
+    * @function name   : sign1
+    * @description     : Check sign1
+    *
     * @param           : null
-    * @return          : boolean true/false 
-    * ********************************************************** */ 
-    public function background() {
-
-        if ($_FILES['background']['name']) {
-
-            list($width, $height) = getimagesize($_FILES['background']['tmp_name']);
-            if((!empty($width)) && $width > 1300 || $height > 700){
-                $this->form_validation->set_message('background', $this->lang->line('please_check_image_dimension'));
-                return FALSE;
-            }
-            
-            
-            $name = $_FILES['background']['name'];
+    * @return          : boolean true/false
+    * ********************************************************** */
+    public function sign1()
+    {
+        if ($_FILES['sign1']['name']) {
+            $name = $_FILES['sign1']['name'];
             $ext = pathinfo($name, PATHINFO_EXTENSION);
-            if ($ext == 'jpg' || $ext == 'jpeg') {
-                return TRUE;
+            if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'png') {
+                return true;
             } else {
-                $this->form_validation->set_message('background', $this->lang->line('select_valid_file_format'));
-                return FALSE;
+                $this->form_validation->set_message('sign1', $this->lang->line('select_valid_file_format'));
+
+                return false;
+            }
+        }
+    }
+    /*****************Function sign2**********************************
+    * @type            : Function
+    * @function name   : sign2
+    * @description     : Check sign2
+    *
+    * @param           : null
+    * @return          : boolean true/false
+    * ********************************************************** */
+    public function sign2()
+    {
+        if ($_FILES['sign2']['name']) {
+            $name = $_FILES['sign2']['name'];
+            $ext = pathinfo($name, PATHINFO_EXTENSION);
+            if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'png') {
+                return true;
+            } else {
+                $this->form_validation->set_message('sign2', $this->lang->line('select_valid_file_format'));
+
+                return false;
             }
         }
     }
@@ -281,7 +296,11 @@ class Type extends MY_Controller {
         $items[] = 'footer_left';
         $items[] = 'footer_middle';
         $items[] = 'footer_right';
-        $items[] = 'background';
+        $items[] = 'sign1';
+        $items[] = 'sign2';
+        $items[] = 'signer_name1';
+        $items[] = 'signer_name2';
+        $items[] = 'type_id';
         
         $data = elements($items, $_POST);        
         
@@ -293,57 +312,97 @@ class Type extends MY_Controller {
             $data['created_by'] = logged_in_user_id();
             $data['status'] = 1;
         }
-
-         if(isset($_FILES['background']['name'])){  
-            $data['background'] = $this->_upload_background();
+        if (isset($_FILES['sign1']['name'])) {
+            $data['sign1'] = $this->_upload_sign1();
+        }
+        if (isset($_FILES['sign2']['name'])) {
+            $data['sign2'] = $this->_upload_sign2();
         }
         
         return $data;
     }
 
-   
-           
-    /*****************Function _upload_background**********************************
+    /*****************Function _upload_sign1**********************************
     * @type            : Function
-    * @function name   : _upload_background
-    * @description     : Process to upload certificate background into server                  
-    *                     and return background name  
+    * @function name   : _upload_sign1
+    * @description     : Process to upload certificate sign1 into server
+    *                     and return sign1 name
     * @param           : null
-    * @return          : $return_background string value 
-    * ********************************************************** */ 
-    private function _upload_background() {
-
-        $prev_background = $this->input->post('prev_background');
-        $background = $_FILES['background']['name'];
-        $background_type = $_FILES['background']['type'];
-        $return_background = '';
-        if ($background != "") {
-            if ($background_type == 'image/jpeg' || $background_type == 'image/pjpeg' ||
-                    $background_type == 'image/jpg' || $background_type == 'image/png' ||
-                    $background_type == 'image/x-png' || $background_type == 'image/gif') {
-
+    * @return          : $return_sign1 string value
+    * ********************************************************** */
+    private function _upload_sign1()
+    {
+        $prev_sign1 = $this->input->post('prev_sign1');
+        $sign1 = $_FILES['sign1']['name'];
+        $sign1_type = $_FILES['sign1']['type'];
+        $return_sign1 = '';
+        if ($sign1 != '') {
+            if ($sign1_type == 'image/jpeg' || $sign1_type == 'image/pjpeg' ||
+                    $sign1_type == 'image/jpg' || $sign1_type == 'image/png' ||
+                    $sign1_type == 'image/x-png' || $sign1_type == 'image/gif') {
                 $destination = 'assets/uploads/certificate/';
 
-                $file_type = explode(".", $background);
+                $file_type = explode('.', $sign1);
                 $extension = strtolower($file_type[count($file_type) - 1]);
-                $background_path = 'certificate-' . time() . '-sms.' . $extension;
+                $sign1_path = 'certificate-'.time().'-sign1.'.$extension;
 
-                move_uploaded_file($_FILES['background']['tmp_name'], $destination . $background_path);
+                move_uploaded_file($_FILES['sign1']['tmp_name'], $destination.$sign1_path);
 
-                // need to unlink previous background
-                if ($prev_background != "") {
-                    if (file_exists($destination . $prev_background)) {
-                        @unlink($destination . $prev_background);
+                // need to unlink previous sign1
+                if ($prev_sign1 != '') {
+                    if (file_exists($destination.$prev_sign1)) {
+                        @unlink($destination.$prev_sign1);
                     }
                 }
 
-                $return_background = $background_path;
+                $return_sign1 = $sign1_path;
             }
         } else {
-            $return_background = $prev_background;
+            $return_sign1 = $prev_sign1;
         }
 
-        return $return_background;
+        return $return_sign1;
+    }
+    /*****************Function _upload_sign2**********************************
+    * @type            : Function
+    * @function name   : _upload_sign2
+    * @description     : Process to upload certificate sign2 into server
+    *                     and return sign2 name
+    * @param           : null
+    * @return          : $return_sign2 string value
+    * ********************************************************** */
+    private function _upload_sign2()
+    {
+        $prev_sign2 = $this->input->post('prev_sign2');
+        $sign2 = $_FILES['sign2']['name'];
+        $sign2_type = $_FILES['sign2']['type'];
+        $return_sign2 = '';
+        if ($sign2 != '') {
+            if ($sign2_type == 'image/jpeg' || $sign2_type == 'image/pjpeg' ||
+                    $sign2_type == 'image/jpg' || $sign2_type == 'image/png' ||
+                    $sign2_type == 'image/x-png' || $sign2_type == 'image/gif') {
+                $destination = 'assets/uploads/certificate/';
+
+                $file_type = explode('.', $sign2);
+                $extension = strtolower($file_type[count($file_type) - 1]);
+                $sign2_path = 'certificate-'.time().'-sign2.'.$extension;
+
+                move_uploaded_file($_FILES['sign2']['tmp_name'], $destination.$sign2_path);
+
+                // need to unlink previous sign2
+                if ($prev_sign2 != '') {
+                    if (file_exists($destination.$prev_sign2)) {
+                        @unlink($destination.$prev_sign2);
+                    }
+                }
+
+                $return_sign2 = $sign2_path;
+            }
+        } else {
+            $return_sign2 = $prev_sign2;
+        }
+
+        return $return_sign2;
     }
 
         
@@ -371,12 +430,16 @@ class Type extends MY_Controller {
 
             // delete employee data
             $this->type->delete('certificates', array('id' => $id));          
-            // delete certificate background 
-             $destination = 'assets/uploads/';
-            if (file_exists($destination . '/certificate/' . $certificate->background)) {
-                @unlink($destination . '/certificate/' . $certificate->background);
+            // delete certificate sign1
+            $destination = 'assets/uploads/';
+            if (file_exists($destination.'/certificate/'.$certificate->sign1)) {
+                @unlink($destination.'/certificate/'.$certificate->sign1);
             }
-            
+            // delete certificate sign2
+            $destination = 'assets/uploads/';
+            if (file_exists($destination.'/certificate/'.$certificate->sign2)) {
+                @unlink($destination.'/certificate/'.$certificate->sign2);
+            }
             create_log('Has been deleted a certificate type : '.$certificate->name);
             success($this->lang->line('delete_success'));
             

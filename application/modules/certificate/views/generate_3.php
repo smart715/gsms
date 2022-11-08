@@ -4,9 +4,9 @@
 
         <title><?php echo $this->lang->line('generate_certificate'); ?></title>
         
-        <?php if($this->global_setting->favicon_icon){ ?>
+        <?php if ($this->global_setting->favicon_icon) { ?>
             <link rel="icon" href="<?php echo UPLOAD_PATH; ?>/logo/<?php echo $this->global_setting->favicon_icon; ?>" type="image/x-icon" />             
-        <?php }else{ ?>
+        <?php } else { ?>
             <link rel="icon" href="<?php echo IMG_URL; ?>favicon.ico" type="image/x-icon" />
         <?php } ?>    
         
@@ -17,7 +17,8 @@
         <link href="https://fonts.googleapis.com/css?family=Michroma" rel="stylesheet"> 
         <link href="https://fonts.googleapis.com/css?family=Prosto+One" rel="stylesheet">         
         <!-- Bootstrap -->
-        <link href="<?php echo VENDOR_URL; ?>bootstrap/bootstrap.min.css" rel="stylesheet">       
+        <link rel="stylesheet" href="<?php echo CSS_URL; ?>front/bootstrap.min.css"> 
+        <link rel="stylesheet" href="<?php echo CSS_URL; ?>front/fontawesome-all.min.css">
         <!-- Custom Theme Style -->
         <link href="<?php echo CSS_URL; ?>custom.css" rel="stylesheet">
         
@@ -26,7 +27,7 @@
             @page { margin: 0; }   
             @media print {
                 .certificate {                   
-                    background: url("<?php echo IMG_URL; ?>certificate/template1.png") no-repeat !important;    
+                    background: url("<?php echo IMG_URL; ?>certificate/template3.png") no-repeat !important;    
                     min-height: 550px;
                     padding: 10%;
                     width: 100%;
@@ -48,7 +49,7 @@
                 margin-left: auto;
                 margin-right: auto;
                 padding: 80px 60px;
-                background: url("<?php echo IMG_URL; ?>certificate/template1.png") no-repeat;    
+                background: url("<?php echo IMG_URL; ?>certificate/template3.png") no-repeat;    
                 background-size: 100% 100%;
                 -webkit-print-color-adjust: exact !important;
                 color-adjust: exact !important;
@@ -74,24 +75,28 @@
             .top-heading-title {
                 text-align: center;
                 font-family: 'Prosto One', cursive;
-                margin-bottom: 0;
-                margin-top: 20px;
-                color: #f6b035;
+                margin: 20px 30px 10px 30px;  
+                overflow-wrap: anywhere;
+                color: #2c455e;
+                font-size: 30px;
+                font-weight: 600;
             } 
                         
             .name-text {
-                font-family: 'Michroma', sans-serif;
-                font-size: 33px;  
-                color: #3b9470;
+                font-family: cursive;
+                font-size: 50px;   
+                color: #2c455e;
                 text-align: center !important;
+                margin: 60px 0 0 0;
 
             }   
             .award-text{                
                 font-family: inherit;
-                font-size: 17px;
-                color: #3b9470;
+                font-size: 16px;
+                color: #7e90a2;
                 text-align: center !important;
-                margin: 17px;
+                margin: 25px;
+                font-weight: 600;
             }
             .name-section {
                 text-align: center;
@@ -108,7 +113,6 @@
                 letter-spacing: -1px;
                 max-width: 250px;
                 text-align: center;
-                color: #66ab86;
             }              
             .main-text span{
                 padding: 0px 20px 0px 20px;                    
@@ -130,7 +134,7 @@
                 padding: 10px 70px;
             }
             .footer-label{                
-                color: #3b9470;
+                color: #7e90a2;
                 font-size: 15px;
                 font-weight: 600;
             }
@@ -168,11 +172,13 @@
                         <div class="name-section">    
                                            
                             <div style="text-align:center;">
-                                <h3 class="award-text">AWARDED TO</h3>
+                                <h3 class="award-text">PRESENTED TO</h3>
                             </div>                        
                             <div style="text-align:center;">
                                 <h3 class="name-text"><?php echo $certificate->student_name; ?></h3>
-                            </div>                           
+                            </div>    
+                            
+                            <hr style="height:3px;border-width:0;color:gray;background-color:#627485;margin: 0px 100px 0px 100px;">                       
                         </div>
                         <div class="clear"></div>
                         <div class="main-text-block">
@@ -202,7 +208,7 @@
                                         <img class="signature-img" src="<?php echo UPLOAD_PATH; ?>/certificate/<?php echo $certificate->sign1; ?>" alt="" /> 
                                     <?php } ?>
                                     </div>
-                                    <hr style="height:3px;border-width:0;color:gray;background-color:#3b9470;margin: 0px 10px 10px 10px;">
+                                    <hr style="height:3px;border-width:0;color:gray;background-color:#000;margin: 0px 10px 10px 10px;">
                                     <span class="footer-label"><?php echo $certificate->signer_name1; ?></span><br>
                                     <span class="footer-label"><?php echo $certificate->footer_left; ?></span>
                                 </div>
@@ -212,7 +218,7 @@
                                         <img class="signature-img" src="<?php echo UPLOAD_PATH; ?>/certificate/<?php echo $certificate->sign2; ?>" alt="" /> 
                                     <?php } ?>
                                     </div>
-                                    <hr style="height:3px;border-width:0;color:gray;background-color:#3b9470;margin: 0px 10px 10px 10px;">
+                                    <hr style="height:3px;border-width:0;color:gray;background-color:#000;margin: 0px 10px 10px 10px;">
                                     <span class="footer-label"><?php echo $certificate->signer_name2; ?></span><br>
                                     <span class="footer-label"><?php echo $certificate->footer_right; ?></span>
                                 </div>
