@@ -90,7 +90,7 @@ $db['default'] = array(
   'failover' => array(),
   'save_queries' => TRUE
 );
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'schoolms_sms';
-$db['default']['password'] = 'smsP@ssw0rd';
-$db['default']['database'] = 'schoolms_data';
+$db['default']['hostname'] = '';
+$db['default']['username'] = '';
+$db['default']['password'] = '';
+$db['default']['database'] = '';
