@@ -34,26 +34,9 @@
                                     </div>
                                 </div>
                                 
-                                <div class="row">                                    
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="school_url"><?php echo $this->lang->line('school_url'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="school_url"  id="school_url" value="<?php echo isset($school) ? $school->school_url : ''; ?>" placeholder="<?php echo $this->lang->line('school_url'); ?>" required="required" type="text" autocomplete="off">
-                                            <div class="text-info"><?php echo $this->lang->line('school_url_format'); ?></div>
-                                            <div class="help-block"><?php echo form_error('school_url'); ?></div> 
-                                        </div>
-                                    </div>
-                                </div>
                                 
                                 <div class="row">
                                     
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="school_code"><?php echo $this->lang->line('school_code'); ?></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="school_code"  id="school_code" value="<?php echo isset($school) ? $school->school_code : ''; ?>" placeholder="<?php echo $this->lang->line('school_code'); ?> "  type="text" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('school_code'); ?></div> 
-                                        </div>
-                                    </div>
                                     
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
@@ -79,17 +62,7 @@
                                         </div>
                                     </div>
                                     
-                                </div>
-                                
-                                <div class="row">
                                     
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="registration_date"><?php echo $this->lang->line('registration_date'); ?> <span class="required">*</span></label>
-                                            <input  class="form-control col-md-7 col-xs-12"  name="registration_date"  id="edit_registration_date" value="<?php echo isset($school) ? $school->registration_date : ''; ?>" placeholder="<?php echo $this->lang->line('registration_date'); ?> " required="required" type="text" autocomplete="off">
-                                            <div class="help-block"><?php echo form_error('registration_date'); ?></div> 
-                                        </div>
-                                    </div>
                                     
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
@@ -149,19 +122,6 @@
                                             <div class="help-block"><?php echo form_error('enable_frontend'); ?></div> 
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="item form-group">
-                                            <label for="final_result_type"><?php echo $this->lang->line('final_result_based_on'); ?> <span class="required">*</span></label>
-                                            <select  class="form-control col-md-7 col-xs-12"  name="final_result_type" required="required">
-                                                <option value="0" <?php if(isset($school) && $school->final_result_type == 0){ echo 'selected="selected"';} ?>><?php echo $this->lang->line('avg_of_all_exam'); ?> </option>
-                                                <option value="1" <?php if(isset($school) && $school->final_result_type == 1){ echo 'selected="selected"';} ?>><?php echo $this->lang->line('only_of_fianl_exam'); ?> </option>
-                                            </select>
-                                            <div class="help-block"><?php echo form_error('final_result_type'); ?></div> 
-                                        </div>
-                                    </div>   
-                                </div>    
-                                    
-                                <div class="row">  
                                     
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
@@ -176,7 +136,11 @@
                                             <div class="help-block"><?php echo form_error('language'); ?></div> 
                                         </div>
                                     </div>
+                                                  
                                     
+                                </div>
+                                
+                                <div class="row">   
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="theme_name"><?php echo $this->lang->line('theme'); ?> <span class="required">*</span></label>
@@ -200,9 +164,6 @@
                                             </select>
                                             <div class="help-block"><?php echo form_error('enable_online_admission'); ?></div> 
                                         </div>
-                                    </div>
-                                    
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="enable_rtl"><?php echo $this->lang->line('enable_rtl'); ?> </label>
                                             <select  class="form-control col-md-7 col-xs-12"  name="enable_rtl" required="required">
@@ -211,11 +172,7 @@
                                             </select>
                                             <div class="help-block"><?php echo form_error('enable_rtl'); ?></div> 
                                         </div>
-                                    </div>                            
-                                    
-                                </div>
-                                
-                                <div class="row">
+                                    </div>           
                                     
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">

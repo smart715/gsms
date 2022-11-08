@@ -147,7 +147,6 @@ class Setting extends MY_Controller {
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
 
         $this->form_validation->set_rules('school_name', $this->lang->line('school_name'), 'trim|required|callback_school_name');
-        $this->form_validation->set_rules('school_url', $this->lang->line('school_url'), 'trim|required');
         $this->form_validation->set_rules('address', $this->lang->line('address'), 'trim|required');
         $this->form_validation->set_rules('phone', $this->lang->line('phone'), 'trim|required|min_length[6]|max_length[20]');
         $this->form_validation->set_rules('email', $this->lang->line('email'), 'trim|required|valid_email');
@@ -203,8 +202,6 @@ class Setting extends MY_Controller {
 
         $items = array();
          
-        $items[] = 'school_url';
-        $items[] = 'school_code';
         $items[] = 'school_name';
         $items[] = 'address';
         $items[] = 'phone';
@@ -217,8 +214,6 @@ class Setting extends MY_Controller {
         $items[] = 'enable_frontend';
         $items[] = 'enable_online_admission';
         $items[] = 'language';
-        $items[] = 'final_result_type';
-        $items[] = 'registration_date';
         $items[] = 'enable_rtl';
         $items[] = 'footer';
         $items[] = 'google_map';
