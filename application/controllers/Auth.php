@@ -74,8 +74,7 @@ class Auth extends CI_Controller
                         redirect('auth/login');
                     }else if($school_id != $login->school_id){
                         $url = school_domain($school->subdomain);
-                        Header( "HTTP/1.1 301 Moved Permanently" ); 
-                        header("location: https://".$url); 
+                        redirect("https://".$url, 'auth/login');
                         
                     }
                 }
