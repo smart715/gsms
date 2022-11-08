@@ -633,7 +633,6 @@ class School extends MY_Controller {
     }
     public function create_subdomain($subDomain, $cPanelUser, $cPanelPass, $rootDomain)
     {
-        return;
         if(!isset($subDomain) || $subDomain == "") return;
         //Generate URL for access the subdomain creation in cPanel through PHP
         $buildRequest = "/frontend/paper_lantern/subdomain/doadddomain.html?domain=" . $subDomain . "&rootdomain=" . $rootDomain . "&dir=school";
@@ -673,7 +672,6 @@ class School extends MY_Controller {
 
     public function delete_subdomain($subDomain, $cPanelUser, $cPanelPass, $rootDomain)
     {        
-        return;
         if(!isset($subDomain) || $subDomain == "") return;
         $buildRequest = "/frontend/x3/subdomain/dodeldomain.html?domain=" . $subDomain . "_" . $rootDomain;
 
