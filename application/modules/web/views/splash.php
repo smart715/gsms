@@ -421,6 +421,7 @@
                 <h2><?php echo $this->lang->line('contact_us'); ?></h2>
             </div>
             <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-12"></div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-12">
                     <div class="contact-info">
                         <h4 class="title"><?php echo $this->lang->line('get_in_touch'); ?></h4>
@@ -463,11 +464,11 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-6 col-lg-6 col-md-12 col-12">
+                <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-12">
                     <?php if (isset($setting->our_location)  && !empty($setting->our_location)) { ?>
                         <iframe src="<?php echo $setting->our_location; ?>" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <?php } ?>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
