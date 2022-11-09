@@ -112,6 +112,7 @@
                     <thead>
                         <tr>
                             <th class="text-center"><?php echo $this->lang->line('sl_no'); ?></th>
+                            <th class="text-center"><?php echo $this->lang->line('section'); ?></th>
                             <th class="text-center"><?php echo $this->lang->line('name'); ?>/ <?php echo $this->lang->line('phone'); ?></th>
                             <th class="text-center"><?php echo "Student ID"; ?></th>
                             <th class="text-center"><?php echo $this->lang->line('photo'); ?></th>
@@ -132,6 +133,7 @@
 
                                 <tr class="text-center">
                                     <td><?php echo $count++;  ?></td>
+                                    <td><?php echo $obj->section_name; ?></td>
                                     <td><?php echo ucfirst($obj->name); ?> <br /> <?php echo $obj->phone; ?></td>
                                     <td><?php echo $obj->uid; ?></td>
                                     <td>
@@ -144,14 +146,18 @@
                                     </td>
                                     <td><?php echo $obj->fail_subject > 0 ?  $obj->fail_subject : 'NULL'; ?></td>
                                     <td><?php echo $obj->total_subject > 0 ?  number_format($obj->total_mark / $obj->total_subject, 2) : 'NULL'; ?></td>
-                                    <td><?php if ($obj->total_subject > 0 && $obj->total_mark > 0) {
-                                            echo ($obj->fail_subject <= 1 && $obj->total_mark / $obj->total_subject >= 70)? 'Pass' : 'Failure';
-                                        } else {
-                                            echo 'NULL';
-                                        } ?></td>
+                                    <td>
+                                        <select class="form-control" name="result_status">
+                                            <option value="0">Failure</option>
+                                            <option value="1" <?php echo ($obj->total_subject > 0 && $obj->fail_subject == 0 && $obj->total_mark / $obj->total_subject >= 70)?'selected="selected':''; ?>>Complet Pass</option>
+                                            <option value="2" <?php echo ($obj->total_subject > 0 && $obj->fail_subject == 1 && $obj->total_mark / $obj->total_subject >= 70)?'selected="selected':''; ?>>Conditional Pass</option>
+                                            <option value="3">Vacation School Pass</option>
+                                        </select>
+                                        
+                                    </td>
 
                                     <td>
-                                        <select class="form-control col-md-7 col-xs-12" name="promotion_class_id[<?php echo $obj->id; ?>]" required="required">
+                                        <select class="form-control" name="promotion_class_id[<?php echo $obj->id; ?>]" required="required">
                                             <option value="<?php echo $next_class->id; ?>" <?php if (isset($enroll) && $enroll->class_id == $next_class->id) {
                                                                                                 echo 'selected="selected"';
                                                                                             } ?>><?php echo $next_class->name; ?></option>
