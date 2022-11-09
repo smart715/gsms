@@ -105,6 +105,7 @@
                                             <th><?php echo $this->lang->line('class'); ?></th>
                                             <th><?php echo $this->lang->line('status'); ?></th>
                                             <th><?php echo $this->lang->line('amount'); ?></th>
+                                            <th><?php echo $this->lang->line('payment_method'); ?></th>
                                             <th><?php echo $this->lang->line('action'); ?></th>
                                         </tr>
                                     </thead>
@@ -115,7 +116,7 @@
                                             <?php foreach ($receipts as $obj) { ?>
                                                 <?php $user = get_user_by_role($obj->role_id, $obj->user_id); ?>
 
-                                               
+
                                                 <tr>
                                                     <td><?php echo $count++; ?></td>
                                                     <?php if ($this->session->userdata('role_id') == SUPER_ADMIN) { ?>
@@ -138,6 +139,12 @@
                                                     <td><?php echo $obj->class_name; ?></td>
                                                     <td><?php echo get_paid_status($obj->paid_status); ?></td>
                                                     <td><?php echo $obj->amount; ?></td>
+                                                    <td><?php echo $obj->payment_method; ?>
+                                                        <?php if ($obj->bank_receipt_attach) { ?>
+                                                            <br>
+                                                            <a href="<?php echo UPLOAD_PATH; ?>bank_receipts/<?php echo $obj->bank_receipt_attach; ?>">Download</a>
+                                                        <?php } ?>
+                                                    </td>
                                                     <td>
                                                         <a onclick="get_paid_receipt_modal(<?php echo $obj->txn_id; ?>);" data-toggle="modal" data-target=".bs-receipt-modal-lg" class="btn btn-success btn-xs"><i class="fa fa-eye"></i> <?php echo $this->lang->line('view'); ?> </a>
                                                     </td>
@@ -263,10 +270,10 @@
 
 
     <?php if (isset($class_id) && isset($section_id)) { ?>
-        get_student_by_section('<?php echo $class_id; ?>','<?php echo $section_id; ?>', '<?php echo $student_id; ?>');
+        get_student_by_section('<?php echo $class_id; ?>', '<?php echo $section_id; ?>', '<?php echo $student_id; ?>');
     <?php } ?>
 
-    function get_student_by_section(class_id,section_id, student_id) {
+    function get_student_by_section(class_id, section_id, student_id) {
 
         var school_id = $('#school_id').val();
         if (!school_id) {
