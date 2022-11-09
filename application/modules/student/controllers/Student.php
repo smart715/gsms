@@ -516,7 +516,7 @@ class Student extends MY_Controller {
         $items[] = 'gender';
         $items[] = 'blood_group';        
         $items[] = 'religion';
-        $items[] = 'caste';
+        // $items[] = 'caste';
         $items[] = 'discount_id';
         
         $items[] = 'present_address';

@@ -281,16 +281,13 @@
                                             <div class="help-block"><?php echo form_error('religion'); ?></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                    <!-- <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="caste"><?php echo $this->lang->line('caste'); ?></label>
                                             <input class="form-control col-md-7 col-xs-12" name="caste" id="add_caste" value="<?php echo isset($post['caste']) ?  $post['caste'] : ''; ?>" placeholder="<?php echo $this->lang->line('caste'); ?>" type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('caste'); ?></div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
+                                    </div> -->
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="phone"><?php echo $this->lang->line('phone'); ?> <span class="required">*</span></label>
@@ -298,6 +295,9 @@
                                             <div class="help-block"><?php echo form_error('phone'); ?></div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="row">
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
                                             <label for="national_id"><?php echo $this->lang->line('national_id'); ?> </label>
@@ -856,15 +856,13 @@
                                                 <div class="help-block"><?php echo form_error('religion'); ?></div>
                                             </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <!-- <div class="col-md-3 col-sm-3 col-xs-12">
                                             <div class="item form-group">
                                                 <label for="caste"><?php echo $this->lang->line('caste'); ?></label>
                                                 <input class="form-control col-md-7 col-xs-12" name="caste" id="caste" value="<?php echo isset($student->caste) ?  $student->caste : ''; ?>" placeholder="<?php echo $this->lang->line('caste'); ?>" type="text" autocomplete="off">
                                                 <div class="help-block"><?php echo form_error('caste'); ?></div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
+                                        </div> -->
                                         <div class="col-md-3 col-sm-3 col-xs-12">
                                             <div class="item form-group">
                                                 <label for="phone"><?php echo $this->lang->line('phone'); ?> <span class="required">*</span></label>
@@ -872,6 +870,8 @@
                                                 <div class="help-block"><?php echo form_error('phone'); ?></div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-md-3 col-sm-3 col-xs-12">
                                             <div class="item form-group">
                                                 <label for="national_id"><?php echo $this->lang->line('national_id'); ?> </label>
