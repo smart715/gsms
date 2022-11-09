@@ -55,7 +55,7 @@ class Promotion extends MY_Controller {
             $next_class_id = $this->input->post('next_class_id');  
             
             $school = $this->promotion->get_school_by_id($school_id);
-            $this->data['students'] = $this->promotion->get_student_list($school_id, $current_class_id, $school->academic_year_id );
+            $this->data['students'] = $this->promotion->get_result_list($school_id, $current_class_id, $school->academic_year_id );
             
             $this->data['current_class'] = $this->promotion->get_single('classes', array('school_id'=>$school_id, 'id' => $current_class_id));
             $this->data['next_class'] = $this->promotion->get_single('classes', array('school_id'=>$school_id,'id' => $next_class_id));
