@@ -180,7 +180,7 @@ class Classes extends MY_Controller {
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
         
         $this->form_validation->set_rules('school_id', $this->lang->line('school_name'), 'trim|required');   
-        $this->form_validation->set_rules('numeric_name', $this->lang->line('numeric_name'), 'trim|required');     
+        // $this->form_validation->set_rules('numeric_name', $this->lang->line('numeric_name'), 'trim|required');     
         $this->form_validation->set_rules('name', $this->lang->line('name'), 'trim|required|callback_name');
     }
     
@@ -228,7 +228,7 @@ class Classes extends MY_Controller {
         $items = array();
         $items[] = 'school_id';
         $items[] = 'name';
-        $items[] = 'numeric_name';        
+        // $items[] = 'numeric_name';        
         $items[] = 'note';
         $data = elements($items, $_POST);        
         

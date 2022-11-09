@@ -53,7 +53,7 @@
                                             <th><?php echo $this->lang->line('school'); ?></th>
                                         <?php } ?>
                                         <th><?php echo $this->lang->line('class'); ?></th>
-                                        <th><?php echo $this->lang->line('numeric_name'); ?></th>                                
+                                        <!-- <th><?php echo $this->lang->line('numeric_name'); ?></th>                                 -->
                                         <th><?php echo $this->lang->line('action'); ?></th>  
                                     </tr>
                                 </thead>
@@ -77,7 +77,7 @@
                                                 <td><?php echo $obj->school_name; ?></td>
                                             <?php } ?>
                                             <td><?php echo $obj->name; ?></td>
-                                            <td><?php echo $obj->numeric_name; ?></td>                                    
+                                            <!-- <td><?php echo $obj->numeric_name; ?></td>                                     -->
                                             <td>
                                                 <?php if(has_permission(EDIT, 'academic', 'classes')){ ?>
                                                     <a href="<?php echo site_url('academic/classes/edit/'.$obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a>
@@ -108,14 +108,14 @@
                                         <div class="help-block"><?php echo form_error('name'); ?></div>
                                     </div>
                                 </div>
-                                <div class="item form-group">
+                                <!-- <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="numeric_name"><?php echo $this->lang->line('numeric_name'); ?><span class="required"> *</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input  class="form-control col-md-7 col-xs-12"  name="numeric_name"  id="add_numeric_name" value="<?php echo isset($post['numeric_name']) ?  $post['numeric_name'] : ''; ?>" placeholder="<?php echo $this->lang->line('numeric_name'); ?>" required="required" type="number" autocomplete="off">
                                         <div class="help-block"><?php echo form_error('numeric_name'); ?></div>
                                     </div>
-                                </div>
+                                </div> -->
                                 
                                 
                                 <div class="item form-group">
@@ -155,14 +155,14 @@
                                         <div class="help-block"><?php echo form_error('name'); ?></div>
                                     </div>
                                 </div>
-                                <div class="item form-group">
+                                <!-- <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="numeric_name"><?php echo $this->lang->line('numeric_name'); ?> <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input  class="form-control col-md-7 col-xs-12"  name="numeric_name"  id="edit_numeric_name" value="<?php echo isset($class->numeric_name) ?  $class->numeric_name : ''; ?>" placeholder="<?php echo $this->lang->line('numeric_name'); ?>" required="required" type="number" autocomplete="off">
                                         <div class="help-block"><?php echo form_error('numeric_name'); ?></div>
                                     </div>
-                                </div>
+                                </div> -->
                                 
                                 
                                 <div class="item form-group">
