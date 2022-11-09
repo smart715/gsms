@@ -103,9 +103,10 @@
                 </div>
                 <div class="modal-body find-school_data">
                     <?php if (isset($schools) && count($schools) > 1) { ?>
-                        <div class="h-100 d-flex align-items-center justify-content-center">
+                        <div>
                             <?php echo form_open_multipart(site_url(), array('name' => 'add', 'id' => 'add', 'class' => 'form-horizontal form-label-left'), ''); ?>
                             <div class="item form-group row">
+                                <div class="col-lg-2 col-sm-12 col-12"></div>
                                 <div class="col-lg-6 col-sm-12 col-12 select-div">
                                     <select class="form-control single-select" name="role_id" id="go_school_list" required="required" style="font-size: medium;    height: auto;">
                                         <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
@@ -114,7 +115,7 @@
                                         <?php } ?>
                                     </select>
                                 </div>
-                                <div class="col-lg-6 col-sm-12 col-12 button-div text-center">
+                                <div class="col-lg-2 col-sm-12 col-12 button-div text-center">
                                     <button type="button" class="btn btn-primary" onclick="change_school()" style="font-size: medium ">CONTINUE</button>
                                 </div>
                             </div>
