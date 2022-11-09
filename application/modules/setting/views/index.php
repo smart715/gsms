@@ -289,6 +289,18 @@
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="item form-group">
+                                            <label for="admission_form">Admission form</label>
+                                            <div class="btn btn-default btn-file"><i class="fa fa-paperclip"></i> <?php echo $this->lang->line('upload'); ?>
+                                                <input  class="form-control col-md-7 col-xs-12"  name="admission_form" id="admission_form"  type="file">
+                                            </div>
+                                            <?php if($school->admission_form){ ?>
+                                                <input name="admission_form_prev" value="<?php echo isset($school) ? $school->admission_form : ''; ?>"  type="hidden">
+                                            <?php } ?>
+                                            <div class="help-block"><?php echo form_error('admission_form'); ?></div> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="item form-group">
                                             <label for="logo">&nbsp;</label>
                                            
                                         </div>

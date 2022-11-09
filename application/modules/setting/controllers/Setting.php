@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /* * *****************Setting.php**********************************
  * @product name    : Global Multi School Management System Express
@@ -13,60 +13,64 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @copyright       : Codetroopers Team	 	
  * ********************************************************** */
 
-class Setting extends MY_Controller {
+class Setting extends MY_Controller
+{
 
     public $data = array();
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
-        $this->load->model('Setting_Model', 'setting', true);  
-        
-        if($this->session->userdata('role_id') == SUPER_ADMIN){ 
+        $this->load->model('Setting_Model', 'setting', true);
+
+        if ($this->session->userdata('role_id') == SUPER_ADMIN) {
             error($this->lang->line('permission_denied'));
             redirect('dashboard/index');
         }
-         
+
         $condition = array();
-        $condition['status'] = 1;        
-        if($this->session->userdata('role_id') != SUPER_ADMIN){  
-            
-            $condition['id'] = $this->session->userdata('school_id');     
+        $condition['status'] = 1;
+        if ($this->session->userdata('role_id') != SUPER_ADMIN) {
+
+            $condition['id'] = $this->session->userdata('school_id');
             $this->data['school'] = $this->setting->get_single('schools', $condition);
-        } 
+        }
         $this->data['years'] = $this->setting->get_list('academic_years', array('status' => 1), '', '', '', 'id', 'ASC');
         $this->data['fields'] = $this->setting->get_table_fields('languages');
-        $this->data['themes'] = $this->setting->get_list('themes', array(), '','', '', 'id', 'ASC');
+        $this->data['themes'] = $this->setting->get_list('themes', array(), '', '', '', 'id', 'ASC');
     }
 
-        
-    /*****************Function index**********************************
-    * @type            : Function
-    * @function name   : index
-    * @description     : Load "General Setting" user interface                 
-    *                    
-    * @param           : null
-    * @return          : null 
-    * ********************************************************** */
-    public function index() {
 
-        check_permission(VIEW);        
-               
-        
+    /*****************Function index**********************************
+     * @type            : Function
+     * @function name   : index
+     * @description     : Load "General Setting" user interface                 
+     *                    
+     * @param           : null
+     * @return          : null 
+     * ********************************************************** */
+    public function index()
+    {
+
+        check_permission(VIEW);
+
+
         $this->layout->title($this->lang->line('school_setting')  . ' | ' . SMS);
         $this->layout->view('index', $this->data);
     }
 
-    
+
     /*****************Function add**********************************
-    * @type            : Function
-    * @function name   : add
-    * @description     : Load "New General Settings" user interface                 
-    *                    and process to store "General Settings" into database
-    *                    for the first time settings 
-    * @param           : null
-    * @return          : null 
-    * ********************************************************** */
-    public function add() {
+     * @type            : Function
+     * @function name   : add
+     * @description     : Load "New General Settings" user interface                 
+     *                    and process to store "General Settings" into database
+     *                    for the first time settings 
+     * @param           : null
+     * @return          : null 
+     * ********************************************************** */
+    public function add()
+    {
 
         check_permission(ADD);
 
@@ -88,23 +92,24 @@ class Setting extends MY_Controller {
                 $this->data = $_POST;
             }
         }
-       
-        $this->layout->title($this->lang->line('school_setting'). ' | ' . SMS);
+
+        $this->layout->title($this->lang->line('school_setting') . ' | ' . SMS);
         $this->layout->view('index', $this->data);
     }
 
-    
-        
+
+
     /*****************Function edit**********************************
-    * @type            : Function
-    * @function name   : edit
-    * @description     : Load Update "General Settings" user interface                 
-    *                    with populate "General Settings" value 
-    *                    and process to update "General Settings" into database    
-    * @param           : $id integer value
-    * @return          : null 
-    * ********************************************************** */
-    public function edit($id = null) {
+     * @type            : Function
+     * @function name   : edit
+     * @description     : Load Update "General Settings" user interface                 
+     *                    with populate "General Settings" value 
+     *                    and process to update "General Settings" into database    
+     * @param           : $id integer value
+     * @return          : null 
+     * ********************************************************** */
+    public function edit($id = null)
+    {
 
         check_permission(EDIT);
 
@@ -124,25 +129,26 @@ class Setting extends MY_Controller {
                     error($this->lang->line('update_failed'));
                     redirect('setting/edit/' . $this->input->post('id'));
                 }
-            }else{
+            } else {
                 error($this->lang->line('update_failed'));
             }
         }
-        
+
         $this->layout->title($this->lang->line('school_setting') . ' | ' . SMS);
         $this->layout->view('setting/index', $this->data);
     }
 
-        
+
     /*****************Function _prepare_setting_validation**********************************
-    * @type            : Function
-    * @function name   : _prepare_setting_validation
-    * @description     : Process "General Settings" user input data validation                 
-    *                       
-    * @param           : null
-    * @return          : null 
-    * ********************************************************** */
-    private function _prepare_setting_validation() {
+     * @type            : Function
+     * @function name   : _prepare_setting_validation
+     * @description     : Process "General Settings" user input data validation                 
+     *                       
+     * @param           : null
+     * @return          : null 
+     * ********************************************************** */
+    private function _prepare_setting_validation()
+    {
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error-message" style="color: red;">', '</div>');
 
@@ -157,18 +163,19 @@ class Setting extends MY_Controller {
         $this->form_validation->set_rules('footer', $this->lang->line('footer'), 'trim|required');
     }
 
-     
-    
-                
+
+
+
     /*****************Function session_school**********************************
-    * @type            : Function
-    * @function name   : session_school
-    * @description     : Unique check for "academic school" data/value                  
-    *                       
-    * @param           : null
-    * @return          : boolean true/false 
-    * ********************************************************** */ 
-    public function school_name() {
+     * @type            : Function
+     * @function name   : session_school
+     * @description     : Unique check for "academic school" data/value                  
+     *                       
+     * @param           : null
+     * @return          : boolean true/false 
+     * ********************************************************** */
+    public function school_name()
+    {
         if ($this->input->post('id') == '') {
             $school = $this->setting->duplicate_school_check($this->input->post('school_name'));
             if ($school) {
@@ -189,28 +196,29 @@ class Setting extends MY_Controller {
             return TRUE;
         }
     }
-    
+
     /*****************Function _get_posted_setting_data**********************************
-    * @type            : Function
-    * @function name   : _get_posted_setting_data
-    * @description     : Prepare "General Settings" user input data to save into database                  
-    *                       
-    * @param           : null
-    * @return          : $data array(); value 
-    * ********************************************************** */
-    private function _get_posted_setting_data() {
+     * @type            : Function
+     * @function name   : _get_posted_setting_data
+     * @description     : Prepare "General Settings" user input data to save into database                  
+     *                       
+     * @param           : null
+     * @return          : $data array(); value 
+     * ********************************************************** */
+    private function _get_posted_setting_data()
+    {
 
         $items = array();
-         
+
         $items[] = 'school_name';
         $items[] = 'address';
         $items[] = 'phone';
         $items[] = 'email';
         $items[] = 'currency';
         $items[] = 'currency_symbol';
-        $items[] = 'school_fax';     
-        $items[] = 'zoom_api_key'; 
-        $items[] = 'zoom_secret'; 
+        $items[] = 'school_fax';
+        $items[] = 'zoom_api_key';
+        $items[] = 'zoom_secret';
         $items[] = 'enable_frontend';
         $items[] = 'enable_online_admission';
         $items[] = 'language';
@@ -224,7 +232,7 @@ class Setting extends MY_Controller {
         $items[] = 'youtube_url';
         $items[] = 'instagram_url';
         $items[] = 'pinterest_url';
-        
+
         $data = elements($items, $_POST);
 
 
@@ -242,20 +250,24 @@ class Setting extends MY_Controller {
         if ($_FILES['frontend_logo']['name']) {
             $data['frontend_logo'] = $this->_upload_frontend_logo();
         }
+        if ($_FILES['admission_form']['name']) {
+            $data['admission_form'] = $this->_upload_admission_form();
+        }
 
         return $data;
     }
-    
-               
+
+
     /*****************Function _upload_logo**********************************
-    * @type            : Function
-    * @function name   : _upload_logo
-    * @description     : Process to upload institute logo in the server                  
-    *                     and return logo name   
-    * @param           : null
-    * @return          : $logo string value 
-    * ********************************************************** */
-    private function _upload_logo() {
+     * @type            : Function
+     * @function name   : _upload_logo
+     * @description     : Process to upload institute logo in the server                  
+     *                     and return logo name   
+     * @param           : null
+     * @return          : $logo string value 
+     * ********************************************************** */
+    private function _upload_logo()
+    {
 
         $prevoius_logo = @$_POST['logo_prev'];
         $logo_name = $_FILES['logo']['name'];
@@ -264,15 +276,17 @@ class Setting extends MY_Controller {
 
 
         if ($logo_name != "") {
-            if ($logo_type == 'image/jpeg' || $logo_type == 'image/pjpeg' ||
-                    $logo_type == 'image/jpg' || $logo_type == 'image/png' ||
-                    $logo_type == 'image/x-png' || $logo_type == 'image/gif') {
+            if (
+                $logo_type == 'image/jpeg' || $logo_type == 'image/pjpeg' ||
+                $logo_type == 'image/jpg' || $logo_type == 'image/png' ||
+                $logo_type == 'image/x-png' || $logo_type == 'image/gif'
+            ) {
 
                 $destination = 'assets/uploads/logo/';
 
                 $file_type = explode(".", $logo_name);
                 $extension = strtolower($file_type[count($file_type) - 1]);
-                $logo_path = time().'-school-logo.' . $extension;
+                $logo_path = time() . '-school-logo.' . $extension;
 
                 copy($_FILES['logo']['tmp_name'], $destination . $logo_path);
 
@@ -292,16 +306,17 @@ class Setting extends MY_Controller {
         return $logo;
     }
 
-    
-        /*****************Function _upload_frontend_logo**********************************
-    * @type            : Function
-    * @function name   : _upload_frontend_logo
-    * @description     : Process to upload school front end logo in the server                  
-    *                     and return logo name   
-    * @param           : null
-    * @return          : $logo string value 
-    * ********************************************************** */
-    private function _upload_frontend_logo() {
+
+    /*****************Function _upload_frontend_logo**********************************
+     * @type            : Function
+     * @function name   : _upload_frontend_logo
+     * @description     : Process to upload school front end logo in the server                  
+     *                     and return logo name   
+     * @param           : null
+     * @return          : $logo string value 
+     * ********************************************************** */
+    private function _upload_frontend_logo()
+    {
 
         $prevoius_logo = @$_POST['frontend_logo_prev'];
         $logo_name = $_FILES['frontend_logo']['name'];
@@ -310,15 +325,17 @@ class Setting extends MY_Controller {
 
 
         if ($logo_name != "") {
-            if ($logo_type == 'image/jpeg' || $logo_type == 'image/pjpeg' ||
-                    $logo_type == 'image/jpg' || $logo_type == 'image/png' ||
-                    $logo_type == 'image/x-png' || $logo_type == 'image/gif') {
+            if (
+                $logo_type == 'image/jpeg' || $logo_type == 'image/pjpeg' ||
+                $logo_type == 'image/jpg' || $logo_type == 'image/png' ||
+                $logo_type == 'image/x-png' || $logo_type == 'image/gif'
+            ) {
 
                 $destination = 'assets/uploads/logo/';
 
                 $file_type = explode(".", $logo_name);
                 $extension = strtolower($file_type[count($file_type) - 1]);
-                $logo_path = time().'-school-front-logo.' . $extension;
+                $logo_path = time() . '-school-front-logo.' . $extension;
 
                 copy($_FILES['frontend_logo']['tmp_name'], $destination . $logo_path);
 
@@ -337,7 +354,42 @@ class Setting extends MY_Controller {
 
         return $logo;
     }
+    public function _upload_admission_form()
+    {
 
-    
-    
+        $prevoius_file = @$_POST['admission_form_prev'];
+        $file_name = $_FILES['admission_form']['name'];
+        $file_type = $_FILES['admission_form']['type'];
+        $file = '';
+
+
+        if ($file_name != "") {
+            if (
+                $file_type == 'application/pdf' || $file_type == 'application/msword' ||
+                $file_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            ) {
+
+                $destination = 'assets/uploads/admission_form/';
+
+                $file_type = explode(".", $file_name);
+                $extension = strtolower($file_type[count($file_type) - 1]);
+                $file_path = 'admission-form'.time() . $extension;
+
+                copy($_FILES['admission_form']['tmp_name'], $destination . $file_path);
+
+                if ($prevoius_file != "") {
+                    // need to unlink previous image
+                    if (file_exists($destination . $prevoius_file)) {
+                        @unlink($destination . $prevoius_file);
+                    }
+                }
+
+                $file = $file_path;
+            }
+        } else {
+            $file = $prevoius_file;
+        }
+
+        return $file;
+    }
 }
