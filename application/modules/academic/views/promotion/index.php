@@ -147,11 +147,19 @@
                                     <td><?php echo $obj->fail_subject > 0 ?  $obj->fail_subject : 'NULL'; ?></td>
                                     <td><?php echo $obj->total_subject > 0 ?  number_format($obj->total_mark / $obj->total_subject, 2) : 'NULL'; ?></td>
                                     <td>
+                                         <?php 
+                                         $status = 0;
+                                         if ($obj->total_subject > 0 && $obj->total_mark > 0) {
+                                            if($obj->fail_subject == 0 && $obj->total_mark / $obj->total_subject >= 70) $status = 1;
+                                            else if($obj->fail_subject == 1 && $obj->total_mark / $obj->total_subject >= 70) $status = 2;
+                                            else $status = 0;
+                                        }
+                                        ?>                                        
                                         <select class="form-control" name="result_status">
-                                            <option value="0">Failure</option>
-                                            <option value="1" <?php echo ($obj->total_subject > 0 && $obj->fail_subject == 0 && $obj->total_mark / $obj->total_subject >= 70)?'selected="selected':''; ?>>Complet Pass</option>
-                                            <option value="2" <?php echo ($obj->total_subject > 0 && $obj->fail_subject == 1 && $obj->total_mark / $obj->total_subject >= 70)?'selected="selected':''; ?>>Conditional Pass</option>
+                                            <option value="1" <?php echo ($status == 1)?'selected="selected"':''; ?>>Complet Pass</option>
+                                            <option value="2" <?php echo ($status == 2)?'selected="selected"':''; ?>>Conditional Pass</option>
                                             <option value="3">Vacation School Pass</option>
+                                            <option value="0" <?php echo ($status == 0)?'selected="selected"':''; ?>>Failure</option>
                                         </select>
                                         
                                     </td>
