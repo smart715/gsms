@@ -64,6 +64,8 @@ class Web extends CI_Controller {
         }
         
         $this->data['demo_school'] = $this->web->get_single('schools', array('status' => 1, 'is_demo'=>1));
+        
+        $this->data['schools'] = $this->web->get_list('schools', array('status' => 1), '', '', '', 'id', 'ASC');
     }
         
     public function school(){
@@ -228,7 +230,6 @@ class Web extends CI_Controller {
              $this->layout->title($this->lang->line('home') . ' | ' . SMS);
              $this->layout->view('index', $this->data);
         }else{
-
             $this->data['sliders'] = $this->web->get_list('saas_sliders', array('status' => 1), '', '', '', 'id', 'ASC');
             $this->data['faqs'] = $this->web->get_list('saas_faqs', array('status' => 1), '', '', '', 'id', 'ASC');
             $this->data['plans'] = $this->web->get_list('saas_plans', array('status' => 1), '', '', '', 'id', 'ASC');
