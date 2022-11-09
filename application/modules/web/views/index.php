@@ -85,7 +85,7 @@
             </h2>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-3 col-md-6 col-12">
+            <div class="col-lg-6 col-md-6 col-12">
                 <div class="single-facilities">
                     <div class="icon">
                         <img src="<?php echo IMG_URL; ?>front/facilities-teacher.png" alt="">                      
@@ -95,7 +95,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-12">
+            <div class="col-lg-6 col-md-6 col-12">
                 <div class="single-facilities">
                     <div class="icon">
                         <img src="<?php echo IMG_URL; ?>front/facilities-library.png" alt="">
@@ -105,7 +105,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-12">
+            <!-- <div class="col-lg-3 col-md-6 col-12">
                 <div class="single-facilities">
                     <div class="icon">
                         <img src="<?php echo IMG_URL; ?>front/facilities-transport.png" alt="">
@@ -124,7 +124,7 @@
                         <h4 class="title"><?php echo $this->lang->line('hostel'); ?></h4>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

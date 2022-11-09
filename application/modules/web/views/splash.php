@@ -208,7 +208,7 @@
                             <div class="single-pricing">
                                 <h3 class="title"><?php echo $this->lang->line($obj->plan_name);  ?></h3>
                                 <ul>
-                                    <li><?php echo $this->lang->line('price'); ?>: <span><?php echo $this->global_setting->currency_symbol; ?><?php echo $obj->plan_price; ?></span></li>                                    
+                                    <li><?php echo $this->lang->line('price'); ?>: <span><?php echo $this->global_setting->currency_symbol; ?><?php echo $obj->plan_price; ?>/yr</span></li>                                    
                                     <li><?php echo $this->lang->line('student_limit'); ?>: <span><?php echo $obj->student_limit; ?></span></li>                                    
                                     <li><?php echo $this->lang->line('guardian_limit'); ?>: <span><?php echo $obj->guardian_limit; ?></span></li>                                    
                                     <li><?php echo $this->lang->line('teacher_limit'); ?>: <span><?php echo $obj->teacher_limit; ?></span></li>                                    
@@ -437,9 +437,9 @@
             </div>
         </section>
 
-        <footer>
+        <footer style="padding: 0 0;">
             <div class="container container-big">
-                <div class="row">
+                <div class="row" style="display: none;">
                     <div class="col-xl-4 col-sm-6 col-12">
                         <div class="footer-widget">
                             <div class="logo">
