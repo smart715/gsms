@@ -47,8 +47,8 @@
                     </div>
                     <div class="col-md-2 col-sm-2 col-xs-12">
                         <div class="item form-group"> 
-                            <div><?php echo $this->lang->line('section'); ?> <span class="required">*</span></div>
-                            <select  class="form-control col-md-7 col-xs-12" name="section_id" id="section_id" required="required" onchange="get_student_by_section(this.value, '');">                                
+                            <div><?php echo $this->lang->line('section'); ?> </div>
+                            <select  class="form-control col-md-7 col-xs-12" name="section_id" id="section_id" onchange="get_student_by_section('',this.value, '');">                                
                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                             </select>
                             <div class="help-block"><?php echo form_error('section_id'); ?></div>
@@ -252,17 +252,20 @@
                if(response)
                {
                   $('#section_id').html(response);
-               }
+               }else {
+                    get_student_by_section(class_id, '', '');
+                    $('#section_id').html('<option value="">--Select--</option>');
+                }
             }
         }); 
     }
   
 
     <?php if(isset($class_id) && isset($section_id)){ ?>
-        get_student_by_section('<?php echo $section_id; ?>', '<?php echo $student_id; ?>');
+        get_student_by_section('<?php echo $class_id; ?>','<?php echo $section_id; ?>', '<?php echo $student_id; ?>');
     <?php } ?>
     
-    function get_student_by_section(section_id, student_id){       
+    function get_student_by_section(class_id,section_id, student_id){       
         
         var school_id = $('#school_id').val();  
         if(!school_id){
@@ -273,7 +276,7 @@
         $.ajax({       
             type   : "POST",
             url    : "<?php echo site_url('ajax/get_student_by_section'); ?>",
-            data   : {school_id:school_id, section_id: section_id, student_id: student_id, is_all:true},               
+            data   : {school_id:school_id,class_id:class_id, section_id: section_id, student_id: student_id, is_all:true},               
             async  : false,
             success: function(response){                                                   
                if(response)

@@ -57,7 +57,7 @@
                     <div class="col-md-2 col-sm-2 col-xs-12">
                         <div class="item form-group">
                             <div><?php echo $this->lang->line('section'); ?> </div>
-                            <select class="form-control col-md-7 col-xs-12" name="section_id" id="section_id" onchange="get_student_by_section(this.value, '');">
+                            <select class="form-control col-md-7 col-xs-12" name="section_id" id="section_id" onchange="get_student_by_section('',this.value, '');">
                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
                             </select>
                             <div class="help-block"><?php echo form_error('section_id'); ?></div>
