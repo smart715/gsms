@@ -137,7 +137,7 @@ class Promotion extends MY_Controller {
                         // }  
                         
                        // need to check is any student alredy enrolled
-                        $exist = $this->promotion->get_single('enrollments', array('school_id'=>$school_id, 'class_id'=>$data['class_id'], 'student_id'=>$value, 'academic_year_id'=>$next_session_id));
+                        $exist = $this->promotion->get_single('enrollments', array('school_id'=>$school_id, 'student_id'=>$value, 'academic_year_id'=>$next_session_id));
                         
                        if(empty($exist)){ 
                            
