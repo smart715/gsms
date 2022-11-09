@@ -294,6 +294,7 @@
                                                 <input  class="form-control col-md-7 col-xs-12"  name="admission_form" id="admission_form"  type="file">
                                             </div>
                                             <?php if($school->admission_form){ ?>
+                                                File Uploaded
                                                 <input name="admission_form_prev" value="<?php echo isset($school) ? $school->admission_form : ''; ?>"  type="hidden">
                                             <?php } ?>
                                             <div class="help-block"><?php echo form_error('admission_form'); ?></div> 

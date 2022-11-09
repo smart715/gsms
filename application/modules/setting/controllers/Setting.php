@@ -369,11 +369,11 @@ class Setting extends MY_Controller
                 $file_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             ) {
 
-                $destination = 'assets/uploads/admission_form/';
+                $destination = 'assets/uploads/admission-form/';
 
                 $file_type = explode(".", $file_name);
                 $extension = strtolower($file_type[count($file_type) - 1]);
-                $file_path = 'admission-form'.time() . $extension;
+                $file_path = 'admission-form'.time() .'.'. $extension;
 
                 copy($_FILES['admission_form']['tmp_name'], $destination . $file_path);
 

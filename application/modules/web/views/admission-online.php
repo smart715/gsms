@@ -45,7 +45,7 @@
                     <?php if($school->admission_form){ ?>
                     <div class="row">
                         <div class="col-md-12 col-sm-12 text-center">
-                            <a href="<?php echo UPLOAD_PATH; ?>admission_form/<?php echo $school->admission_form; ?>" class="btn btn-primary btn-lg"><i class="fa fa-download"></i>
+                            <a href="<?php echo UPLOAD_PATH; ?>admission-form/<?php echo $school->admission_form; ?>" class="btn btn-primary btn-lg"><i class="fa fa-download"></i>
                             &nbsp;Download form</a>
                         </div>
                     </div>
