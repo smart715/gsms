@@ -136,7 +136,7 @@ class Receipt extends MY_Controller {
             
             $this->data['school'] = $this->receipt->get_school_by_id($school_id);            
             $this->data['receipts'] = $this->receipt->get_paid_receipt_list($school_id, $class_id, $user_id, $this->data['school']->academic_year_id);
-            
+
             $this->data['school_id'] = $school_id;
             $this->data['class_id'] = $class_id;
             $this->data['section_id'] = $section_id;

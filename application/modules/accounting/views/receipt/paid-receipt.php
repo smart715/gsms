@@ -115,9 +115,7 @@
                                             <?php foreach ($receipts as $obj) { ?>
                                                 <?php $user = get_user_by_role($obj->role_id, $obj->user_id); ?>
 
-                                                <?php if ($user && $user->section_id != $section_id) {
-                                                    continue;
-                                                } ?>
+                                               
                                                 <tr>
                                                     <td><?php echo $count++; ?></td>
                                                     <?php if ($this->session->userdata('role_id') == SUPER_ADMIN) { ?>
