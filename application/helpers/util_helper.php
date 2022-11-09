@@ -2564,7 +2564,7 @@ if (!function_exists('check_school_owner')) {
         }else if ($ci->session->userdata('role_id') != ADMIN) {
             return FALSE;
         }
-        $user_id = $ci->session->userdata('uid');
+        $user_id = $ci->session->userdata('id');
         $school =  $ci->db->get_where('schools', array('id' => $school_id))->row();
         $user =  $ci->db->get_where('users', array('id' => $user_id))->row();
         if($user && $school && ($user->username == $school->email)){
