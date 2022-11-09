@@ -200,7 +200,9 @@
                                                 echo $obj->exam1;
                                             } ?>
                                         </td>
-                                        <td align="right"><?php echo $average_1;  ?></td>
+                                        <td align="right"><?php echo $average_1;  ?>
+                                            <input type="hidden" name="report_<?php echo $obj->id; ?>_average" value="<?php echo $average_1?$average_1:'0'; ?>">
+                                        </td>
                                     </tr>
                                 <?php } ?>
 

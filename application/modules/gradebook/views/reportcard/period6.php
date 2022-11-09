@@ -243,13 +243,15 @@
                                         </td>
                                         <td align="right">
                                             <?php if ($editable) { ?>
-                                                <input type="number" name="report_<?php echo $obj->id; ?>_exam2" value="<?php echo $obj->exam2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;" <?php echo $obj->exam2_locked ? 'readonly' : '' ?>>
+                                                <input type="number" name="report_<?php echo $obj->id; ?>_exam2" value="<?php echo $obj->exam2 ?? ''; ?>" min="0" max="100" step="0.01" style="text-align: right;width:100%;">
                                             <?php } else {
                                                 echo $obj->exam2;
                                             } ?>
                                         </td>
                                         <td align="right"><?php echo $average_2;  ?></td>
-                                        <td align="right"><?php echo $average_3;  ?></td>
+                                        <td align="right"><?php echo $average_3;  ?>
+                                            <input type="hidden" name="report_<?php echo $obj->id; ?>_average" value="<?php echo $average_3?$average_3:'0'; ?>">
+                                        </td>
                                     </tr>
                                 <?php } ?>
 

@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     
-                    <!-- <div class="col-md-2 col-sm-2 col-xs-12">
+                    <div class="col-md-2 col-sm-2 col-xs-12">
                         <div class="item form-group"> 
                             <div><?php echo $this->lang->line('promote_to_class'); ?>  <span class="required">*</span></div>
                             <select  class="form-control col-md-7 col-xs-12" name="next_class_id" id="next_class_id"  required="required" >
@@ -75,7 +75,7 @@
                             </select>
                             <div class="help-block"><?php echo form_error('next_class_id'); ?></div>
                         </div>
-                    </div>  -->
+                    </div> 
                 
                     <div class="col-md-1 col-sm-1 col-xs-12">
                         <div class="form-group"><br/>
@@ -120,8 +120,8 @@
                             ?>
                             <?php foreach ($students as $obj) { ?>
                         
-                            <?php  $result = NULL;//get_exam_final_result($school_id, $obj->id, $academic_year_id, $current_class_id); ?>
-                            <?php  $enroll = NULL;//get_enrollment($obj->id, $next_session_id, $school_id); ?>
+                            <?php  $result = get_exam_final_result($school_id, $obj->id, $academic_year_id, $current_class_id); ?>
+                            <?php  $enroll = get_enrollment($obj->id, $next_session_id, $school_id); ?>
                         
                                 <tr>
                                     <td><?php echo $count++;  ?></td>
