@@ -57,9 +57,11 @@
                                                         <td><?php echo $obj->username; ?></td>
                                                         <td><?php echo $obj->created_at; ?></td>
                                                         <td>
+                                                            <?php if ($school->email != $obj->username) { ?>
                                                             <a href="<?php echo site_url('administrator/admin/edit/' . $obj->id); ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil-square-o"></i> <?php echo $this->lang->line('edit'); ?> </a><br />
-                                                            <?php if ($obj->id != $this->session->userdata('uid')) { ?>
+                                                            <?php if ($obj->id != $this->session->userdata('id')) { ?>
                                                                 <a href="<?php echo site_url('administrator/admin/delete/' . $obj->id); ?>" onclick="javascript: return confirm('<?php echo $this->lang->line('confirm_alert'); ?>');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> <?php echo $this->lang->line('delete'); ?> </a>
+                                                            <?php } ?>
                                                             <?php } ?>
                                                         </td>
                                                     </tr>

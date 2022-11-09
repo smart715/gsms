@@ -20,10 +20,10 @@ class Admin extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('User_Model', 'user', true);   
-        if(!check_school_owner()){ 
-            error($this->lang->line('permission_denied'));
-             redirect('dashboard/index');
-        }
+        // if(!check_school_owner()){ 
+        //     error($this->lang->line('permission_denied'));
+        //      redirect('dashboard/index');
+        // }
     }
 
     
@@ -38,7 +38,8 @@ class Admin extends MY_Controller {
     * ********************************************************** */
     public function index() {
         check_permission(VIEW);
-        $school_id = getSchoolId();       
+        $school_id = getSchoolId(); 
+        $this->data['school'] = $this->user->get_single('schools', array('id'=>$school_id));
         $this->data['admins'] = $this->user->get_list('users', array('role_id'=>2, 'school_id'=>$school_id), '', '', '', 'id', 'ASC');             
         $this->data['list'] = TRUE;
         $this->layout->title('Manage Admin | ' . SMS);
