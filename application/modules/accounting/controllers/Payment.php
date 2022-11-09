@@ -51,7 +51,7 @@ class Payment extends My_Controller {
     * ********************************************************** */
     public function index($invoice_id = null) {
         
-        // check_permission(VIEW);
+        check_permission(VIEW);
         
         if(!$invoice_id){
             redirect('accounting/invoice/due');
@@ -497,6 +497,10 @@ class Payment extends My_Controller {
         }else if($this->input->post('payment_method') == 'receipt'){
             $data['bank_receipt'] = $this->input->post('bank_receipt');
             
+            if (isset($_FILES['bank_receipt_attach']['name'])) {
+                $data['bank_receipt_attach'] = $this->_upload_attach();
+            }
+            
         }else if($this->input->post('payment_method') == 'dbbl'){
             $data['card_type'] = $this->input->post('card_type');
             
@@ -553,6 +557,38 @@ class Payment extends My_Controller {
     
     
     
+    /*****************Function _upload_sign1**********************************
+    * @type            : Function
+    * @function name   : _upload_sign1
+    * @description     : Process to upload certificate sign1 into server
+    *                     and return sign1 name
+    * @param           : null
+    * @return          : $return_sign1 string value
+    * ********************************************************** */
+    private function _upload_attach()
+    {
+        $file = $_FILES['bank_receipt_attach']['name'];
+        $file_type = $_FILES['bank_receipt_attach']['type'];
+        $return = '';
+        if ($file != '') {
+            if ($file_type == 'image/jpeg' || $file_type == 'image/pjpeg' ||
+                    $file_type == 'image/jpg' || $file_type == 'image/png' ||
+                    $file_type == 'image/x-png' || $file_type == 'image/gif') {
+                $destination = 'assets/uploads/bank_receipts/';
+
+                $file_type = explode('.', $file);
+                $extension = strtolower($file_type[count($file_type) - 1]);
+                $file_path = 'attach-'.time().'.'.$extension;
+
+                move_uploaded_file($_FILES['bank_receipt_attach']['tmp_name'], $destination.$file_path);
+
+
+                $return = $file_path;
+            }
+        } 
+
+        return $return;
+    }
     /* iPay Payment START */    
     
     /*****************Function ipay**********************************
