@@ -42,12 +42,14 @@
                         <div class="col-md-12 col-sm-12"><hr></div>
                     </div>
 
+                    <?php if($school->admission_form){ ?>
                     <div class="row">
                         <div class="col-md-12 col-sm-12 text-center">
                             <a href="<?php echo UPLOAD_PATH; ?>admission_form/<?php echo $school->admission_form; ?>" class="btn btn-primary btn-lg"><i class="fa fa-download"></i>
                             &nbsp;Download form</a>
                         </div>
                     </div>
+                    <?php } ?>
                     
                     <div class="row">
                         <div class="col-md-12 col-sm-12"><p class="admission-form-title"><strong><?php echo $this->lang->line('basic_information'); ?>:</strong></p> </div>
