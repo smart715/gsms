@@ -112,11 +112,11 @@ class Promotion extends MY_Controller {
                       
            
             // get next class default section
-            $next_class_default_section = $this->db->get_where('sections', array('school_id'=>$school_id, 'class_id'=>$next_class_id))->row();
-            if(empty($next_class_default_section)){
-                error($this->lang->line('no_data_found'). ' for ' .$this->lang->line('promote_to_class'));
-                redirect('academic/promotion/index');
-            }
+            // $next_class_default_section = $this->db->get_where('sections', array('school_id'=>$school_id, 'class_id'=>$next_class_id))->row();
+            // if(empty($next_class_default_section)){
+            //     error($this->lang->line('no_data_found'). ' for ' .$this->lang->line('promote_to_class'));
+            //     redirect('academic/promotion/index');
+            // }
             
             
             if(!empty($_POST['students'])){
@@ -129,12 +129,12 @@ class Promotion extends MY_Controller {
                         // $data['roll_no'] = $_POST['roll_no'][$value]; 
                         
                         
-                        $data['section_id'] = $next_class_default_section->id ? $next_class_default_section->id : '';
-                        // no promoted student next year same class section
-                        if($data['class_id'] == $current_class_id){
-                            $current_section = $this->promotion->get_single('enrollments', array('school_id'=>$school_id, 'class_id'=>$current_class_id, 'student_id'=>$value, 'academic_year_id'=>$current_session_id));
-                            $data['section_id'] = $current_section->section_id ? $current_section->section_id : ''; 
-                        }  
+                        // $data['section_id'] = $next_class_default_section->id ? $next_class_default_section->id : '';
+                        // // no promoted student next year same class section
+                        // if($data['class_id'] == $current_class_id){
+                        //     $current_section = $this->promotion->get_single('enrollments', array('school_id'=>$school_id, 'class_id'=>$current_class_id, 'student_id'=>$value, 'academic_year_id'=>$current_session_id));
+                        //     $data['section_id'] = $current_section->section_id ? $current_section->section_id : ''; 
+                        // }  
                         
                        // need to check is any student alredy enrolled
                         $exist = $this->promotion->get_single('enrollments', array('school_id'=>$school_id, 'class_id'=>$data['class_id'], 'student_id'=>$value, 'academic_year_id'=>$next_session_id));
