@@ -144,8 +144,8 @@
                                         <?php } ?>
                                         <input type="hidden" value="<?php echo $obj->id; ?>" name="students[]" />
                                     </td>
-                                    <td><?php echo $obj->fail_subject > 0 ?  $obj->fail_subject : 'NULL'; ?></td>
-                                    <td><?php echo $obj->total_subject > 0 ?  number_format($obj->total_mark / $obj->total_subject, 2) : 'NULL'; ?></td>
+                                    <td><?php echo $obj->fail_subject > 0 ?  $obj->fail_subject : ''; ?></td>
+                                    <td><?php echo $obj->total_subject > 0 ?  number_format($obj->total_mark / $obj->total_subject, 2) : ''; ?></td>
                                     <td>
                                          <?php 
                                          $status = 0;
