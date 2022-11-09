@@ -496,7 +496,6 @@ class Payment extends My_Controller {
             
         }else if($this->input->post('payment_method') == 'receipt'){
             $data['bank_receipt'] = $this->input->post('bank_receipt');
-            
             if (isset($_FILES['bank_receipt_attach']['name'])) {
                 $data['bank_receipt_attach'] = $this->_upload_attach();
             }
@@ -571,7 +570,9 @@ class Payment extends My_Controller {
         $file_type = $_FILES['bank_receipt_attach']['type'];
         $return = '';
         if ($file != '') {
-            if ($file_type == 'image/jpeg' || $file_type == 'image/pjpeg' ||
+            if ($file_type == 'application/pdf' || $file_type == 'application/msword' || 
+            $file_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+                $file_type == 'image/jpeg' || $file_type == 'image/pjpeg' ||
                     $file_type == 'image/jpg' || $file_type == 'image/png' ||
                     $file_type == 'image/x-png' || $file_type == 'image/gif') {
                 $destination = 'assets/uploads/bank_receipts/';

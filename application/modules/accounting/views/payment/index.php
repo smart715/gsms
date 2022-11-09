@@ -24,7 +24,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="tab_fee_list">
                             <div class="x_content">
-                                <?php echo form_open(site_url('accounting/payment/paid/' . $invoice_id), array('name' => 'add', 'id' => 'add', 'class' => 'form-horizontal form-label-left'), ''); ?>
+                                <?php echo form_open_multipart(site_url('accounting/payment/paid/' . $invoice_id), array('name' => 'add', 'id' => 'add', 'class' => 'form-horizontal form-label-left'), ''); ?>
 
                                 <?php $this->load->view('layout/school_list_form'); ?>
 
@@ -106,7 +106,7 @@
                                                     <i class="fa fa-paperclip"></i> <?php echo $this->lang->line('upload'); ?>
                                                     <input class="form-control" name="bank_receipt_attach" id="bank_receipt_attach" type="file">
                                                 </div>
-                                                <div class="text-info">pdf, docx, doc</div>
+                                                <div class="text-info">pdf, docx, doc, jpg, png</div>
                                                 <div class="help-block"><?php echo form_error('bank_receipt_attach'); ?></div>
                                             </div>
                                         </div>
