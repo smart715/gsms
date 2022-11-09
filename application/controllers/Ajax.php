@@ -135,14 +135,14 @@ class Ajax extends My_Controller
      * ********************************************************** */
     public function get_student_by_class()
     {
-
+        $academic_year_id = $this->input->post('academic_year_id');
         $school_id = $this->input->post('school_id');
         $class_id = $this->input->post('class_id');
         $student_id = $this->input->post('student_id');
         $is_bulk = $this->input->post('is_bulk');
-
         $school = $this->ajax->get_school_by_id($school_id);
-        $students = $this->ajax->get_student_list($class_id, $school_id, $school->academic_year_id);
+        if(is_null($academic_year_id) && $academic_year_id == '') $academic_year_id = $school->academic_year_id;
+        $students = $this->ajax->get_student_list($class_id, $school_id, $academic_year_id);
 
         $str = '<option value="">--' . $this->lang->line('select') . '--</option>';
         if ($is_bulk) {
@@ -212,12 +212,15 @@ class Ajax extends My_Controller
     public function get_student_by_section()
     {
         $school_id = getSchoolId();
+        $academic_year_id = $this->input->post('academic_year_id');
         $student_id = $this->input->post('student_id');
         $section_id = $this->input->post('section_id');
         $class_id = $this->input->post('class_id');
         $is_all = $this->input->post('is_all');
+        $school = $this->ajax->get_school_by_id($school_id);
+        if(is_null($academic_year_id) && $academic_year_id == '') $academic_year_id = $school->academic_year_id;
 
-        $students = $this->ajax->get_student_list_by_section($school_id, $class_id, $section_id, 'regular');
+        $students = $this->ajax->get_student_list_by_section($school_id,$academic_year_id, $class_id, $section_id, 'regular');
 
         if ($is_all) {
             $str = '<option value="0">' . $this->lang->line('all_student') . '</option>';
@@ -229,7 +232,7 @@ class Ajax extends My_Controller
         if (!empty($students)) {
             foreach ($students as $obj) {
                 $selected = $student_id == $obj->id ? $select : '';
-                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->name . ' [' . $obj->roll_no . ']</option>';
+                $str .= '<option value="' . $obj->id . '" ' . $selected . '>' . $obj->name .'</option>';
             }
         }
 

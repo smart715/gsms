@@ -38,20 +38,22 @@ class Ajax_Model extends MY_Model
         return $this->db->get()->result();
     }
 
-    public function get_student_list_by_section($school_id = null, $class_id = null, $section_id = null, $status_type = null)
+    public function get_student_list_by_section($school_id = null,$academic_year_id=null, $class_id = null, $section_id = null, $status_type = null)
     {
 
         $school = $this->get_school_by_id($school_id);
 
-        $this->db->select('E.roll_no, S.name, S.id');
+        $this->db->select(' S.name, S.id');
         $this->db->from('enrollments AS E');
         $this->db->join('students AS S', 'S.id = E.student_id', 'left');
 
-        if (!empty($school)) {
-            $this->db->where('E.academic_year_id', $school->academic_year_id);
+        if (!empty($school_id)) {
             $this->db->where('E.school_id', $school_id);
         }
 
+        if (!empty($academic_year_id)) {
+            $this->db->where('E.academic_year_id', $academic_year_id);
+        }
         if (!empty($class_id)) {
             $this->db->where('E.class_id', $class_id);
         }

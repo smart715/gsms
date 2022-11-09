@@ -574,11 +574,12 @@
     <?php } ?>
 
     function get_student_by_section(class_id, section_id, student_id) {
-
+        let academic_year_id = $('#academic_year_id').val();
         $.ajax({
             type: "POST",
             url: "<?php echo site_url('ajax/get_student_by_section'); ?>",
             data: {
+                academic_year_id: academic_year_id,
                 class_id: class_id,
                 section_id: section_id,
                 student_id: student_id
