@@ -35,6 +35,7 @@ class Reportcard extends MY_Controller
 
         check_permission(VIEW);
         $school_id = getSchoolId();
+        if($school_id == 0) redirect('dashboard/index');   
 
         $school = $this->resultcard->get_school_by_id($school_id);
         $period_num = $school->period_num;
@@ -113,7 +114,6 @@ class Reportcard extends MY_Controller
                 $periods = getPeriodTypes($period_num);
                 foreach ($subjects as $subject) {
                     foreach ($periods as $key => $period) {
-
                         $condition = array(
                             'class_id' => $class_id,
                             'student_id' => $student_id,
@@ -126,31 +126,24 @@ class Reportcard extends MY_Controller
                         $is_locked = 0;
                         if ($this->input->post('locked_' . $key) && $this->input->post('locked_' . $key) == 'on')
                             $is_locked = 1;
-                        if (!is_null($marks)) {
+                            
+                        if (!is_null($marks) && $marks > 0) {
                             if (empty($result)) {
-                                $data['student_id'] = $student_id;
-                                $data['class_id'] = $class_id;
-                                $data['subject_id'] = $subject->subject_id;
-                                $data['type'] = $key;
-                                $data['academic_year_id'] = $academic_year_id;
-                                $data['is_locked'] = $is_locked;
-                                $data['created_at'] = date('Y-m-d H:i:s');
-                                $data['created_by'] = logged_in_user_id();
-                                $data['marks'] = $marks;
-                                $this->resultcard->insert('grade_reports', $data);
+                                $temp = array();
+                                $temp['student_id'] = $student_id;
+                                $temp['class_id'] = $class_id;
+                                $temp['subject_id'] = $subject->subject_id;
+                                $temp['type'] = $key;
+                                $temp['academic_year_id'] = $academic_year_id;
+                                $temp['is_locked'] = $is_locked;
+                                $temp['created_at'] = date('Y-m-d H:i:s');
+                                $temp['created_by'] = logged_in_user_id();
+                                $temp['marks'] = $marks;
+                                $this->resultcard->insert('grade_reports', $temp);
                             } else {
                                 // $this->resultcard->update('grade_reports', array('marks' => $marks, 'is_locked' => $is_locked), $condition);
                                 $this->resultcard->update('grade_reports', array('marks' => $marks, 'is_locked' => $is_locked), array('id' => $result->id));
                             }
-                        } else {
-                            $marks = 0;
-                        }
-
-                        if ($final_result_id != 0) {
-                            $is_fail = 0;
-                            if ($marks < 70) $is_fail = 1;
-                            $final_result = $this->resultcard->get_single('final_results', array('id' => $final_result_id));
-                            $this->resultcard->update('final_results', array('total_subject' => $final_result->total_subject + 1, 'fail_subject' => $final_result->fail_subject + $is_fail, 'total_mark' => $final_result->total_mark + $marks), array('id' => $final_result_id));
                         }
                     }
                 }
