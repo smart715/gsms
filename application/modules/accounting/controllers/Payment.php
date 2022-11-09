@@ -51,7 +51,7 @@ class Payment extends My_Controller {
     * ********************************************************** */
     public function index($invoice_id = null) {
         
-        check_permission(VIEW);
+        // check_permission(VIEW);
         
         if(!$invoice_id){
             redirect('accounting/invoice/due');
@@ -215,7 +215,7 @@ class Payment extends My_Controller {
             $this->form_validation->set_rules('cheque_no', $this->lang->line('cheque_number'), 'trim|required');
             
         }elseif($this->input->post('payment_method') == 'receipt'){
-            $this->form_validation->set_rules('bank_receipt', $this->lang->line('bank_receipt'), 'trim|required');    
+        //     $this->form_validation->set_rules('bank_receipt', $this->lang->line('bank_receipt'), 'trim|required');    
        
         }elseif($this->input->post('payment_method') == 'paypal'){
             

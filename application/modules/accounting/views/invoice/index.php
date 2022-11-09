@@ -253,7 +253,7 @@
                                 <div class="display fn_receipt" style="<?php if(isset($post) && $post['payment_method'] == 'receipt'){ echo 'display:block;';} ?>">
                                     
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bank_receipt"><?php echo $this->lang->line('bank_receipt'); ?> <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bank_receipt"><?php echo $this->lang->line('bank_receipt'); ?> </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input  class="form-control col-md-7 col-xs-12"  name="bank_receipt"  id="single_bank_receipt" value="" placeholder="<?php echo $this->lang->line('bank_receipt'); ?> "  type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('bank_receipt'); ?></div>
@@ -413,7 +413,7 @@
                                 <div class="display fn_receipt" style="<?php if(isset($post) && $post['payment_method'] == 'receipt'){ echo 'display:block;';} ?>">
                                     
                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bank_receipt"><?php echo $this->lang->line('bank_receipt'); ?> <span class="required">*</span></label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bank_receipt"><?php echo $this->lang->line('bank_receipt'); ?> </label>
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <input  class="form-control col-md-7 col-xs-12"  name="bank_receipt"  id="single_bank_receipt" value="" placeholder="<?php echo $this->lang->line('bank_receipt'); ?> "  type="text" autocomplete="off">
                                             <div class="help-block"><?php echo form_error('bank_receipt'); ?></div>
@@ -493,13 +493,13 @@
             $('.fn_receipt').hide();                
             $('#bank_name').prop('required', true);
             $('#cheque_no').prop('required', true);  
-            $('#bank_receipt').prop('required', false);  
+            // $('#bank_receipt').prop('required', false);  
             
         }else if (payment_method == "receipt") {
             
             $('.fn_receipt').show();                
             $('.fn_cheque').hide();     
-            $('#bank_receipt').prop('required', true);
+            // $('#bank_receipt').prop('required', true);
             $('#bank_name').prop('required', false);
             $('#cheque_no').prop('required', false);                
 
@@ -509,7 +509,7 @@
             $('.fn_receipt').hide();  
             $('#bank_name').prop('required', false);
             $('#cheque_no').prop('required', false); 
-            $('#bank_receipt').prop('required', false); 
+            // $('#bank_receipt').prop('required', false); 
         } 
     }
           
