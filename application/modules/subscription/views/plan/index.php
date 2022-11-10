@@ -176,7 +176,7 @@
                                     </div>
                                 </div>  
                                 
-                                <div class="item form-group">
+                                <!-- <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_report"><?php echo $this->lang->line('is_enable_report'); ?> <span class="required">*</span> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                             <select  class="form-control col-md-7 col-xs-12" name="is_enable_report" id="add_is_enable_report" required="required">
@@ -186,7 +186,7 @@
                                             </select>
                                         <div class="help-block"><?php echo form_error('is_enable_report'); ?></div>
                                     </div>
-                                </div>  
+                                </div>   -->
                                 
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_inventory"><?php echo $this->lang->line('is_enable_inventory'); ?> <span class="required">*</span> </label>
@@ -201,38 +201,38 @@
                                 </div> 
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_lesson_plan"><?php echo $this->lang->line('is_enable_lesson_plan'); ?> <span class="required">*</span> </label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_grade_report">Is Enable Grade Report <span class="required">*</span> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_lesson_plan" id="add_is_enable_lesson_plan" required="required">
+                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_grade_report" id="add_is_enable_grade_report" required="required">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                <option value="1" <?php if(isset($post['is_enable_lesson_plan']) && $post['is_enable_lesson_plan'] == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
-                                                <option value="0" <?php if(isset($post['is_enable_lesson_plan']) && $post['is_enable_lesson_plan'] == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
+                                                <option value="1" <?php if(isset($post['is_enable_grade_report']) && $post['is_enable_grade_report'] == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
+                                                <option value="0" <?php if(isset($post['is_enable_grade_report']) && $post['is_enable_grade_report'] == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
                                             </select>
-                                        <div class="help-block"><?php echo form_error('is_enable_lesson_plan'); ?></div>
+                                        <div class="help-block"><?php echo form_error('is_enable_grade_report'); ?></div>
                                     </div>
                                 </div>  
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_online_exam"><?php echo $this->lang->line('is_enable_online_exam'); ?> <span class="required">*</span> </label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_report_card">Is Enable Report Card <span class="required">*</span> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_online_exam" id="add_is_enable_online_exam" required="required">
+                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_report_card" id="add_is_enable_report_card" required="required">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                <option value="1" <?php if(isset($post['is_enable_online_exam']) && $post['is_enable_online_exam'] == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
-                                                <option value="0" <?php if(isset($post['is_enable_online_exam']) && $post['is_enable_online_exam'] == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
+                                                <option value="1" <?php if(isset($post['is_enable_report_card']) && $post['is_enable_report_card'] == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
+                                                <option value="0" <?php if(isset($post['is_enable_report_card']) && $post['is_enable_report_card'] == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
                                             </select>
-                                        <div class="help-block"><?php echo form_error('is_enable_online_exam'); ?></div>
+                                        <div class="help-block"><?php echo form_error('is_enable_report_card'); ?></div>
                                     </div>
                                 </div> 
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_live_class"><?php echo $this->lang->line('is_enable_live_class'); ?> <span class="required">*</span> </label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_transcript">Is Enable Transcript <span class="required">*</span> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_live_class" id="add_is_enable_live_class" required="required">
+                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_transcript" id="add_is_enable_transcript" required="required">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                <option value="1" <?php if(isset($post['is_enable_live_class']) && $post['is_enable_live_class'] == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
-                                                <option value="0" <?php if(isset($post['is_enable_live_class']) && $post['is_enable_live_class'] == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
+                                                <option value="1" <?php if(isset($post['is_enable_transcript']) && $post['is_enable_transcript'] == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
+                                                <option value="0" <?php if(isset($post['is_enable_transcript']) && $post['is_enable_transcript'] == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
                                             </select>
-                                        <div class="help-block"><?php echo form_error('is_enable_live_class'); ?></div>
+                                        <div class="help-block"><?php echo form_error('is_enable_transcript'); ?></div>
                                     </div>
                                 </div> 
                                 
@@ -270,19 +270,7 @@
                                             </select>
                                         <div class="help-block"><?php echo form_error('is_enable_attendance'); ?></div>
                                     </div>
-                                </div>  
-                                
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_exam_mark"><?php echo $this->lang->line('is_enable_exam_mark'); ?> <span class="required">*</span> </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_exam_mark" id="add_is_enable_exam_mark" required="required">
-                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                <option value="1" <?php if(isset($post['is_enable_exam_mark']) && $post['is_enable_exam_mark'] == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
-                                                <option value="0" <?php if(isset($post['is_enable_exam_mark']) && $post['is_enable_exam_mark'] == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
-                                            </select>
-                                        <div class="help-block"><?php echo form_error('is_enable_exam_mark'); ?></div>
-                                    </div>
-                                </div>  
+                                </div>   
                             
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_accounting"><?php echo $this->lang->line('is_enable_accounting'); ?> <span class="required">*</span> </label>
@@ -466,38 +454,38 @@
                                 </div> 
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_lesson_plan"><?php echo $this->lang->line('is_enable_lesson_plan'); ?> <span class="required">*</span> </label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_grade_report">Is Enable Grade Report <span class="required">*</span> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_lesson_plan" id="add_is_enable_lesson_plan" required="required">
+                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_grade_report" id="add_is_enable_grade_report" required="required">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                <option value="1" <?php if(isset($plan->is_enable_lesson_plan) && $plan->is_enable_lesson_plan == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
-                                                <option value="0" <?php if(isset($plan->is_enable_lesson_plan) && $plan->is_enable_lesson_plan == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
+                                                <option value="1" <?php if(isset($plan->is_enable_grade_report) && $plan->is_enable_grade_report == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
+                                                <option value="0" <?php if(isset($plan->is_enable_grade_report) && $plan->is_enable_grade_report == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
                                             </select>
-                                        <div class="help-block"><?php echo form_error('is_enable_lesson_plan'); ?></div>
+                                        <div class="help-block"><?php echo form_error('is_enable_grade_report'); ?></div>
                                     </div>
                                 </div>  
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_online_exam"><?php echo $this->lang->line('is_enable_online_exam'); ?> <span class="required">*</span> </label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_report_card">Is Enable Report Card <span class="required">*</span> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_online_exam" id="add_is_enable_online_exam" required="required">
+                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_report_card" id="add_is_enable_report_card" required="required">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                <option value="1" <?php if(isset($plan->is_enable_online_exam) && $plan->is_enable_online_exam == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
-                                                <option value="0" <?php if(isset($plan->is_enable_online_exam) && $plan->is_enable_online_exam == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
+                                                <option value="1" <?php if(isset($plan->is_enable_report_card) && $plan->is_enable_report_card == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
+                                                <option value="0" <?php if(isset($plan->is_enable_report_card) && $plan->is_enable_report_card == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
                                             </select>
-                                        <div class="help-block"><?php echo form_error('is_enable_online_exam'); ?></div>
+                                        <div class="help-block"><?php echo form_error('is_enable_report_card'); ?></div>
                                     </div>
                                 </div> 
                                 
                                 <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_live_class"><?php echo $this->lang->line('is_enable_live_class'); ?> <span class="required">*</span> </label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_transcript">Is Enable Transcript <span class="required">*</span> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_live_class" id="add_is_enable_live_class" required="required">
+                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_transcript" id="add_is_enable_transcript" required="required">
                                                 <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                <option value="1" <?php if(isset($plan->is_enable_live_class) && $plan->is_enable_live_class == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
-                                                <option value="0" <?php if(isset($plan->is_enable_live_class) && $plan->is_enable_live_class == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
+                                                <option value="1" <?php if(isset($plan->is_enable_transcript) && $plan->is_enable_transcript == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
+                                                <option value="0" <?php if(isset($plan->is_enable_transcript) && $plan->is_enable_transcript == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
                                             </select>
-                                        <div class="help-block"><?php echo form_error('is_enable_live_class'); ?></div>
+                                        <div class="help-block"><?php echo form_error('is_enable_transcript'); ?></div>
                                     </div>
                                 </div> 
                                 
