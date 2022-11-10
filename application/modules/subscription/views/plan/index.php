@@ -524,19 +524,7 @@
                                         <div class="help-block"><?php echo form_error('is_enable_attendance'); ?></div>
                                     </div>
                                 </div>  
-                                
-                                <div class="item form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_exam_mark"><?php echo $this->lang->line('is_enable_exam_mark'); ?> <span class="required">*</span> </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select  class="form-control col-md-7 col-xs-12" name="is_enable_exam_mark" id="add_is_enable_exam_mark" required="required">
-                                                <option value="">--<?php echo $this->lang->line('select'); ?>--</option>
-                                                <option value="1" <?php if(isset($plan->is_enable_exam_mark) && $plan->is_enable_exam_mark == '1'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('yes'); ?></option>                                           
-                                                <option value="0" <?php if(isset($plan->is_enable_exam_mark) && $plan->is_enable_exam_mark == '0'){ echo 'selected="selected"'; } ?>><?php echo $this->lang->line('no'); ?></option>                                           
-                                            </select>
-                                        <div class="help-block"><?php echo form_error('is_enable_exam_mark'); ?></div>
-                                    </div>
-                                </div>  
-                            
+                                                            
                                 <div class="item form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="is_enable_accounting"><?php echo $this->lang->line('is_enable_accounting'); ?> <span class="required">*</span> </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
