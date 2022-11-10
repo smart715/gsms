@@ -357,7 +357,6 @@
                 'teacher' => '<i class="fa fa-users"></i>',
                 'manage_leave' => '<i class="fa fa-bell"></i>',
                 'academic' => '<i class="fa fa-address-book"></i>',
-                'live_class' => '<i class="fa fa-headphones"></i>',
                 'guardian' => '<i class="fa fa-paw"></i>',
                 'student' => '<i class="fa fa-users"></i>',
                 'online_admission' => '<i class="fa fa-male"></i>',
