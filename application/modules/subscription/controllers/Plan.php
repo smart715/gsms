@@ -227,13 +227,12 @@ class Plan extends MY_Controller {
         $items[] = 'is_enable_language';
         $items[] = 'is_enable_report';
         $items[] = 'is_enable_inventory';
-        $items[] = 'is_enable_lesson_plan';
-        $items[] = 'is_enable_online_exam';
-        $items[] = 'is_enable_live_class';
+        $items[] = 'is_enable_grade_report';
+        $items[] = 'is_enable_report_card';
+        $items[] = 'is_enable_transcript';
         $items[] = 'is_enable_payment_gateway';
         $items[] = 'is_enable_sms_gateway';
         $items[] = 'is_enable_attendance';
-        $items[] = 'is_enable_exam_mark';
         $items[] = 'is_enable_accounting';
         $items[] = 'is_enable_payroll';
         $items[] = 'is_enable_asset_management';
