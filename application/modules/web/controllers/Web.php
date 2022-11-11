@@ -186,7 +186,7 @@ class Web extends CI_Controller {
                     
                     // Now Process for create a School as per Subscription..........
                     $data['subscription_id'] = $insert_id;
-                    $this->_create_school();
+                    $this->_create_school($data);
                     $this->session->set_userdata('success', $this->lang->line('subscription_successful'));                        
                 } else {
                     $this->session->set_userdata('error', $this->lang->line('subscription_failed'));
@@ -246,7 +246,7 @@ class Web extends CI_Controller {
         $items = array();
         
         $items['subscription_id'] = $data['subscription_id'];        
-        $items['school_url'] = get_slug($data['school']);
+        $items['subdomain'] = get_slug($data['school']);
         $items['school_code'] = 'SCH123456';
         $items['school_name'] = $data['school'];
         $items['address'] = $data['address'];
@@ -282,8 +282,7 @@ class Web extends CI_Controller {
         $items['logo'] = ''; 
         $items['frontend_logo'] = '';        
         $items['academic_year_id'] = '';        
-        $items['academic_year'] = '';        
-        $items['is_default'] = 0;        
+        $items['academic_year'] = '';             
         $school_id = $this->web->insert('schools', $items); 
         
         // Now we will create a Academic Year        
