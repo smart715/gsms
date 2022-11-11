@@ -69,7 +69,7 @@
                             <li><a class="smoothscroll" href="#_video"><?php echo $this->lang->line('demo_video'); ?></a></li>
                             <li><a class="smoothscroll" href="#_faq"><?php echo $this->lang->line('faq'); ?></a></li>
                             <li><a class="smoothscroll" href="#_pricing"><?php echo $this->lang->line('pricing_plan'); ?></a></li>
-                            <li><a class="smoothscroll" href="#_subscription"><?php echo $this->lang->line('subscription'); ?></a></li>
+                            <!-- <li><a class="smoothscroll" href="#_subscription"><?php echo $this->lang->line('subscription'); ?></a></li> -->
                             <li><a class="smoothscroll" href="#_feature"><?php echo $this->lang->line('features'); ?></a></li>
                             <li><a class="smoothscroll" href="#_contact"><?php echo $this->lang->line('contact'); ?></a></li>
                             <?php if (isset($schools) && count($schools) > 0) { ?>
@@ -263,7 +263,7 @@
                                     <li><?php echo $this->lang->line('is_enable_asset_management'); ?> <span><?php echo $obj->is_enable_asset_management ? '<i class="fas fa-check"></i>' : '<i class="fa fa-times-circle"></i>'; ?> </span></li>
                                     <li><?php echo $this->lang->line('is_enable_promotion'); ?> <span><?php echo $obj->is_enable_promotion ? '<i class="fas fa-check"></i>' : '<i class="fa fa-times-circle"></i>'; ?> </span></li>
                                 </ul>
-                                <a href="#_subscription"><?php echo $this->lang->line('subscribe'); ?></a>
+                                <!-- <a href="#_subscription"><?php echo $this->lang->line('subscribe'); ?></a> -->
                             </div>
                         </div>
                     <?php } ?>
@@ -272,7 +272,7 @@
             </div>
         </div>
     </section>
-
+<!-- 
     <section class="subscription-area" id="_subscription">
         <div class="container container-big">
             <div class="section-title center mb-2">
@@ -331,7 +331,7 @@
             </div>
         </div>
         <?php echo form_close(); ?>
-    </section>
+    </section> -->
 
     <section class="feature-area" id="_feature">
         <div class="container container-big">
